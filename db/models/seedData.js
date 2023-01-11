@@ -53,12 +53,14 @@ async function createTables() {
 
        CREATE TABLE shoes (
             id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
             username VARCHAR(255) UNIQUE NOT NULL, 
             shoename VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
-            price INTEGER NOT NULL,
+            price MONEY NOT NULL,
             type VARCHAR(255) NOT NULL,
             size INTEGER NOT NULL,
+            availability BOOLEAN DEFAULT true
         `)
 }
 
