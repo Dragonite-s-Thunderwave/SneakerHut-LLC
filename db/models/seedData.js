@@ -35,7 +35,7 @@ async function createTables() {
             zip INTEGER NOT NULL
 
         );         
-        CREATE TABLE order(
+        CREATE TABLE order_history (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
           "isComplete" VARCHAR NOT NULL,
@@ -53,12 +53,14 @@ async function createTables() {
 
        CREATE TABLE shoes (
             id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
             username VARCHAR(255) UNIQUE NOT NULL, 
             shoename VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
-            price INTEGER NOT NULL,
+            price MONEY NOT NULL,
             type VARCHAR(255) NOT NULL,
             size INTEGER NOT NULL,
+            availability BOOLEAN DEFAULT true
         `)
 }
 
@@ -100,9 +102,34 @@ async function createInitialUsers() {
   }
 }
 
+async function createInitialReviews() {
+  try {
+    console.log('Starting to create reviews')
+    const dummyDataReviewInfo = [ {
+      authorId:'1',
+      username:'joey435',
+      rating:'4',
+      comment:'These shoes are durable & comfy'
+    }, 
+    { 
+      authorId:'2',
+      username:'beyonce',
+      rating:'5', 
+      comment:'10/10 Recommend these kicks!'
+     
+    }]
+    await createReview({
+      // imported/required
+    })
+  } catch (error) {
+    console.error('Error creating reviews', error)
+  }
+}
+
 
 module.exports = {
   dropTables,
   createTables,
-  createInitialUsers
+  createInitialUsers,
+  createInitialReviews
 }
