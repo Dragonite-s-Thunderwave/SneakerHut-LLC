@@ -30,6 +30,7 @@ async function createTables() {
             "firstName" VARCHAR(255) NOT NULL,
             "lastName" VARCHAR(255) NOT NULL,
             "creditCardInfo" INTEGER NOT NULL,
+            address VARCHAR(255) NOT NULL,
             city VARCHAR(255) NOT NULL,
             state VARCHAR(255) NOT NULL,
             zip INTEGER NOT NULL
@@ -75,7 +76,7 @@ async function createInitialUsers() {
             password: 'joeyinthematrix',
             email: 'joe374@gmail.com',
             name: 'jhoesephk antler',
-            address: '123 bardnard st, 76543, Tyler,Tx',
+            address: '123 bardnard st',
             creditCardInfo: 'idk what to put in here',
             city: 'Tyler',
             state: 'Texas',
@@ -87,7 +88,7 @@ async function createInitialUsers() {
             password: 'blueivy',
             email: 'yonce@gmail.com',
             name: 'Beyonce Knowles',
-            address: '42nd street, NY 10036',
+            address: '42nd street',
             creditcard: 'idk what to put in here as well',
             city: 'Manhattan',
             state: 'New York',
@@ -126,6 +127,14 @@ async function createInitialReviews() {
   }
 }
 
+async function rebuildDB() {
+    try {
+        await dropTables()
+        await createTables()
+        await createInitialUsers()
+        await createInitialReviews();
+    }
+}
 
 module.exports = {
   dropTables,
