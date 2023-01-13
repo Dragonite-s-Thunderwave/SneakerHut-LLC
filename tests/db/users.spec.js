@@ -1,6 +1,6 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const faker = require("faker");
+import {faker} from "@faker-js-faker"
 const client = require("../../db/client");
 const {
     getUser,

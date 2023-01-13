@@ -35,6 +35,7 @@
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "nodemon": "^2.0.4",
     "supertest": "^6.2.1"
   },
