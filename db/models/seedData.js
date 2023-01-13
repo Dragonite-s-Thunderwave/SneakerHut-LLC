@@ -102,6 +102,29 @@ async function createInitialUsers() {
   }
 }
 
+async function createInitialShoes() {
+  console.log("Startig to create intitial shoes");
+  const shoesToCreate = [
+    {
+      username: 'beyonce',
+      shoename: 'halos',
+      description: 'these are the sneakers Beyonce use to run a mile in while singing',
+      price: 536.85,
+      type: "women's sneakers",
+      size: 7.5,
+      availability: true,
+    },
+    {
+      username: 'joey435',
+      shoename: 'halo',
+      description: 'good shoes',
+      price: 5.00,
+      type: "men's sandals",
+      size: 10,
+      availability: true,
+    }
+  ]
+
 async function createInitialReviews() {
   try {
     console.log('Starting to create reviews')
@@ -124,12 +147,16 @@ async function createInitialReviews() {
   } catch (error) {
     console.error('Error creating reviews', error)
   }
+
 }
 
 
 module.exports = {
   dropTables,
   createTables,
+  createInitialUsers, 
+  createInitialShoes,
   createInitialUsers,
   createInitialReviews
+
 }
