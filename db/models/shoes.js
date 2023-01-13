@@ -64,7 +64,7 @@ async function getShoesById(id) {
             FROM 
             shoes
             JOIN users
-            ON routines."userId"= users.id
+            ON shoes."userId"= users.id
             WHERE shoes.id=$1;
         `, [id])
         return attachUserToShoe(shoes)
