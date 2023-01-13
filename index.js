@@ -1,29 +1,29 @@
 // This is the Web Server
 const express = require('express');
-const app = express();
+const server = express();
 
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
 const cors = require('cors');
-app.use(cors());
+server.use(cors());
 
 // create logs for everything
 const morgan = require('morgan');
-app.use(morgan('dev'));
+server.use(morgan('dev'));
 
 // handle application/json requests
-app.use(express.json());
+server.use(express.json());
 
 // here's our static files
 const path = require('path');
-app.use(express.static(path.join(__dirname, 'build')));
+server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
 const apiRouter = require("./api")
-app.use('/api', apiRouter);
+server.use('/api', apiRouter);
 
 // by default serve up the react app if we don't recognize the route
-app.use((req, res, next) => {
+server.use((req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
@@ -45,14 +45,14 @@ const handle = app.listen(PORT, async () => {
   }
 });
 
-app.get('*', (req, res) => {
+server.get('*', (req, res) => {
   res.status(404).send({
     error: "404 - not found",
     message: "No route found for the request"
   });
 });
 
-app.use((error, req, res, next) => {
+server.use((error, req, res, next) => {
   res.status(500)
   res.send({error: error.message, name: error.name, message: error.message})
 })
