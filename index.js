@@ -19,7 +19,8 @@ const path = require('path');
 server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
-server.use('/api', require('./api'));
+const apiRouter = require("./api")
+server.use('/api', apiRouter);
 
 // by default serve up the react app if we don't recognize the route
 server.use((req, res, next) => {
@@ -27,7 +28,7 @@ server.use((req, res, next) => {
 });
 
 // bring in the DB connection
-const { client } = require('./db');
+const { client } = require('./db/client');
 
 // connect to the server
 const PORT = process.env.PORT || 4000;
@@ -43,6 +44,18 @@ const handle = server.listen(PORT, async () => {
     console.error('Database is closed for repairs!\n', error);
   }
 });
+
+server.get('*', (req, res) => {
+  res.status(404).send({
+    error: "404 - not found",
+    message: "No route found for the request"
+  });
+});
+
+server.use((error, req, res, next) => {
+  res.status(500)
+  res.send({error: error.message, name: error.name, message: error.message})
+})
 
 // export server and handle for routes/*.test.js
 module.exports = { server, handle };
