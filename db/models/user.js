@@ -2,23 +2,18 @@
 const client = require('../client');
 const bcrypt = require('bcrypt');
 
-module.exports = {
-  // add your database adapter fns here
-  getAllUsers,
-};
-
-async function createUser({username, password, email, firstName, lastName, creditCardInfo, address, city, state, zip}) {
+async function createUser({username, password, email, fullName, creditCardInfo, address, city, state, zip}) {
   try {
     const SALT_COUNT = 10;
 
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
     const {rows: [user]} = await client.query(`
-      INSERT INTO users (username, password, email, "firstName", "lastName", "creditCardInfo", address, city, state, zip)
+      INSERT INTO users (username, password, email, "fullName", "creditCardInfo", address, city, state, zip)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       ON CONFLICT (username, email) DO NOTHING
       RETURNING *;
-      `, [username, hashedPassword, email, firstName, lastName, creditCardInfo, address, city, state, zip]);
+      `, [username, hashedPassword, email, fullName, creditCardInfo, address, city, state, zip]);
 
       delete user.password;
 
@@ -67,31 +62,15 @@ async function getUserById(userId) {
   }
 }
 
-async function getUserByFirstName(firstName) {
-  try {
-    const {rows: [user]} = await client.query(`
-      SELECT "firstName", username
-      FROM users
-      WHERE "firstName"=$1
-    `, [firstName])
-  } catch(error) {
-    throw error;
-  }
-}
-
-async function getUserByLastName(lastName) {
-  try {
-    const {rows: [user]} = await client.query(`
-      SELECT "lastName", username
-      FROM users
-      WHERE "lastName"=$1
-    `, [lastName]);
-
-    return user;
-  } catch(error) {
-    throw error;
-  }
-}
+// async function getUserByFullName(fullName) {
+//   try {
+//     const {rows: [user]} = await client.query(`
+//       SELECT "full
+//     `)
+//   } catch(error) {
+//     throw error;
+//   }
+// }
 
 async function getUserByUsername(username) {
   try {
@@ -106,3 +85,12 @@ async function getUserByUsername(username) {
     throw error;
   }
 }
+
+
+module.exports = {
+  // add your database adapter fns here
+  getUser,
+  createUser,
+  getUserById,
+  getUserByUsername
+};
