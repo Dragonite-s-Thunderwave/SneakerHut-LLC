@@ -10,7 +10,7 @@ async function dropTables() {
       `
      DROP TABLE IF EXISTS shoes;
      DROP TABLE IF EXISTS reviews;
-     DROP TABLE IF EXISTS order;
+     DROP TABLE IF EXISTS orders;
      DROP TABLE IF EXISTS users`
     )
     console.log('Finished dropping tables')
@@ -35,7 +35,7 @@ async function createTables() {
             zip INTEGER NOT NULL
 
         );         
-        CREATE TABLE order_history (
+        CREATE TABLE orders (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
           "isComplete" VARCHAR NOT NULL,
