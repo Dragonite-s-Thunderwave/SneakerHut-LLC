@@ -1,6 +1,6 @@
 require("dotenv").config()
 const request = require("supertest")
-const faker = require("faker")
+const {faker} = require("@faker-js/faker")
 const client = require("../../db/client")
 const app = require("../../index")
 const bcrypt = require("bcrypt")

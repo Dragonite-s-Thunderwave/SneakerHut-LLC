@@ -1,4 +1,4 @@
-const faker = require("faker");
+const {faker} = require("@faker-js/faker");
 const {createUser} = require("../db/models/user")
 const jwt = require("jsonwebtoken");
 const {JWT_SECRET = "thisIsASecret"} = process.env;
