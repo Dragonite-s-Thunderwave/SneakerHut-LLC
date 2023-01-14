@@ -1,9 +1,8 @@
-const {createTables, dropTables } = require("../db/models/seedData");
+const {rebuildDB} = require("../db/models/seedData");
 
-const setup = async () => {
-    console.log("--- JEST SETUP ---");
-    await dropTables();
-    await createTables();
-}
+// const setup = async () => {
+//     console.log("--- JEST SETUP ---");
+//     await rebuildDB();
+//}
 
-module.exports = setup;
+module.exports = rebuildDB;
