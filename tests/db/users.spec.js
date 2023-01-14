@@ -16,7 +16,7 @@ describe("DB Users", () => {
 
     describe("createUser({username, password, email, fullName, address, city, state, zip})", () => {
 
-        if("Creates the user", async () => {
+        it("Creates the user", async () => {
             const fakeUserData = {
                 username: "Butterbean",
                 password: faker.internet.password(8),

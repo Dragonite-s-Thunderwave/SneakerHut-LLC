@@ -1,4 +1,4 @@
-const {client, createUser} = require('./index') //createusers may be moved to users.js
+const client = require('../client') //createusers may be moved to users.js
 
 async function dropTables() {
   try {
@@ -17,11 +17,13 @@ async function dropTables() {
     console.log('Finished dropping tables')
   } catch (error) {
     console.error('There was an error dropping tables', error)
+    throw error;
   }
 }
 
 async function createTables() {
   //Need to add pictures
+  console.log("Creating tables - starting to build tables")
   await client.query(`
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -74,7 +76,12 @@ async function createTables() {
        )`)
 }
 
+
+
+/// DUMMY DATA BELOW// - Could be moved to seedData.js and then imported for simplicity
+
 // DUMMY DATA BELOW
+
 
 async function createInitialUsers() {
   try {
@@ -104,9 +111,9 @@ async function createInitialUsers() {
             zip: '10036'
           }
     ]
-    await createUser({
-      //needs to be imported/required
-    })
+    // await createUser({
+    //   //needs to be imported/required
+    // })
   } catch (error) {
     console.error('Error creating dummy data users', error)
   }
@@ -133,6 +140,9 @@ async function createInitialShoes() {
       size: 10,
       availability: true,
     }
+
+  ]}
+
   ]
   const shoes = await Promise.all(
     shoesToCreate.map((shoes) => createShoes(shoes))
@@ -140,6 +150,7 @@ async function createInitialShoes() {
   console.log("Initial Shoes Created: ", shoes); //delete later
   console.log("Finished creating shoes"); //delete later
   }
+
 
 async function createInitialReviews() {
   try {
@@ -168,21 +179,23 @@ async function createInitialReviews() {
 
 async function rebuildDB() {
     try {
+        client.connect()
         await dropTables()
         await createTables()
         await createInitialUsers()
         await createInitialReviews();
+
+    } catch(error) {
+        console.error("error rebuilding db", error)
+
     } catch(error){
        console.error("There was an error running rebuildDB", error)
+
     }
 }
 
 module.exports = {
   dropTables,
   createTables,
-  createInitialUsers, 
-  createInitialShoes,
-  createInitialUsers,
-  createInitialReviews
-
-}
+  rebuildDB
+};
