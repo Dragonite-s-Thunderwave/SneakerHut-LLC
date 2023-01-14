@@ -9,7 +9,7 @@ const { requireUser } = require('./utils');
 //DELETE /api/cart
 router.delete('/:cartId', async (req, res, next) => {
     try {
-        const deletedOrder = await deleteCart(req.params.cartId);
+        const deletedCart = await deleteCart(req.params.cartId);
         res.send(deletedCart)
     } catch ({ name, message }) {
         next ({ name, message }); 

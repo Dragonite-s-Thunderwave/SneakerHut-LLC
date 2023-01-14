@@ -69,7 +69,8 @@ async function createTables() {
           "shoeId" INT REFERENCES shoes(id),
           "orderId" INT REFERENCES orders(id),
           price INT NOT NULL,
-          quantity INT NOT NULL DEFAULT 0
+          quantity INT NOT NULL DEFAULT 0,
+          UNIQUE ("shoeId", "orderId")
        )`)
 }
 

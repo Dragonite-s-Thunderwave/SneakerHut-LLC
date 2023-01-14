@@ -6,7 +6,7 @@ async function createCart({ shoeId, orderId, price, quantity }) {
         rows: [cart],
       } = await client.query(
         `
-        INSERT INTO order_products("shoeId", "orderId", price, quantity)
+        INSERT INTO cart("shoeId", "orderId", price, quantity)
         VALUES ($1, $2, $3, $4)
         RETURNING *;
       `,
@@ -37,6 +37,45 @@ async function getCartById(id) {
       throw error;
     }
 };
+
+async function updateCartShoe({ id, price, quantity }) {
+    try {
+      if (price && quantity) {
+        const {
+          rows: [updatedCartShoe],
+        } = await client.query(
+          `
+        UPDATE cart
+        SET price=$2, quantity=$3
+        WHERE id=$1
+        RETURNING *
+        `,
+          [id, price, quantity]
+        );
+        return updatedCartShoe;
+      }
+      if(price) {
+        const {rows: [updatedCartShoe]} = await client.query(`
+        UPDATE cart
+        SET price=$2
+        WHERE id=$1
+        RETURNING *
+        `, [id, price])
+        return updatedCartShoe
+      }
+      if (quantity) {
+        const {rows: [updatedCartShoe]} = await client.query(`
+        UPDATE cart
+        SET quantity=$2
+        WHERE id=$1
+        RETURNING *
+        `, [id, quantity])
+        return updatedCartShoe
+      }
+    } catch (error) {
+      throw error
+    }
+  }
 
 async function deleteCart(id) {
     try {
