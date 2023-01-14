@@ -1,15 +1,15 @@
 //****where are we putting the client??***
 const client = require();
 
-async function createOrderHistory ({userId, isComplete, total, orderDate, productId}) {
+async function createOrders ({userId, isComplete, total, orderDate, productId}) {
     try {
-        const { rows: [order_history] } = await client.query(`
-            INSERT INTO order_history("userId", "isComplete", total, "orderDate", "productId")
+        const { rows: [orders] } = await client.query(`
+            INSERT INTO order("userId", "isComplete", total, "orderDate", "productId")
             VALUES ($1, $2, $3, $4, $5)
             RETURNING *;
         `, [userId, isComplete, total, orderDate, productId]);
 
-        return order_history;
+        return orders;
 
     } catch (error) {
         console.error('Error creating order history');
@@ -17,15 +17,15 @@ async function createOrderHistory ({userId, isComplete, total, orderDate, produc
     }
 };
 
-async function getOrderHistoryByUserId(userId){
+async function getOrdersByUserId(userId){
     try {
-        const {rows: [order_history]} = await client.query(`
+        const {rows: [orders]} = await client.query(`
         SELECT *
-        FROM order_history
+        FROM order
         WHERE "userId"=$1;
         `, [userId]);
 
-        return order_history;
+        return orders;
 
     } catch (error) {
         console.error("Error getting order history by 'userId'");
@@ -33,15 +33,15 @@ async function getOrderHistoryByUserId(userId){
     }
 };
 
-async function getAllOrderHistories (id) {
+async function getAllOrders (id) {
     try {
-        const {rows: [order_histories]} = await client.query(`
+        const {rows: [orders]} = await client.query(`
         SELECT *
-        FROM order_history
+        FROM orders
 
         `);
 
-        return order_histories;
+        return orders;
 
     } catch (error) {
         console.error("Error getting all order histories");
@@ -49,15 +49,15 @@ async function getAllOrderHistories (id) {
     }
 };
 
-async function getOrderHistoryById (id) {
+async function getOrdersById (id) {
     try {
-        const {rows: [order_history]} = await client.query(`
+        const {rows: [orders]} = await client.query(`
         SELECT *
-        FROM order_history
+        FROM orders
         WHERE id=$1;
         `, [userId]);
 
-        return order_history;
+        return orders;
 
     } catch (error) {
         console.error("Error getting all order histories");
@@ -65,7 +65,7 @@ async function getOrderHistoryById (id) {
     }
 };
 
-async function updateOrderHistory ({id, ...fields}) {
+async function updateOrders ({id, ...fields}) {
     const { update } = fields;
 
     const setString = Object.keys(fields)
@@ -75,14 +75,14 @@ async function updateOrderHistory ({id, ...fields}) {
     try {
         if(setString.length > 0){
             await client.query(`
-            UPDATE order_history
+            UPDATE orders
             SET ${setString}
             WHERE id=${id}
             RETURNING *;
             `, Object.values(fields));
         }
         if(update === undefined){
-            return await getOrderHistoryById(id);
+            return await getOrdersById(id);
         }
     } catch (error) {
         console.error('Error updating order history');
@@ -90,15 +90,15 @@ async function updateOrderHistory ({id, ...fields}) {
     }
 };
 
-async function deleteOrderHistoryById (id) {
+async function deleteOrdersById (id) {
     try {
-        const { rows: deletedOrderHistory } = await client.query(`
-            DELETE FROM order_history
+        const { rows: deletedOrder } = await client.query(`
+            DELETE FROM orders
             WHERE id=$1
             RETURNING *;
         `, [id]);
 
-        return deletedOrderHistory;
+        return deletedOrder;
 
     } catch (error) {
         console.error('Error deleting order history');
@@ -107,10 +107,10 @@ async function deleteOrderHistoryById (id) {
 };
 
 module.exports = {
-    createOrderHistory,
-    getOrderHistoryByUserId,
-    getAllOrderHistories,
-    updateOrderHistory,
-    deleteOrderHistoryById,
-    getOrderHistoryById
+    createOrders,
+    getOrdersByUserId,
+    getAllOrders,
+    updateOrders,
+    deleteOrdersById,
+    getOrdersById
 }
