@@ -74,7 +74,7 @@ async function createTables() {
        )`)
 }
 
-/// DUMMY DATA BELOW// - Could be moved to seedData.js and then imported for simplicity
+// DUMMY DATA BELOW
 
 async function createInitialUsers() {
   try {
@@ -134,6 +134,12 @@ async function createInitialShoes() {
       availability: true,
     }
   ]
+  const shoes = await Promise.all(
+    shoesToCreate.map((shoes) => createShoes(shoes))
+  );
+  console.log("Initial Shoes Created: ", shoes); //delete later
+  console.log("Finished creating shoes"); //delete later
+  }
 
 async function createInitialReviews() {
   try {
@@ -166,6 +172,8 @@ async function rebuildDB() {
         await createTables()
         await createInitialUsers()
         await createInitialReviews();
+    } catch(error){
+       console.error("There was an error running rebuildDB", error)
     }
 }
 
