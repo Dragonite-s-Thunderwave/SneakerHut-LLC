@@ -10,8 +10,9 @@ async function dropTables() {
       `
      DROP TABLE IF EXISTS shoes;
      DROP TABLE IF EXISTS reviews;
-     DROP TABLE IF EXISTS order_history;
-     DROP TABLE IF EXISTS users`
+     DROP TABLE IF EXISTS orders;
+     DROP TABLE IF EXISTS users;
+     DROP TABLE IF EXISTS cart`
     )
     console.log('Finished dropping tables')
   } catch (error) {
@@ -37,7 +38,7 @@ async function createTables() {
             zip INTEGER NOT NULL
 
         );         
-        CREATE TABLE order_history (
+        CREATE TABLE orders (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
           "isComplete" VARCHAR NOT NULL,
@@ -63,8 +64,18 @@ async function createTables() {
             type VARCHAR(255) NOT NULL,
             size INTEGER NOT NULL,
             availability BOOLEAN DEFAULT true
-        );`
-)}
+       );
+
+       CREATE TABLE cart (
+          id SERIAL NUMBER KEY,
+          "shoeId" INT REFERENCES shoes(id),
+          "orderId" INT REFERENCES orders(id),
+          price INT NOT NULL,
+          quantity INT NOT NULL DEFAULT 0,
+          UNIQUE ("shoeId", "orderId")
+       )`)
+}
+
 
 /// DUMMY DATA BELOW// - Could be moved to seedData.js and then imported for simplicity
 
