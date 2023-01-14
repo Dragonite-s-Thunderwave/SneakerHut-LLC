@@ -1,6 +1,6 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-import {faker} from "@faker-js-faker"
+const {faker} = require("@faker-js/faker")
 const client = require("../../db/client");
 const {
     getUser,
@@ -19,7 +19,7 @@ describe("DB Users", () => {
         if("Creates the user", async () => {
             const fakeUserData = {
                 username: "Butterbean",
-                password: faker.internet.password(),
+                password: faker.internet.password(8),
                 email: faker.internet.email(),
                 fullName: faker.name.fullName(),
                 address: faker.address.streetAddress(),
@@ -39,7 +39,7 @@ describe("DB Users", () => {
         it("Hashes the password (salted 10 time) before storing it to the database", async () => {
             const fakeUserData = {
                 username: "The_Abominable_Snowman",
-                password: faker.internet.password(),
+                password: faker.internet.password(8),
                 email: faker.internet.email(),
                 fullName: faker.name.fullName(),
                 address: faker.address.streetAddress(),
@@ -66,7 +66,7 @@ describe("DB Users", () => {
         it("Does NOT return the password", async () => {
             const fakeUserData = {
                 username: "STACYS_mom",
-                password: faker.internet.password(),
+                password: faker.internet.password(8),
                 email: faker.internet.email(),
                 fullName: faker.name.fullName(),
                 address: faker.address.streetAddress(),
@@ -85,7 +85,7 @@ describe("DB Users", () => {
         it("returns the user when the password is verified", async () => {
             const fakeUserData = {
                 username: "AGoofyMovie",
-                password: faker.internet.password(),
+                password: faker.internet.password(8),
                 email: faker.internet.email(),
                 fullName: faker.name.fullName(),
                 address: faker.address.streetAddress(),
@@ -107,7 +107,7 @@ describe("DB Users", () => {
         it("Does not return the user if the password doesn't verify", async () => {
             const fakeUserData = {
                 username: "TommyBoy",
-                password: faker.internet.password(),
+                password: faker.internet.password(8),
                 email: faker.internet.email(),
                 fullName: faker.name.fullName(),
                 address: faker.address.streetAddress(),
@@ -129,7 +129,7 @@ describe("DB Users", () => {
         it("Does NOT return the password", async () => {
             const fakeUserData = {
                 username: "ASimpleMan",
-                password: faker.internet.password(),
+                password: faker.internet.password(8),
                 email: faker.internet.email(),
                 fullName: faker.name.fullName(),
                 address: faker.address.streetAddress(),
