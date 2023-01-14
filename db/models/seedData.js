@@ -28,9 +28,9 @@ async function createTables() {
             username VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
-            "firstName" VARCHAR(255) NOT NULL,
-            "lastName" VARCHAR(255) NOT NULL,
+            "fullName" VARCHAR(255) UNIQUE NOT NULL,
             "creditCardInfo" INTEGER NOT NULL,
+            address VARCHAR(255) NOT NULL,
             city VARCHAR(255) NOT NULL,
             state VARCHAR(255) NOT NULL,
             zip INTEGER NOT NULL
@@ -85,7 +85,7 @@ async function createInitialUsers() {
             password: 'joeyinthematrix',
             email: 'joe374@gmail.com',
             name: 'jhoesephk antler',
-            address: '123 bardnard st, 76543, Tyler,Tx',
+            address: '123 bardnard st',
             creditCardInfo: 'idk what to put in here',
             city: 'Tyler',
             state: 'Texas',
@@ -97,7 +97,7 @@ async function createInitialUsers() {
             password: 'blueivy',
             email: 'yonce@gmail.com',
             name: 'Beyonce Knowles',
-            address: '42nd street, NY 10036',
+            address: '42nd street',
             creditcard: 'idk what to put in here as well',
             city: 'Manhattan',
             state: 'New York',
@@ -111,6 +111,29 @@ async function createInitialUsers() {
     console.error('Error creating dummy data users', error)
   }
 }
+
+async function createInitialShoes() {
+  console.log("Startig to create intitial shoes");
+  const shoesToCreate = [
+    {
+      username: 'beyonce',
+      shoename: 'halos',
+      description: 'these are the sneakers Beyonce use to run a mile in while singing',
+      price: 536.85,
+      type: "women's sneakers",
+      size: 7.5,
+      availability: true,
+    },
+    {
+      username: 'joey435',
+      shoename: 'halo',
+      description: 'good shoes',
+      price: 5.00,
+      type: "men's sandals",
+      size: 10,
+      availability: true,
+    }
+  ]
 
 async function createInitialReviews() {
   try {
@@ -134,12 +157,24 @@ async function createInitialReviews() {
   } catch (error) {
     console.error('Error creating reviews', error)
   }
+
 }
 
+async function rebuildDB() {
+    try {
+        await dropTables()
+        await createTables()
+        await createInitialUsers()
+        await createInitialReviews();
+    }
+}
 
 module.exports = {
   dropTables,
   createTables,
+  createInitialUsers, 
+  createInitialShoes,
   createInitialUsers,
   createInitialReviews
+
 }

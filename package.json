@@ -11,17 +11,23 @@
     "db:build": "node ./db/init_db",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:watch": "jest --runInBand --watchAll"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "bcrypt": "^5.1.0",
+    "chalk": "^5.2.0",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
+    "faker": "^6.6.6",
     "jest": "^24.9.0",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
     "react": "^16.13.1",
@@ -30,6 +36,7 @@
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "nodemon": "^2.0.4",
     "supertest": "^6.2.1"
   },
