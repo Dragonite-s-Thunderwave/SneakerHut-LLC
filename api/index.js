@@ -1,7 +1,7 @@
 const express = require('express');
 const apiRouter = express.Router()
 const jwt = require('jsonwebtoken');
-const { server } = require('..');
+// const { server } = require('..');
 const {getUserById} = require("../db")
 const {JWT_SECRET="thisIsASecret"} = process.env
 
@@ -16,6 +16,11 @@ apiRouter.get('/health', (req, res, next) => {
     healthy: true,
   });
 });
+
+//ROUTER: /api/users
+const usersRouter = require('./users.js');
+apiRouter.use('/users', usersRouter)
+
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
@@ -46,10 +51,8 @@ apiRouter.use(async (req, res, next) => {
 // place your routers here
 // server.use('/', routes)
 
-//ROUTER: /api/users
-const usersRouter = require('./users.js');
-apiRouter.use('users', usersRouter)
 
 //RUTER:
 
 module.exports = apiRouter;
+

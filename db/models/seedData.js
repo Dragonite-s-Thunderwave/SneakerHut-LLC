@@ -1,20 +1,23 @@
 const client = require('../client') //createusers may be moved to users.js
+const { createUser } = require('./user')
+const { createShoes } = require('./shoes')
+const { createReview } = require('./reviews')
+
+
 
 async function dropTables() {
   try {
-    console.log('Dropping tables...')
-    //NEED to be dropped in the correct order
-    //NEED to change names of databases
-    //Might be missing some tables
+    console.log('Dropping tables...') //delete later
     await client.query(
       `
+     DROP TABLE IF EXISTS cart;
      DROP TABLE IF EXISTS shoes;
      DROP TABLE IF EXISTS reviews;
      DROP TABLE IF EXISTS orders;
      DROP TABLE IF EXISTS users;
-     DROP TABLE IF EXISTS cart`
+     `
     )
-    console.log('Finished dropping tables')
+    console.log('Finished dropping tables') //delete later
   } catch (error) {
     console.error('There was an error dropping tables', error)
     throw error;
@@ -23,7 +26,7 @@ async function dropTables() {
 
 async function createTables() {
   //Need to add pictures
-  console.log("Creating tables - starting to build tables")
+  console.log("Creating tables") //delete later
   await client.query(`
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -67,7 +70,7 @@ async function createTables() {
        );
 
        CREATE TABLE cart (
-          id SERIAL NUMBER KEY,
+          id SERIAL PRIMARY KEY,
           "shoeId" INT REFERENCES shoes(id),
           "orderId" INT REFERENCES orders(id),
           price INT NOT NULL,
@@ -78,22 +81,24 @@ async function createTables() {
 
 
 
-/// DUMMY DATA BELOW// - Could be moved to seedData.js and then imported for simplicity
+
 
 // DUMMY DATA BELOW
 
 
 async function createInitialUsers() {
   try {
-    console.log('Starting to create dummy data')
+    console.log('Creating dummy data') //delete later
+    console.log('Starting to create users') //delete later
     const dummyDataUserInfo = [
         {
             username: 'joey435',
             password: 'joeyinthematrix',
             email: 'joe374@gmail.com',
-            name: 'jhoesephk antler',
+            fullName: 'jhoesephk antler',
             address: '123 bardnard st',
-            creditCardInfo: 'idk what to put in here',
+            creditCardInfo: '83473048',
+            address:'dummydataddress1',
             city: 'Tyler',
             state: 'Texas',
             zip: "76543"
@@ -103,74 +108,72 @@ async function createInitialUsers() {
             username: 'beyonce',
             password: 'blueivy',
             email: 'yonce@gmail.com',
-            name: 'Beyonce Knowles',
+            fullName: 'Beyonce Knowles',
             address: '42nd street',
-            creditcard: 'idk what to put in here as well',
+            creditCardInfo: '4759347',
+            address: 'dummydataadress2',
             city: 'Manhattan',
             state: 'New York',
             zip: '10036'
           }
     ]
-    // await createUser({
-    //   //needs to be imported/required
-    // })
+    const user = await Promise.all(dummyDataUserInfo.map(createUser))
+    console.log("Initial users created", user) //delete later
+    return user;
   } catch (error) {
     console.error('Error creating dummy data users', error)
   }
 }
 
 async function createInitialShoes() {
-  console.log("Startig to create intitial shoes");
+  console.log("Starting to create intitial shoes"); //delete later
   const shoesToCreate = [
     {
+      userId: '1', 
       username: 'beyonce',
       shoename: 'halos',
       description: 'these are the sneakers Beyonce use to run a mile in while singing',
       price: 536.85,
       type: "women's sneakers",
-      size: 7.5,
-      availability: true,
+      size: 7,
     },
     {
+      userId: '2',
       username: 'joey435',
       shoename: 'halo',
       description: 'good shoes',
       price: 5.00,
       type: "men's sandals",
       size: 10,
-      availability: true,
     }
-
-  ]}
-
   ]
-  const shoes = await Promise.all(
-    shoesToCreate.map((shoes) => createShoes(shoes))
-  );
+  const shoes = await Promise.all(shoesToCreate.map(createShoes))
   console.log("Initial Shoes Created: ", shoes); //delete later
-  console.log("Finished creating shoes"); //delete later
+  //console.log("Finished creating shoes"); //delete later 
+  return shoes;
+
   }
 
 
 async function createInitialReviews() {
   try {
-    console.log('Starting to create reviews')
+    console.log('Starting to create reviews') //delete later
     const dummyDataReviewInfo = [ {
-      authorId:'1',
+      authorId:'2',
       username:'joey435',
       rating:'4',
       comment:'These shoes are durable & comfy'
     }, 
     { 
-      authorId:'2',
+      authorId:'1',
       username:'beyonce',
       rating:'5', 
       comment:'10/10 Recommend these kicks!'
      
     }]
-    await createReview({
-      // imported/required
-    })
+    const reviews = await Promise.all(dummyDataReviewInfo.map(createReview))
+    console.log('Initial Reviews Created:', reviews) //delete later
+    return reviews;
   } catch (error) {
     console.error('Error creating reviews', error)
   }
@@ -183,19 +186,15 @@ async function rebuildDB() {
         await dropTables()
         await createTables()
         await createInitialUsers()
-        await createInitialReviews();
-
-    } catch(error) {
-        console.error("error rebuilding db", error)
-
+        await createInitialReviews()
+        await createInitialShoes()
     } catch(error){
        console.error("There was an error running rebuildDB", error)
-
     }
 }
 
 module.exports = {
   dropTables,
   createTables,
-  rebuildDB
+  rebuildDB, 
 };

@@ -8,10 +8,9 @@ async function createUser({username, password, email, fullName, creditCardInfo, 
 
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
-    const {rows: [user]} = await client.query(`
+    const { rows: [user]} = await client.query(`
       INSERT INTO users (username, password, email, "fullName", "creditCardInfo", address, city, state, zip)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-      ON CONFLICT (username, email) DO NOTHING
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *;
       `, [username, hashedPassword, email, fullName, creditCardInfo, address, city, state, zip]);
 

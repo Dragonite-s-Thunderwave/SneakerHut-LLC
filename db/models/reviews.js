@@ -1,27 +1,26 @@
-const client = require("./");
+const client = require("../client");
 
 async function getAllReviews() {
   try {
-  const {rows} = await client.query(`
-  SELECT authorId, username, rating, comment 
-  FROM reviews;
+  console.log('Getting reviews')
+  const { rows: reviews } = await client.query(`
+  SELECT * FROM reviews
   `);
-  return rows;
+  // console.log("Yay we got reviews", reviews) //delete later
+  return reviews;
 } catch (error) {
   throw error;
 }
 }
 
-async function createReview({authorId, username, rating, comment }) {
+async function createReview({ authorId, username, rating, comment }) {
   try {
-    const {
-      rows: [review]
-    } = await client.query(`
+    const { rows: [review]} = await client.query(`
     INSERT INTO reviews("authorId", username, rating, comment)
-  VALUES ($1, $2, $3, $4)
-  RETURNING *;
-  `, [authorId, username, rating, comment]);
-
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
+    `, [authorId, username, rating, comment]);
+    // console.log(review, "Here are your reviews")//delete later
     return review
   } catch (error) {
     console.error('Error creating reviews');
@@ -86,7 +85,7 @@ async function getReviewByRating(rating) {
     const {rows: [review]} = await client.query(`
     SELECT *
     FROM reviews
-    WHERER rating=$1;
+    WHERE rating=$1;
     `, [rating]);
 
     return review;
