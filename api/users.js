@@ -1,5 +1,5 @@
 const express = require("express")
-const router = express.Router()
+const usersRouter = express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET="thisIsASecret"} = process.env
 const {createUser, getUserByUsername, getUser} = require('../db/models/user')
@@ -7,7 +7,7 @@ const { requireUser } = require('./utils')
 
 //POST /api/users/login
 
-router.post('/login', async (req, res, next) => {
+usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body.user;
 
     if (!username || !password) {
@@ -43,7 +43,7 @@ router.post('/login', async (req, res, next) => {
 
 //POST /api/users/register
 
-router.post('/register', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
     
     const { username, password, email, fullName, creditCardInfo, address, city, state, zip } = req.body.user;
 
@@ -96,7 +96,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 //GET /api/users/me
-router.get('/me', requireUser, async (req, res, next) => {
+usersRouter.get('/me', requireUser, async (req, res, next) => {
 
     const user = req.user;
 
@@ -106,3 +106,5 @@ router.get('/me', requireUser, async (req, res, next) => {
         next(error);
     }
 });
+
+module.exports = usersRouter; 

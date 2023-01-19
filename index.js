@@ -19,7 +19,7 @@ const path = require('path');
 server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
-const apiRouter = require("./api")
+const apiRouter = require("./api/index")
 server.use('/api', apiRouter);
 
 // by default serve up the react app if we don't recognize the route
@@ -28,8 +28,9 @@ server.use((req, res, next) => {
 });
 
 // bring in the DB connection
-const { client } = require('./db/client');
+const client = require('./db/client');
 client.connect()
+
 
 // connect to the server
 const PORT = process.env.PORT || 4000;
@@ -59,4 +60,6 @@ server.use((error, req, res, next) => {
 })
 
 // export server and handle for routes/*.test.js
-module.exports = { server, handle };
+module.exports = { server, 
+  //handle
+ };
