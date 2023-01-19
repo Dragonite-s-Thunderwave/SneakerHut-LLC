@@ -1,7 +1,7 @@
 const client = require('../client');
 // const { attachUserToShoe } = require('./user'); - This function needs to be written
 
-async function createShoes({ userId, username, shoename, description, price, type, size}) {
+async function createShoes({ userId, username, shoename, description, price, type, size }) {
     try{
         const {rows: [shoes]} = await client.query(`
                 INSERT INTO shoes("userId", username, shoename, description, price, type, size)
@@ -107,7 +107,7 @@ async function getShoesByType(type) {
 
 
 
-async function getShoeBySize(size) {
+async function getShoesBySize(size) {
     try{
         const { rows: shoes } = await client.query(`
             SELECT * 
@@ -174,7 +174,7 @@ module.exports = {
     getShoesById, 
     getShoesByPrice,
     getShoesByType,
-    getShoeBySize,
+    getShoesBySize,
     updateShoes,
     deleteShoes,
 }
