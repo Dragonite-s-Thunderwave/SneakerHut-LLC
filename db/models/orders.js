@@ -38,7 +38,6 @@ async function getAllOrders (id) {
         const {rows: [orders]} = await client.query(`
         SELECT *
         FROM orders
-
         `);
 
         return orders;
