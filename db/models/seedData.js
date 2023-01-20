@@ -118,7 +118,7 @@ async function createInitialUsers() {
           }
     ]
     const user = await Promise.all(dummyDataUserInfo.map(createUser))
-    console.log("Initial users created", user) //delete later
+    // console.log("Initial users created", user) //delete later
     return user;
   } catch (error) {
     console.error('Error creating dummy data users', error)
@@ -148,7 +148,7 @@ async function createInitialShoes() {
     }
   ]
   const shoes = await Promise.all(shoesToCreate.map(createShoes))
-  console.log("Initial Shoes Created: ", shoes); //delete later
+  // console.log("Initial Shoes Created: ", shoes); //delete later
   //console.log("Finished creating shoes"); //delete later 
   return shoes;
 
@@ -172,7 +172,7 @@ async function createInitialReviews() {
      
     }]
     const reviews = await Promise.all(dummyDataReviewInfo.map(createReview))
-    console.log('Initial Reviews Created:', reviews) //delete later
+    // console.log('Initial Reviews Created:', reviews) //delete later
     return reviews;
   } catch (error) {
     console.error('Error creating reviews', error)
