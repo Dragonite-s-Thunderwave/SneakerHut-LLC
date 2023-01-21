@@ -16,7 +16,7 @@ server.use(express.json());
 
 // here's our static files
 const path = require('path');
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
 const apiRouter = require("./api/index")
@@ -24,14 +24,11 @@ server.use('/api', apiRouter);
 
 // by default serve up the react app if we don't recognize the route
 server.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-
 
 // bring in the DB connection
 const client = require('./db/client');
-// client.connect()
 
 
 // connect to the server
@@ -63,5 +60,5 @@ server.use((error, req, res, next) => {
 
 // export server and handle for routes/*.test.js
 module.exports = { server, 
-  handle
+  //handle
  };
