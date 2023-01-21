@@ -13,6 +13,7 @@ server.use(morgan('dev'));
 
 // handle application/json requests
 server.use(express.json());
+// apiRouter.use(express.json())
 
 // here's our static files
 const path = require('path');
@@ -29,23 +30,23 @@ server.use((req, res, next) => {
 
 // bring in the DB connection
 const client = require('./db/client');
-client.connect()
+// client.connect()
 
 
 // connect to the server
 const PORT = process.env.PORT || 4000;
 
 // define a server handle to close open tcp connection after unit tests have run
-// const handle = server.listen(PORT, async () => {
-//   console.log(`Server is running on ${PORT}!`);
+const handle = server.listen(PORT, async () => {
+  console.log(`Server is running on ${PORT}!`);
 
-//   try {
-//     await client.connect();
-//     console.log('Database is open for business!');
-//   } catch (error) {
-//     console.error('Database is closed for repairs!\n', error);
-//   }
-// });
+  try {
+    await client.connect();
+    console.log('Database is open for business!');
+  } catch (error) {
+    console.error('Database is closed for repairs!\n', error);
+  }
+});
 
 server.get('*', (req, res) => {
   res.status(404).send({

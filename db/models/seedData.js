@@ -148,7 +148,7 @@ async function createInitialShoes() {
     }
   ]
   const shoes = await Promise.all(shoesToCreate.map(createShoes))
-  // console.log("Initial Shoes Created: ", shoes); //delete later
+  console.log("Initial Shoes Created: ", shoes); //delete later
   //console.log("Finished creating shoes"); //delete later 
   return shoes;
 

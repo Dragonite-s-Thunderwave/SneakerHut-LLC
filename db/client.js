@@ -1,17 +1,14 @@
 // Connect to DB
 const { Client } = require('pg');
 
-// change the DB_NAME string to whatever your group decides on
 const DB_NAME = 'sneakerhut-dev';
-
 const DB_URL =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
-
 let client = new Client({
-  DB_URL,
+  connectionString: DB_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
 });
-
+ console.log(DB_URL) //may need to delete later 
 // github actions client config
 // if (process.env.CI) {
 //   client = new Client({

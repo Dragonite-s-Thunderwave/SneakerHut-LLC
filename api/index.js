@@ -1,9 +1,13 @@
 const express = require('express');
 const apiRouter = express.Router()
 const jwt = require('jsonwebtoken');
+const { server } = require('..');
 // const { server } = require('..');
-const {getUserById} = require("../db")
+const {getUserById} = require("../db");
+const { use } = require('./users.js');
 const {JWT_SECRET="thisIsASecret"} = process.env
+
+
 
 apiRouter.get('/', (req, res, next) => {
   res.send({
