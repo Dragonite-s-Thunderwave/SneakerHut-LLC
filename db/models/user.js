@@ -85,11 +85,47 @@ async function getUserByUsername(username) {
   }
 }
 
+async function attachUserToShoe(shoes) {
+  
+  const shoesCopy = [...shoes];
+  const moneySigns = shoes.map((_, index) => {
+    return `$${index + 1}`
+  });
+  const shoeId = shoes.map((shoe) => {
+    return shoe.id
+  });
+  if(!shoeId?.length) {
+    return [];
+  }
+
+  try {
+    const {rows : usersShoes} = await client.query(`
+      SELECT users.*, shoes.username, shoes.shoename, shoes.description, shoes.price, shoes.type, shoes.size, shoes.availability, shoes.id, shoes."userId"
+      FROM users
+      JOIN shoes ON users.id = shoes."userId"
+      WHERE shoes.id IN (${moneySigns});
+    `, shoeId);
+
+    for (const shoe of shoesCopy) {
+      const addedShoe = usersShoes.filter((user) => {
+        return user.id === shoe.userId
+      })
+
+      shoe.user = addedShoe
+    }
+    console.log(usersShoes)
+    return shoesCopy;
+    
+  } catch(error) {
+    console.error('There was an error attatching users to shoes', error)
+  }
+}
 
 module.exports = {
   // add your database adapter fns here
   getUser,
   createUser,
   getUserById,
-  getUserByUsername
+  getUserByUsername,
+  attachUserToShoe
 };

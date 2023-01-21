@@ -1,5 +1,6 @@
 const client = require('../client');
-// const { attachUserToShoe } = require('./user'); - This function needs to be written
+const { attachUserToShoe } = require('./user'); 
+// - This function needs to be written
 
 async function createShoes({ userId, username, shoename, description, price, type, size}) {
     try{
@@ -49,7 +50,7 @@ async function getShoesByUser({username}) {
             WHERE "userId"= ${user.id}
         `)
         // console.log("Getting shoes by username") //delete later
-        return attachUserToShoe(shoes)
+        return await attachUserToShoe(shoes)
     } catch(error){
         console.error("There was an error getting shoes by username", error)
     }
@@ -67,7 +68,7 @@ async function getShoesById(id) {
             ON shoes."userId"= users.id
             WHERE shoes.id=$1;
         `, [id])
-        return attachUserToShoe(shoes)
+        return await attachUserToShoe(shoes)
     }catch(error){
         console.error("There was an error getting shoes by id", error)
     }

@@ -8,7 +8,7 @@ const DB_URL =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
 
 let client = new Client({
-  DB_URL,
+  connectionString: DB_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
 });
 
