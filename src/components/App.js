@@ -40,11 +40,16 @@ const App = () => {
 
 
   return (
-    <div className="app-container">
-      <h1>Hello, World!</h1>
-      <p>API Status: {APIHealth}</p>
+    <div>
+        <h1>Welcome to SneakerHut!</h1>
+        {username || token ? <h3>You are logged in as: {username}</h3> : (
+        <div>
+            {/* <h2>Please <Link to="AccountForm/login">Log In</Link></h2>
+            <h3>Not a member? <Link to="AccountForm/register">Sign Up!</Link></h3> */}
+        </div>
+        )}
     </div>
-  );
+)
 };
 
 export default App;
