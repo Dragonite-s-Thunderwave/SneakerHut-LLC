@@ -4,9 +4,17 @@ import React, { useState, useEffect } from 'react';
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
+import {Link, Route, Switch, useHistory} from "react-router-dom";
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
+  const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(
+      window.localStorage.getItem("token") || null
+  );
+  const [cart, setCart] = useState({})
+
+  const history = useHistory();
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -21,6 +29,15 @@ const App = () => {
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
   }, []);
+
+  // useEffect(() => {
+  //   const getShoes = async () => {
+  //     try {
+  //       const result = await 
+  //     }
+  //   }
+  // })
+
 
   return (
     <div className="app-container">
