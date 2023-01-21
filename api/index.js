@@ -21,6 +21,12 @@ apiRouter.get('/health', (req, res, next) => {
 const usersRouter = require('./users.js');
 apiRouter.use('/users', usersRouter)
 
+const ordersRouter = require('./order.js');
+apiRouter.use('/orders', ordersRouter)
+
+const shoesRouter = require('./shoes');
+apiRouter.use('/shoes', shoesRouter)
+
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
