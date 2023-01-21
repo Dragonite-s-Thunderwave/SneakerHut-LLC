@@ -1,12 +1,12 @@
 const express = require('express');
-const { getAllOrderHistories, createOrderHistory, updateOrders } = require('../db/models/orders');
-const router = express.Router();
+const { getAllOrders, getAllOrderHistories, createOrderHistory, updateOrders } = require('../db/models/orders');
+const ordersRouter = express.Router();
 const { requireUser } = require('./utils');
 
 
 //GET /api/orders
 
-router.get('/', async (req, res, next) => {
+ordersRouter.get('/', async (req, res, next) => {
     try {
         const allOrders = await getAllOrders();
         res.send(allOrders);
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 
 //POST /api/orders
 
-router.post('/', async (req, res, next) => {
+ordersRouter.post('/', async (req, res, next) => {
     const {userId, isComplete, total, orderDate, productId} = req.body;
     try {
         const order = await createOrders({
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
 
 //PATCH /api/orders/:orderId
 
-router.patch('/:orderId', async (req, res, next) => {
+ordersRouter.patch('/:orderId', async (req, res, next) => {
     try {
         const { orderId } = req.params;
         const { userId, isComplete, total } = req.body;
@@ -61,4 +61,4 @@ router.patch('/:orderId', async (req, res, next) => {
 
 
 
-module.exports = router;
+module.exports = ordersRouter;

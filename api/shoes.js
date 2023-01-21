@@ -19,7 +19,7 @@ const { requireAdmin } = require('./utils');
 
 
 //GET 
-router.get("/", async (req, res) => {
+router.get("/shoes", async (req, res) => {
     try {
         const shoes = await getAllShoes();
         console.log("Getting all shoes", shoes) //delete later
