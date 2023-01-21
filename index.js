@@ -16,7 +16,7 @@ server.use(express.json());
 
 // here's our static files
 const path = require('path');
-server.use(express.static(path.join(__dirname, 'build')));
+server.use(express.static(path.join(__dirname, 'public')));
 
 // here's our API
 const apiRouter = require("./api/index")
@@ -24,16 +24,18 @@ server.use('/api', apiRouter);
 
 // by default serve up the react app if we don't recognize the route
 server.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+
 
 // bring in the DB connection
 const client = require('./db/client');
-client.connect()
+// client.connect()
 
 
 // connect to the server
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 
 // define a server handle to close open tcp connection after unit tests have run
 const handle = server.listen(PORT, async () => {
@@ -61,5 +63,5 @@ server.use((error, req, res, next) => {
 
 // export server and handle for routes/*.test.js
 module.exports = { server, 
-  //handle
+  handle
  };

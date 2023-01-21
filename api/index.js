@@ -5,11 +5,11 @@ const jwt = require('jsonwebtoken');
 const {getUserById} = require("../db")
 const {JWT_SECRET="thisIsASecret"} = process.env
 
-apiRouter.get('/', (req, res, next) => {
-  res.send({
-    message: 'API is under construction!',
-  });
-});
+// apiRouter.get('/', (req, res, next) => {
+//   res.send({
+//     message: 'API is under construction!',
+//   });
+// });
 
 apiRouter.get('/health', (req, res, next) => {
   res.send({
