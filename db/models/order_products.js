@@ -119,6 +119,6 @@ async function deleteOrderProduct(id) {
     createOrderProducts,
     addProductToOrder,
     updateOrderProduct,
-    deleteOrderProduct
-
+    deleteOrderProduct,
+    getOrderProductById
   }
