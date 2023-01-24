@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const { requireUser } = require('./utils')
 
 const {
     createShoes,
@@ -11,15 +11,15 @@ const {
     getShoesBySize,
     updateShoes,
     deleteShoes
-} = require('../db') 
-
+} = require('../db/models/shoes') 
+const shoesRouter = express.Router();
 
 const { requireAdmin } = require('./utils');
 //admin must have full rights to make backend requests to add, edit, and remove products.
 
 
 //GET 
-router.get("/shoes", async (req, res) => {
+shoesRouter.get("/", async (req, res) => {
     try {
         const shoes = await getAllShoes();
         console.log("Getting all shoes", shoes) //delete later
@@ -29,7 +29,7 @@ router.get("/shoes", async (req, res) => {
     }
 });
 
-router.get("/:userId", async (req, res) => {
+shoesRouter.get("/:userId", async (req, res) => {
     try{
         const { userId } = req.params;
         const shoe = await getShoesByUser(userId);
@@ -42,7 +42,7 @@ router.get("/:userId", async (req, res) => {
 
 )
 
-router.get("/:shoesId", async (req, res) => {
+shoesRouter.get("/:shoesId", async (req, res) => {
     try{
         const { shoesId } = req.params
         const shoe = await getShoesById(shoesId);
@@ -53,7 +53,7 @@ router.get("/:shoesId", async (req, res) => {
     }
 })
 
-router.get("/type/:type", async (req, res) => {
+shoesRouter.get("/type/:type", async (req, res) => {
     try {
         const { type } = req.params;
         const shoes = await getShoesByType(type);
@@ -64,7 +64,7 @@ router.get("/type/:type", async (req, res) => {
     }
 })
 
-router.get("/price/:price", async (req, res) => {
+shoesRouter.get("/price/:price", async (req, res) => {
     try {
         const { price } = req.params;
         const shoes = await getShoesByPrice(price);
@@ -75,7 +75,7 @@ router.get("/price/:price", async (req, res) => {
     }
 })
 
-router.get("/size/:size", async (req, res) => {
+shoesRouter.get("/size/:size", async (req, res) => {
     try {
         const { size } = req.params;
         const shoes = await getShoesBySize(size);
@@ -88,9 +88,36 @@ router.get("/size/:size", async (req, res) => {
 
 //POST 
 
+shoesRouter.post('/', requireUser, async (req, res, next) => {
+    const {
+        username,
+        shoename,
+        description,
+        price,
+        type,
+        size
+     } = req.body;
+     const { userId } = req.user;
+     console.log(req.body)
+     try{
+        const createingShoes = await createShoes({
+            userId: userId,
+            username: username,
+            shoename: shoename,
+            description: description,
+            price: price,
+            type: type,
+            size: size,
+         });
+        res.send(createingShoes)
+     }catch({ name, message }){
+        next({ name, message});
+     }
+});
 
 
-router.post('/', requireAdmin, async (req, res, next) => {
+
+shoesRouter.post('/', requireAdmin, async (req, res, next) => {
     const { 
         userId, 
         username, 
@@ -113,7 +140,7 @@ router.post('/', requireAdmin, async (req, res, next) => {
 //PATCH
 
 
-router.patch('/:shoesId', requireAdmin, async (req, res, next) => {
+shoesRouter.patch('/:shoesId', requireAdmin, async (req, res, next) => {
     const id = Number(req.params.shoesId);
     const { userId, username, shoename, description, price, type, size } = req.body;
 
@@ -137,7 +164,7 @@ router.patch('/:shoesId', requireAdmin, async (req, res, next) => {
 
 //DELETE
 
-router.delete('/:shoesId', requireAdmin, async (req, res, next) => {
+shoesRouter.delete('/:shoesId', requireAdmin, async (req, res, next) => {
     const id = Number(req.params.shoesId);
     try{
         const deletedShoes = await deleteShoes(id);
@@ -152,4 +179,4 @@ router.delete('/:shoesId', requireAdmin, async (req, res, next) => {
 
 
 
-module.exports = router;
+module.exports = shoesRouter;
