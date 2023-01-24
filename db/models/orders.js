@@ -105,11 +105,36 @@ async function deleteOrdersById (id) {
     }
 };
 
+// need to attach shoes to an order... 
+async function attachShoesToOrders(orders) {
+    try {
+      const { rows } = await client.query(`
+      SELECT shoes.*, order_products.price, order_products.quantity, order_products."orderId"
+      FROM shoes
+      INNER JOIN order_products ON order_products."productId"=shoes.id
+      `)
+      const ordersWithProducts = orders.map((order) => {
+        order.shoes = [];
+        for (let i = 0; i < rows.length; i++) {
+          let shoe = rows[i]
+          if (shoe.orderId === order.id) {
+            order.shoes.push(shoe)
+          }
+        }
+        return order
+      })
+      return ordersWithProducts
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 module.exports = {
     createOrders,
     getOrdersByUserId,
     getAllOrders,
     updateOrders,
     deleteOrdersById,
-    getOrdersById
+    getOrdersById,
+    attachShoesToOrders
 }
