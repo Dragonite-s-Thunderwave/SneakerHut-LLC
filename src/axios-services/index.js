@@ -41,8 +41,61 @@ const makeHeaders = (token) => {
 
 
 //***** REVIEWS FUNCTIONS GO HERE */
+export const fetchReviews = async () => {
+  try {
+  const response = await fetch(`${BASE_URL}/reviews`, {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
 
+  const data = await response.json()
 
+  return data;
+} catch(error) {
+  console.error("There was an error fetching reviews", error)
+}
+}
+
+export const createReviews = async (username, rating, comment) => {
+  try {
+    const response = await fetch(`${BASE_URL}/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application.json"
+      },
+      body: JSON.stringify({
+        username,
+        rating,
+        comment
+      })
+    })
+
+    const data = await response.json();
+
+    return data;
+  } catch(error) {
+    console.error("There was an error creating reviews", error)
+  }
+}
+
+export const deleteReview = async (token, reviewId) => {
+  console.log('api delete review', reviewId)
+  try{
+    const response = await fetch(`${BASE_URL}/reviews/${reviewId}`, {
+    method: "DELETE",
+    headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+    }
+    })
+
+    const data = await response.json()
+  return data;
+  } catch(error) {
+    console.error("There was an error deleting reviews", error)
+  }
+}
 
 
 
