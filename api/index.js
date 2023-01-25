@@ -16,11 +16,7 @@ apiRouter.get('/health', (req, res, next) => {
     healthy: true,
   });
 });
-<<<<<<< Updated upstream
 
-
-=======
->>>>>>> Stashed changes
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
@@ -59,7 +55,6 @@ apiRouter.use('/shoes', shoesRouter)
 
 
 })
-
 
 //ROUTER: /api/users
 const usersRouter = require('./users.js');
