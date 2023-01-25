@@ -9,8 +9,8 @@ async function createUser({username, password, email, fullName, creditCardInfo, 
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
     const { rows: [user]} = await client.query(`
-      INSERT INTO users (username, password, email, "fullName", "creditCardInfo", address, city, state, zip)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO users (username, password, email, "isAdmin", "fullName", "creditCardInfo", address, city, state, zip)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *;
       `, [username, hashedPassword, email, fullName, creditCardInfo, address, city, state, zip]);
 
@@ -85,11 +85,25 @@ async function getUserByUsername(username) {
   }
 }
 
+async function getUserIfAdmin() {
+  try {
+    const {rows: [user]} = await client.query(`
+      SELECT *
+      FROM users
+      WHERE "isAdmin" = true;
+    `)
+
+    return user;
+  } catch(error) {
+    console.error("There is no admin", error)
+  }
+}
 
 module.exports = {
   // add your database adapter fns here
   getUser,
   createUser,
   getUserById,
-  getUserByUsername
+  getUserByUsername,
+  getUserIfAdmin
 };
