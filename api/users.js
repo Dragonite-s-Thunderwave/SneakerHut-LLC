@@ -3,7 +3,7 @@ const usersRouter = express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET="thisIsASecret"} = process.env
 const {createUser, getUserByUsername, getUser} = require('../db/models/user')
-const { requireUser } = require('./utils')
+const { requireUser, requireAdmin } = require('./utils')
 
 //POST /api/users/login
 
@@ -46,6 +46,8 @@ usersRouter.post('/login', async (req, res, next) => {
 usersRouter.post('/register', async (req, res, next) => {
     
     const { username, password, email, fullName, creditCardInfo, address, city, state, zip } = req.body.user;
+
+    
 
     try {
         const _user = await getUserByUsername(username);
@@ -106,5 +108,16 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
         next(error);
     }
 });
+
+//GET/api/users/admin
+usersRouter.get('/admin', requireAdmin, async (req, res, next) => {
+    const {admin} = req.user.isAdmin;
+
+    try {
+        res.send(admin)
+    } catch(error) {
+        next(error)
+    }
+})
 
 module.exports = usersRouter; 

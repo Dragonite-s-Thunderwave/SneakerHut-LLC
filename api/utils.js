@@ -7,7 +7,7 @@ function requireUser(req, res, next) {
                 message: "You must be logged in to perform this action"
             });
         } else {
-            next();
+            next()
         }
     } catch(error) {
         next(error)
@@ -15,9 +15,10 @@ function requireUser(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
+
     try {
-        if(!req.admin) {
-            res.status(401);
+        if(!req.user.isAdmin) {
+            res.status(403);
             next({
                 error: "MissingAdminError",
                 name: "MissingAdminError",
