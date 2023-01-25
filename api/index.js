@@ -17,16 +17,6 @@ apiRouter.get('/health', (req, res, next) => {
   });
 });
 
-//ROUTER: /api/users
-const usersRouter = require('./users.js');
-apiRouter.use('/users', usersRouter)
-
-const ordersRouter = require('./order.js');
-apiRouter.use('/orders', ordersRouter)
-
-const shoesRouter = require('./shoes');
-apiRouter.use('/shoes', shoesRouter)
-
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
@@ -53,6 +43,20 @@ apiRouter.use(async (req, res, next) => {
     next({name: "AuthorizationHeaderError", message: `Authorization token must start with ${prefix}`})
   }
 })
+
+
+//ROUTER: /api/users
+const usersRouter = require('./users.js');
+apiRouter.use('/users', usersRouter)
+
+const ordersRouter = require('./order.js');
+apiRouter.use('/orders', ordersRouter)
+
+const shoesRouter = require('./shoes');
+apiRouter.use('/shoes', shoesRouter)
+
+
+
 
 // place your routers here
 // server.use('/', routes)
