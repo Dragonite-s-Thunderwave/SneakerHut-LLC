@@ -20,11 +20,11 @@ ordersRouter.get('/', async (req, res, next) => {
 //POST /api/orders
 
 ordersRouter.post('/', async (req, res, next) => {
-    const {userId, isComplete, total, orderDate, productId} = req.body;
+    const {userId, status, total, orderDate, productId} = req.body;
     try {
         const order = await createOrders({
             userId: userId,
-            isComplete: isComplete,
+            status: status,
             total: total,
             orderDate: orderDate,
             productId: productId,
@@ -42,9 +42,9 @@ ordersRouter.post('/', async (req, res, next) => {
 ordersRouter.patch('/:orderId', async (req, res, next) => {
     try {
         const { orderId } = req.params;
-        const { userId, isComplete, total } = req.body;
+        const { userId, status, total } = req.body;
 
-        const newOrder = {id: orderId, isComplete: isComplete, userId: userId };
+        const newOrder = {id: orderId, status: status, userId: userId };
 
         const updatedOrder = await updateOrders(newOrder)
 

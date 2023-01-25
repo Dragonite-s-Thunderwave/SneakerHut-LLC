@@ -1,13 +1,13 @@
 //****where are we putting the client??***
 const client = require('../client');
 
-async function createOrders ({userId, isComplete, total, orderDate, productId}) {
+async function createOrders ({userId, status='open', total, orderDate}) {
     try {
         const { rows: [orders] } = await client.query(`
-            INSERT INTO order("userId", "isComplete", total, "orderDate", "productId")
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO order("userId", status, total, "orderDate")
+            VALUES ($1, $2, $3, $4)
             RETURNING *;
-        `, [userId, isComplete, total, orderDate, productId]);
+        `, [userId, status, total, orderDate]);
 
         return orders;
 
@@ -33,7 +33,7 @@ async function getOrdersByUserId(userId){
     }
 };
 
-async function getAllOrders (id) {
+async function getAllOrders () {
     try {
         const {rows: [orders]} = await client.query(`
         SELECT *
@@ -105,11 +105,36 @@ async function deleteOrdersById (id) {
     }
 };
 
+// need to attach shoes to an order... 
+async function attachShoesToOrders(orders) {
+    try {
+      const { rows } = await client.query(`
+      SELECT shoes.*, order_products.price, order_products.quantity, order_products."orderId"
+      FROM shoes
+      INNER JOIN order_products ON order_products."productId"=shoes.id
+      `)
+      const ordersWithProducts = orders.map((order) => {
+        order.shoes = [];
+        for (let i = 0; i < rows.length; i++) {
+          let shoe = rows[i]
+          if (shoe.orderId === order.id) {
+            order.shoes.push(shoe)
+          }
+        }
+        return order
+      })
+      return ordersWithProducts
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 module.exports = {
     createOrders,
     getOrdersByUserId,
     getAllOrders,
     updateOrders,
     deleteOrdersById,
-    getOrdersById
+    getOrdersById,
+    attachShoesToOrders
 }

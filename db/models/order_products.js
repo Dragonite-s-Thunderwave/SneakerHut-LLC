@@ -1,5 +1,6 @@
 const client = require("../client");
 
+// create func createOrderProduct
 async function createOrderProducts({ productId, shoeId, price, quantity }) {
     try {
       const {
@@ -40,14 +41,14 @@ async function createOrderProducts({ productId, shoeId, price, quantity }) {
   }
 
 //create func addProductToOrder
-async function addProductToOrder({orderId, shoeId, price, quantity}){
-    try {
+// async function addProductToOrder({orderId, shoeId, price, quantity}){
+//     try {
 
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
+//     } catch (error) {
+//         console.error(error);
+//         throw error;
+//     }
+// }
 
 
 
@@ -119,6 +120,6 @@ async function deleteOrderProduct(id) {
     createOrderProducts,
     addProductToOrder,
     updateOrderProduct,
-    deleteOrderProduct
-
+    deleteOrderProduct,
+    getOrderProductById
   }

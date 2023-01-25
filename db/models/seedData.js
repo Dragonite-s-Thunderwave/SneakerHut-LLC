@@ -2,6 +2,8 @@ const client = require('../client') //createusers may be moved to users.js
 const { createUser } = require('./user')
 const { createShoes } = require('./shoes')
 const { createReview } = require('./reviews')
+const { createOrders } = require('./orders')
+const { createOrderProducts } = require('./order_products')
 
 
 
@@ -10,7 +12,7 @@ async function dropTables() {
     console.log('Dropping tables...') //delete later
     await client.query(
       `
-     DROP TABLE IF EXISTS cart;
+     DROP TABLE IF EXISTS order_products;
      DROP TABLE IF EXISTS shoes;
      DROP TABLE IF EXISTS reviews;
      DROP TABLE IF EXISTS orders;
@@ -44,7 +46,7 @@ async function createTables() {
         CREATE TABLE orders (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
-          "isComplete" VARCHAR NOT NULL,
+          status VARCHAR(255) DEFAULT 'open',
           total DECIMAL (255,2) NOT NULL,
           "orderDate" DATE NOT NULL
         );
@@ -68,15 +70,15 @@ async function createTables() {
             size INTEGER NOT NULL,
             availability BOOLEAN DEFAULT true
        );
-
-       CREATE TABLE cart (
+      
+       CREATE TABLE order_products (
           id SERIAL PRIMARY KEY,
           "shoeId" INT REFERENCES shoes(id),
           "orderId" INT REFERENCES orders(id),
           price INT NOT NULL,
-          quantity INT NOT NULL DEFAULT 0,
-          UNIQUE ("shoeId", "orderId")
-       )`)
+          quantity INT NOT NULL DEFAULT O
+       )
+       `)
 }
 
 
@@ -177,8 +179,72 @@ async function createInitialReviews() {
   } catch (error) {
     console.error('Error creating reviews', error)
   }
-
 }
+
+async function createInitialOrders() {
+  try {
+    console.log('Starting to create orders')
+    const dummyOrders = [
+      {
+        status: 'open',
+        userId: 1
+      },
+      {
+        status: 'open',
+        userId: 1
+      },
+      {
+        status: 'closed',
+        userId: 2
+      },
+      {
+        status: 'open',
+        userId: 2
+      }
+    ]
+    const orders = await Promise.all(dummyOrders.map(createOrders))
+    return orders
+  } catch (error) {
+    console.error('Error creating orders', error)
+  }
+}
+
+async function createInitialOrderProducts() {
+  try {
+    console.log('Starting to create order_products')
+    const dummyOrderProducts = [
+      {
+        shoeId: 2,
+        orderId: 1,
+        price: '79.99',
+        quantity: 1
+      },
+      {
+        shoeId: 1,
+        orderId: 1,
+        price: '179.99',
+        quantity: 2
+      },
+      {
+        shoeId: 1,
+        orderId: 2,
+        price: '79.99',
+        quantity: 3
+      },
+      {
+        shoeId: 2,
+        orderId: 1,
+        price: '79.99',
+        quantity: 1
+      }
+    ]
+    const orderProducts = await Promise.all(dummyOrderProducts.map(createOrderProducts))
+    return orderProducts
+  } catch (error) {
+    console.error('Error creating orders_products', error)
+  }
+}
+
 
 async function rebuildDB() {
     try {
@@ -188,6 +254,8 @@ async function rebuildDB() {
         await createInitialUsers()
         await createInitialReviews()
         await createInitialShoes()
+        await createInitialOrders()
+        await createInitialOrderProducts()
     } catch(error){
        console.error("There was an error running rebuildDB", error)
     }
