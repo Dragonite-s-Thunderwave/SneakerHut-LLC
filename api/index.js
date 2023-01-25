@@ -16,8 +16,11 @@ apiRouter.get('/health', (req, res, next) => {
     healthy: true,
   });
 });
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
@@ -42,6 +45,19 @@ apiRouter.use(async (req, res, next) => {
   } else {
     next({name: "AuthorizationHeaderError", message: `Authorization token must start with ${prefix}`})
   }
+  
+//ROUTER: /api/users
+const usersRouter = require('./users.js');
+apiRouter.use('/users', usersRouter)
+
+const ordersRouter = require('./order.js');
+apiRouter.use('/orders', ordersRouter)
+
+const shoesRouter = require('./shoes');
+apiRouter.use('/shoes', shoesRouter)
+
+
+
 })
 
 

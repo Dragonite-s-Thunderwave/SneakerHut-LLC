@@ -39,17 +39,100 @@ const App = () => {
   // })
 
 
-  return (
-    <div>
-        <h1>Welcome to SneakerHut!</h1>
-        {username || token ? <h3>You are logged in as: {username}</h3> : (
-        <div>
-            {/* <h2>Please <Link to="AccountForm/login">Log In</Link></h2>
-            <h3>Not a member? <Link to="AccountForm/register">Sign Up!</Link></h3> */}
-        </div>
-        )}
-    </div>
-)
+  // this works, can come back to this ----------->?
+
+//   return (
+//     <div>
+//         <h1>Welcome to SneakerHut!</h1>
+//         {username || token ? <h3>You are logged in as: {username}</h3> : (
+//         <div>
+//             {/* <h2>Please <Link to="AccountForm/login">Log In</Link></h2>
+//             <h3>Not a member? <Link to="AccountForm/register">Sign Up!</Link></h3> */}
+//         </div>
+//         )}
+//     </div>
+// )
+
+
+
+//new stuff here------------>
+
+return (
+  <div className="container">
+      <nav className="ui secondary menu">
+          <Link className="item" style={{color: "white"}} to="/">
+              Home
+          </Link>
+          <Link className="item" style={{color: "white"}} to="/Shoes">
+              Shoes
+          </Link>
+          <Link className="item" style={{color:"white"}} to="/Reviews">
+              Reviews
+          </Link>
+          <div className="right menu">
+              {token ? (
+                  <button className="ui item" style={{color: "white"}} onClick={(event) => {
+                      event.preventDefault();
+                      logOut();
+                  }}>Log Out</button>
+              ):(
+              <>
+                  <Link className="ui item" style={{color: "white"}} to="/AccountForm/login">
+                      Log In
+                  </Link>
+                  <Link className="ui item" style={{color: "white"}} to="/AccountForm/register">
+                      Sign Up    
+                  </Link>    
+              </>
+              )}
+          </div>
+      </nav>
+
+      <Switch>
+          <Route exact path="/" >
+              <Home username={username} token={token}/>
+          </Route>
+          <Route path="/shoes/:shoeId">
+              <SingleShoe shoes={shoes} token={token} />
+          </Route>
+          <Route path="/shoes/create">
+              <CreateShoes token={token} shoes={shoes}/>
+          </Route>
+          <Route path="/Reviews">
+              <Reviews reviews={reviews} token={token} />
+          </Route>
+          <Route path="/Reviews/create">
+              <CreateReviews token={token} setReviews={setReviews}/>
+          </Route>               
+          <Route path="/Revies/users/:username">
+              <UsersReviews reviews={reviews} username={username} token={token}/>
+          </Route>                
+          <Route path="/Orders">
+              <Orders orders={orders} token={token}/>
+          </Route>
+          <Route path="/orders/:orderId">
+              <SingleOrder token={token} orders={orders} />
+          </Route>
+          <Route path="/AccountForm/:action">
+              <AccountForm setToken={setToken}/>
+          </Route>
+      </Switch>
+
+  </div>
+
+);
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 export default App;
