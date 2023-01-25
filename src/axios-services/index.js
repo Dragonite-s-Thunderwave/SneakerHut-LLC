@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 
 export const BASE_URL = "http://localhost:3000/api";
 
@@ -23,7 +23,7 @@ const makeHeaders = (token) => {
 /* 
   export async function getUsers() {
     try {
-      const { data: users } = await axios.get('/api/users')
+      const { data: users } = await fetch.get('/api/users')
       return users;
     } catch(err) {
       console.error(err)
@@ -134,7 +134,7 @@ export const fetchAllOrders = async () => {
 
 export async function getAPIHealth() {
   try {
-    const { data } = await axios.get('/api/health');
+    const { data } = await fetch('/api/health');
     return data;
   } catch (err) {
     console.error(err);
