@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react' 
-import { fetchAllOrders } from '../axios-services'
+
+import React, { useEffect, useState } from 'react'
+
 
 
 
