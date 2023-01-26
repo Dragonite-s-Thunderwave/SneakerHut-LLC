@@ -4,8 +4,15 @@ const server = express();
 
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
-const cors = require('cors');
-server.use(cors());
+const cors = require("cors");
+server.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 // create logs for everything
 const morgan = require('morgan');
@@ -32,7 +39,7 @@ const client = require('./db/client');
 
 
 // connect to the server
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4000;
 
 // define a server handle to close open tcp connection after unit tests have run
 const handle = server.listen(PORT, async () => {

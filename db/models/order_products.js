@@ -122,7 +122,7 @@ async function deleteOrderProduct(id) {
 
   module.exports = {
     createOrderProducts,
-    addProductToOrder,
+    // addProductToOrder,
     updateOrderProduct,
     deleteOrderProduct,
     getOrderProductById
