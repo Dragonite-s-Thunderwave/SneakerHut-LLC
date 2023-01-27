@@ -15,12 +15,6 @@ const Shoes = () => {
 
 
 
-export default Shoes
-
-const Shoes = (props) => {
-}
-
-
 
 export default Shoes;
 

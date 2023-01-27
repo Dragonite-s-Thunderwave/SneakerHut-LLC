@@ -34,6 +34,27 @@ const makeHeaders = (token) => {
 
 //***** USERS FUNCTIONS GO HERE */
 
+export const fetchLogin = async (username, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch(error) {
+    console.error("There was an error logging in", error)
+  }
+}
+
 export const fetchRegister = async (username, password, email, fullName, creditCardInfo, address, city, state, zip) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
