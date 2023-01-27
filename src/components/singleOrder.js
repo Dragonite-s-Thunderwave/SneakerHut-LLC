@@ -2,10 +2,15 @@
 import React, { useEffect, useState } from 'react'
 
 
-const SingleOrder = () => {
+// const singleOrder = (props) => {
+//     const {}
+// }
+
+const SingleOrder = (props) => {
 
 }
 
+export default SingleOrder;
 
 
 

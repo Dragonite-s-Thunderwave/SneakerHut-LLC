@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const SingleShoe = () => {
-
+const SingleShoe = (props) => {
 }
 
 
-
-
-
-
-
-
-
-
-
-export default SingleShoe
+export default SingleShoe;
