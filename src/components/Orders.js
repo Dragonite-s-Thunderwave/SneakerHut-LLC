@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 
 
+const Orders = (props) => {
+}
 
 
 
@@ -15,4 +17,4 @@ import { Link } from "react-router-dom";
 
 
 
-export default Cart
+export default Orders;
