@@ -163,24 +163,15 @@ export const deleteReview = async (token, reviewId) => {
 
 
 
-
-
-
-//***** CART FUNCTIONS GO HERE */
-
-
-
-
-
-
 //***** ORDERS FUNCTIONS GO HERE */
 
 
 export const fetchAllOrders = async () => {
-  const url = `{BASE_URL}/orders`;
+  const url = `${BASE_URL}/orders`;
   try {
     const result = await fetch(url);
     const response = await response.json();
+    return response
   } catch(error) {
     console.error("Error fetching all orders", error)
   }
@@ -189,12 +180,28 @@ export const fetchAllOrders = async () => {
 
 
 //***** SHOES FUNCTIONS GO HERE */
+  
+export const fetchAllShoes = async () => {
+  const url = `${BASE_URL}/shoes`;
+  try {
+    const result = await fetch(url);
+    const response = await response.json();
+    return response
+  } catch (error) {
+    console.error("There was an error fetching shoes", error)
+  }
+} 
 
-
-
-
-
-
+export const fetchSingleShoe = async (id) => {
+  const url = `${BASE_URL}/shoes/${id}`
+  try {
+    const result = await fetch(url);
+    const response = await response.json()
+    return response
+  } catch (error) {
+    console.error("There was an error fetching your shoe", error)
+  }
+}
 
 export async function getAPIHealth() {
   try {
