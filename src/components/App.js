@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { LoginForm, RegisterForm, Shoes, Orders, SingleOrder, SingleShoe, } from './';
+import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, } from './';
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -43,34 +43,32 @@ const App = () => {
         history.push('/');
     }
 
-
-
-
-  // this works, can come back to this ----------->?
-
   return ( 
     <>
     <h1>Welcome to SneakerHut!</h1>
-    <div class="ui grid">    
+    <div className="ui grid">    
     <BrowserRouter>  
-        <div class="four wide column">
-            <div class="ui vertical fluid tabular menu">
+        <div className="four wide column">
+            <div className="ui vertical fluid tabular menu">
 
-                <Link class="item active" to="/shoes">Shoes</Link>
-                <Link class="item active" to="/orders">Orders</Link>
-                <Link class="item active" to="/reviews">Reviews</Link>
+                <Link className="item active" to="/shoes">Shoes</Link>
+                <Link className="item active" to="/orders">Orders</Link>
+                <Link className="item active" to="/reviews">Reviews</Link>
             </div>
         </div>
-        <div class="twelve wide stretched column">
+        <div className="twelve wide stretched column">
             
-            <div class="ui segment">
+            <div className="ui segment">
 
-                <h2>Please <Link to="/AccountForm/login">Log In</Link></h2>
-                <h3>Not a member? <Link to="/AccountForm/register">Sign Up!</Link></h3>
-
+                <h2>Please <Link to="/login">Log In</Link></h2>
+                <h3>Not a member? <Link to="/register">Sign Up!</Link></h3>
+            </div>
         <Switch>
-            <Route path="/AccountForm/:action">
-                <AccountForm setToken={setToken}/>
+            <Route path="/login">
+                <LoginForm setToken={setToken}/>
+            </Route>
+            <Route path="/register">
+                <RegisterForm setToken={setToken}/>
             </Route>
             <Route path='/Shoes'>
                 <Shoes /> 
@@ -86,53 +84,11 @@ const App = () => {
             </Route>
         </Switch>
 
-
-
-
-
-        <Link class="item active" to="/shoes">Shoes</Link>
-        <Link class="item active" to="/orders">Orders</Link>
-        <Link class="item active" to="/reviews">Reviews</Link>
-    </div>
-  </div>
-  <div class="twelve wide stretched column">
-    <div class="ui segment">
-        <h1>Welcome to SneakerHut!</h1>
-        <h2>Please <Link to="/login">Log In</Link></h2>
-        <h3>Not a member? <Link to="/register">Sign Up!</Link></h3>
-
-    </div>    
-
-
-
-    <Switch>
-        <Route path="/login">
-            <LoginForm setToken={setToken}/>
-        </Route>
-        <Route path="/register">
-            <RegisterForm setToken={setToken}/>
-        </Route>
-        <Route path='/Shoes'>
-            <Shoes /> 
-        </Route>
-        <Route path='/Orders'>
-            <Orders /> 
-        </Route>
-        <Route path='/Reviews'>
-            <Reviews /> 
-        </Route>
-    </Switch>
-  </div></BrowserRouter>
-</div>
-
-
-        </div>    
-
-
-    </div>
-
+        </div>
   </BrowserRouter>
 </div>
+
+
 </>
 )
 
