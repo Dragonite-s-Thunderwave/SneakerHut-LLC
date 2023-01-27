@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 
 export const BASE_URL = "http://localhost:3000/api";
 
@@ -23,7 +23,7 @@ const makeHeaders = (token) => {
 /* 
   export async function getUsers() {
     try {
-      const { data: users } = await axios.get('/api/users')
+      const { data: users } = await fetch.get('/api/users')
       return users;
     } catch(err) {
       console.error(err)
@@ -45,6 +45,7 @@ export const fetchLogin = async (username, password) => {
         password
       })
     });
+
 
     const data = await response.json();
 
@@ -82,6 +83,75 @@ export const fetchRegister = async (username, password, email, fullName, creditC
     console.error("There was an error creating an account", error)
   }
 }
+
+export const fetchLogin = async (username, password) => {
+  try {
+     
+      const response = await fetch(`${BASE_URL}/users/login`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              user: {
+                  username,
+                  password
+              }
+          }),
+      });
+
+      const data = await response.json();
+
+      return data
+  } catch(error) {
+      console.error("There was an error logging in", error);
+  }
+};
+
+export const fetchGuest = async (token) => {
+  try {
+
+      const response = await fetch(`${BASE_URL}/users/me`, {
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+          }
+      });
+
+      const data = await response.json()
+
+      return data;
+  } catch(error) {
+      console.error('Failed to fetch guest!', error);
+
+  }
+}
+
+
+export const fetchRegister = async (username, password) => {
+  try {
+
+      const response = await fetch(`${BASE_URL}/users/register`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              user: {
+                  username,
+                  password
+              }
+          }),
+      });
+
+      const data = await response.json();
+
+      return data;
+
+  } catch(error) {
+      console.error("Error registering new user", error)
+  }
+};
 
 export const fetchGuest = async (token) => {
   try {
@@ -194,7 +264,7 @@ export const fetchAllOrders = async () => {
 
 export async function getAPIHealth() {
   try {
-    const { data } = await axios.get('/api/health');
+    const { data } = await fetch('/api/health');
     return data;
   } catch (err) {
     console.error(err);

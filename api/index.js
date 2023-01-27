@@ -41,6 +41,19 @@ apiRouter.use(async (req, res, next) => {
   } else {
     next({name: "AuthorizationHeaderError", message: `Authorization token must start with ${prefix}`})
   }
+  
+//ROUTER: /api/users
+const usersRouter = require('./users.js');
+apiRouter.use('/users', usersRouter)
+
+const ordersRouter = require('./order.js');
+apiRouter.use('/orders', ordersRouter)
+
+const shoesRouter = require('./shoes');
+apiRouter.use('/shoes', shoesRouter)
+
+
+
 })
 
 //ROUTER: /api/users

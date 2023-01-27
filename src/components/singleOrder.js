@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'axios
-import { fetchAllOrders } from '../axios-services'
 
-const singleOrder = (props) => {
-    const {}
-}
+import React, { useEffect, useState } from 'react'
 
 
-
+// const singleOrder = (props) => {
+//     const {}
+// }
 
 
 
@@ -15,4 +13,7 @@ const singleOrder = (props) => {
 
 
 
-export default SingleOrder
+
+
+
+// export default SingleOrder

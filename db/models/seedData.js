@@ -12,11 +12,11 @@ async function dropTables() {
     console.log('Dropping tables...') //delete later
     await client.query(
       `
-     DROP TABLE IF EXISTS order_products;
-     DROP TABLE IF EXISTS shoes;
-     DROP TABLE IF EXISTS reviews;
-     DROP TABLE IF EXISTS orders;
-     DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS order_products cascade;     
+      DROP TABLE IF EXISTS reviews cascade;     
+      DROP TABLE IF EXISTS shoes cascade;
+      DROP TABLE IF EXISTS orders cascade;
+      DROP TABLE IF EXISTS users cascade;
      `
     )
     console.log('Finished dropping tables') //delete later
@@ -47,7 +47,7 @@ async function createTables() {
         CREATE TABLE orders (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
-          status VARCHAR(255) DEFAULT 'open',
+          status VARCHAR(255) DEFAULT 'open', 
           total DECIMAL (255,2) NOT NULL,
           "orderDate" DATE NOT NULL
         );
@@ -69,7 +69,7 @@ async function createTables() {
             price MONEY NOT NULL,
             type VARCHAR(255) NOT NULL,
             size INTEGER NOT NULL,
-            availability BOOLEAN DEFAULT true
+            availability BOOLEAN DEFAULT TRUE
        );
       
        CREATE TABLE order_products (

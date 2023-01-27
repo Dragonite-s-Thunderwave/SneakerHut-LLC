@@ -44,6 +44,10 @@ async function createOrderProducts({ productId, shoeId, price, quantity }) {
 // async function addProductToOrder({orderId, shoeId, price, quantity}){
 //     try {
 
+//if statement to look at whether .length != 0
+
+// for loop to go through each order and insert product
+
 //     } catch (error) {
 //         console.error(error);
 //         throw error;
@@ -118,7 +122,7 @@ async function deleteOrderProduct(id) {
 
   module.exports = {
     createOrderProducts,
-    addProductToOrder,
+    // addProductToOrder,
     updateOrderProduct,
     deleteOrderProduct,
     getOrderProductById
