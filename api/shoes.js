@@ -23,7 +23,7 @@ shoesRouter.get("/", async (req, res) => {
     try {
         const shoes = await getAllShoes();
         console.log("Getting all shoes", shoes) //delete later
-        res.send({ shoes, });
+        res.send( shoes );
     } catch(error){
         console.error("There was an error fetching shoes", error)
     }

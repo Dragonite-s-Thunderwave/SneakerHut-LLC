@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllShoes } from '../axios-services';
+import { Link } from 'react-router-dom';
 
 
 const Shoes = () => {
@@ -9,6 +10,7 @@ const Shoes = () => {
         async function fetchShoes() {
             try {
                 const allShoes = await fetchAllShoes();
+                console.log('allshoesss', allShoes)
                 setShoesList(allShoes)
             } catch (error) {
                 console.error(error)
@@ -17,7 +19,7 @@ const Shoes = () => {
         fetchShoes()
     }, [])
 
-
+    console.log(shoesList)
     const mappedShoes = shoesList.map((shoe) => {
         return (
             <div>

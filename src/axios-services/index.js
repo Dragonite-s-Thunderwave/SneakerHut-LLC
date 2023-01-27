@@ -169,9 +169,9 @@ export const deleteReview = async (token, reviewId) => {
 export const fetchAllOrders = async () => {
   const url = `${BASE_URL}/orders`;
   try {
-    const result = await fetch(url);
-    const response = await response.json();
-    return response
+    const response = await fetch(url);
+    const data = await response.json();
+    return data
   } catch(error) {
     console.error("Error fetching all orders", error)
   }
@@ -184,9 +184,9 @@ export const fetchAllOrders = async () => {
 export const fetchAllShoes = async () => {
   const url = `${BASE_URL}/shoes`;
   try {
-    const result = await fetch(url);
-    const response = await response.json();
-    return response
+    const response = await fetch(url);
+    const data = await response.json();
+    return data
   } catch (error) {
     console.error("There was an error fetching shoes", error)
   }
@@ -195,9 +195,9 @@ export const fetchAllShoes = async () => {
 export const fetchSingleShoe = async (id) => {
   const url = `${BASE_URL}/shoes/${id}`
   try {
-    const result = await fetch(url);
-    const response = await response.json()
-    return response
+    const response = await fetch(url);
+    const data = await response.json()
+    return data
   } catch (error) {
     console.error("There was an error fetching your shoe", error)
   }
