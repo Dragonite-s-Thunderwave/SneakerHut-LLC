@@ -11,11 +11,11 @@ const {JWT_SECRET="thisIsASecret"} = process.env
 //   });
 // });
 
-apiRouter.get('/health', (req, res, next) => {
-  res.send({
-    healthy: true,
-  });
-});
+// apiRouter.get('/health', (req, res, next) => {
+//   res.send({
+//     healthy: true,
+//   });
+// });
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";

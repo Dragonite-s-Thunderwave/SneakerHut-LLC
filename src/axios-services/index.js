@@ -33,6 +33,56 @@ const makeHeaders = (token) => {
 
 
 //***** USERS FUNCTIONS GO HERE */
+export const fetchLogin = async (username, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    });
+
+
+    const data = await response.json();
+
+    return data;
+  } catch(error) {
+    console.error("There was an error logging in", error)
+  }
+}
+
+export const fetchRegister = async (username, password, email, fullName, creditCardInfo, address, city, state, zip) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        email,
+        fullName,
+        creditCardInfo,
+        address,
+        city,
+        state,
+        zip
+      })
+    });
+
+    const data = await response.json();
+
+    return data;
+    
+  } catch(error) {
+    console.error("There was an error creating an account", error)
+  }
+}
 
 export const fetchLogin = async (username, password) => {
   try {
@@ -103,9 +153,23 @@ export const fetchRegister = async (username, password) => {
   }
 };
 
+export const fetchGuest = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "applicatioin/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
 
+    const data = await response.json()
 
+    return data;
 
+  } catch(error) {
+    console.error("There was an error finding your account", error)
+  }
+}
 //***** REVIEWS FUNCTIONS GO HERE */
 export const fetchReviews = async () => {
   try {
@@ -128,7 +192,7 @@ export const createReviews = async (username, rating, comment) => {
     const response = await fetch(`${BASE_URL}/reviews`, {
       method: "POST",
       headers: {
-        "Content-Type": "application.json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         username,
