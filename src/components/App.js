@@ -46,8 +46,9 @@ const App = () => {
 
   // this works, can come back to this ----------->?
 
-  return (
-
+  return ( 
+    <>
+    <h1>Welcome to SneakerHut!</h1>
     <div class="ui grid">    
     <BrowserRouter>  
         <div class="four wide column">
@@ -59,11 +60,11 @@ const App = () => {
             </div>
         </div>
         <div class="twelve wide stretched column">
+            
             <div class="ui segment">
-                <h1>Welcome to SneakerHut!</h1>
+
                 <h2>Please <Link to="/AccountForm/login">Log In</Link></h2>
                 <h3>Not a member? <Link to="/AccountForm/register">Sign Up!</Link></h3>
-        </div>    
 
         <Switch>
             <Route path="/AccountForm/:action">
@@ -82,11 +83,19 @@ const App = () => {
                 <Reviews /> 
             </Route>
         </Switch>
+
+
+
+
+
+        </div>    
+
+
     </div>
 
   </BrowserRouter>
 </div>
-
+</>
 )
 
 
