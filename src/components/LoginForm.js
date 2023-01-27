@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { fetchLogin, fetchRegister } from '../axios-services';
-import { useParams, useHistory } from 'react-router-dom';
+import fetchLogin from '../axios-services';
+import { useHistory } from 'react-router-dom';
 
-const AccountForm = ({setToken}) => {
+const LoginForm = ({setToken}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const {action} = useParams();
     const history = useHistory();
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
 
-        const authenticated = action === "register" ? fetchRegister : fetchLogin;
-
-        const {error, token} = await authenticated(username, password);
+        const {error, token} = await fetchLogin(username, password);
 
         if (error) {
             console.error(error);
@@ -27,12 +24,10 @@ const AccountForm = ({setToken}) => {
         }
     }
 
-    const title = action === "login" ? "Log In" : "Sign Up";
-
     return(
         <div className="ui inverted segment">
             <form className="ui inverted form" onSubmit={onSubmitHandler}>
-                <h1>{title}</h1>
+                <h1>Log In!</h1>
                 <div className="field">
                     <label>Username</label>
                         <input 
@@ -65,4 +60,4 @@ const AccountForm = ({setToken}) => {
     )
 }
 
-export default AccountForm;
+export default LoginForm;
