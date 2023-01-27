@@ -42,8 +42,8 @@ async function createTables() {
             city VARCHAR(255) NOT NULL,
             state VARCHAR(255) NOT NULL,
             zip INTEGER NOT NULL
-
         );         
+
         CREATE TABLE orders (
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
@@ -76,8 +76,8 @@ async function createTables() {
           id SERIAL PRIMARY KEY,
           "shoeId" INT REFERENCES shoes(id),
           "orderId" INT REFERENCES orders(id),
-          price INT NOT NULL,
-          quantity INT NOT NULL DEFAULT O
+          price MONEY NOT NULL,
+          quantity INT NOT NULL DEFAULT 0  
        )
        `)
 }
