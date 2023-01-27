@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AccountForm, Shoes, Orders, SingleOrder, SingleShoe, } from './';
+import { LoginForm, RegisterForm, Shoes, Orders, SingleOrder, SingleShoe, } from './';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -87,16 +87,19 @@ const App = () => {
   <div class="twelve wide stretched column">
     <div class="ui segment">
         <h1>Welcome to SneakerHut!</h1>
-        <h2>Please <Link to="/AccountForm/login">Log In</Link></h2>
-        <h3>Not a member? <Link to="/AccountForm/register">Sign Up!</Link></h3>
+        <h2>Please <Link to="/login">Log In</Link></h2>
+        <h3>Not a member? <Link to="/register">Sign Up!</Link></h3>
 
     </div>    
 
 
 
     <Switch>
-        <Route path="/AccountForm/:action">
-            <AccountForm setToken={setToken}/>
+        <Route path="/login">
+            <LoginForm setToken={setToken}/>
+        </Route>
+        <Route path="/register">
+            <RegisterForm setToken={setToken}/>
         </Route>
         <Route path='/Shoes'>
             <Shoes /> 
