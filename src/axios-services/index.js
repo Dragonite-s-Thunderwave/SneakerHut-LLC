@@ -33,27 +33,6 @@ const makeHeaders = (token) => {
 
 
 //***** USERS FUNCTIONS GO HERE */
-export const fetchLogin = async (username, password) => {
-  try {
-    const response = await fetch(`${BASE_URL}/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username,
-        password
-      })
-    });
-
-
-    const data = await response.json();
-
-    return data;
-  } catch(error) {
-    console.error("There was an error logging in", error)
-  }
-}
 
 export const fetchRegister = async (username, password, email, fullName, creditCardInfo, address, city, state, zip) => {
   try {
@@ -105,51 +84,6 @@ export const fetchLogin = async (username, password) => {
       return data
   } catch(error) {
       console.error("There was an error logging in", error);
-  }
-};
-
-export const fetchGuest = async (token) => {
-  try {
-
-      const response = await fetch(`${BASE_URL}/users/me`, {
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-          }
-      });
-
-      const data = await response.json()
-
-      return data;
-  } catch(error) {
-      console.error('Failed to fetch guest!', error);
-
-  }
-}
-
-
-export const fetchRegister = async (username, password) => {
-  try {
-
-      const response = await fetch(`${BASE_URL}/users/register`, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              user: {
-                  username,
-                  password
-              }
-          }),
-      });
-
-      const data = await response.json();
-
-      return data;
-
-  } catch(error) {
-      console.error("Error registering new user", error)
   }
 };
 
