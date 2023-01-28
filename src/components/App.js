@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, Cart } from './';
+
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart } from './';
+
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -10,6 +12,7 @@ import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
 
 const App = () => {
+    const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
@@ -17,6 +20,18 @@ const App = () => {
 
 
   const history = useHistory();
+
+  useEffect(() => {
+    const getReviews = async () => {
+    try{
+        const result =await fetchReviews(token);
+        setReviews(result);
+    } catch(error) {
+        console.error("There was an error fetching reviews", error)
+    }
+  }
+  getReviews();
+}, [])  
 
 
   useEffect(() => {
@@ -84,8 +99,11 @@ const App = () => {
             <Route path='/orders'>
                 <Orders/> 
             </Route>
+            <Route path="/Review/create">
+                    <CreateReview token={token} setReviews={setReviews}/>
+                </Route>
             <Route path='/Reviews'>
-                <Reviews /> 
+                <Reviews reviews={reviews} setReviews={setReviews} token={token}/> 
             </Route>
         </Switch>
 
