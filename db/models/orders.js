@@ -48,18 +48,19 @@ async function getAllOrders () {
     }
 };
 
+
 async function getOrdersById (id) {
     try {
-        const {rows: [orders]} = await client.query(`
+        const {rows: [order]} = await client.query(`
         SELECT *
         FROM orders
         WHERE id=$1;
-        `, [userId]);
+        `, [id]);
 
-        return orders;
+        return order;
 
     } catch (error) {
-        console.error("Error getting all order histories");
+        console.error("Error getting single order");
         throw error;
     }
 };
