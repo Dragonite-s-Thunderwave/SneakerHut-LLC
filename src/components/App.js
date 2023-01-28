@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, Cart } from './';
+import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, Cart, AdminTools } from './';
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -8,6 +8,7 @@ import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleSho
 import { getAPIHealth, fetchGuest } from '../axios-services';
 import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
+import AdminTools from './AdminTools';
 
 const App = () => {
   const [username, setUsername] = useState(null);
@@ -58,6 +59,7 @@ const App = () => {
                 <Link className="item active" to="/cart">
                     <i className="cart arrow down icon"></i>
                 </Link>
+                {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
             </div>
         </div>
         <div className="twelve wide stretched column">
@@ -79,6 +81,9 @@ const App = () => {
             </Route>
             <Route path='/Reviews'>
                 <Reviews /> 
+            </Route>
+            <Route path="/AdminTools">
+                <AdminTools />
             </Route>
         </Switch>
 
