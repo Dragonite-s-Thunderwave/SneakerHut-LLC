@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+<<<<<<< HEAD
 import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, Cart, AdminTools } from './';
+=======
+
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart } from './';
+
+>>>>>>> main
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -11,6 +17,7 @@ import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
 import AdminTools from './AdminTools';
 
 const App = () => {
+    const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
@@ -18,6 +25,18 @@ const App = () => {
 
 
   const history = useHistory();
+
+  useEffect(() => {
+    const getReviews = async () => {
+    try{
+        const result =await fetchReviews(token);
+        setReviews(result);
+    } catch(error) {
+        console.error("There was an error fetching reviews", error)
+    }
+  }
+  getReviews();
+}, [])  
 
 
   useEffect(() => {
@@ -46,24 +65,37 @@ const App = () => {
 
   return ( 
     <>
-    <h1>Welcome to SneakerHut!</h1>
     <div className="ui grid">    
     <BrowserRouter>  
+    
         <div className="four wide column">
+            <br/>
+            <Link className="item active" to="/cart">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <i className="cart arrow down icon"></i>
+                </Link>
             <div className="ui vertical fluid tabular menu">
+                <Link className='item active' to="/">Home</Link>
                 <Link className="item active" to="/login">Login</Link>
                 <Link className="item active" to="/register">Register</Link>
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
+<<<<<<< HEAD
                 <Link className="item active" to="/cart">
                     <i className="cart arrow down icon"></i>
                 </Link>
                 {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
+=======
+                
+>>>>>>> main
             </div>
         </div>
         <div className="twelve wide stretched column">
         <Switch>
+            <Route exact path="/">
+                <Home token={token} username={username}/>
+            </Route>
             <Route path="/login">
                 <LoginForm setToken={setToken}/>
             </Route>
@@ -79,8 +111,11 @@ const App = () => {
             <Route path='/orders'>
                 <Orders/> 
             </Route>
+            <Route path="/Review/create">
+                    <CreateReview token={token} setReviews={setReviews}/>
+                </Route>
             <Route path='/Reviews'>
-                <Reviews /> 
+                <Reviews reviews={reviews} setReviews={setReviews} token={token}/> 
             </Route>
             <Route path="/AdminTools">
                 <AdminTools />

@@ -17,6 +17,19 @@ ordersRouter.get('/', async (req, res, next) => {
 })
 
 
+ordersRouter.get('/:orderId', async (req, res, next) => {
+
+    try {
+        console.log('getting single order')
+        const singleOrder = await getOrdersById(req.params.orderId)
+        res.send(singleOrder);
+    } catch ({ name, message }) {
+        next ({ name, message }); 
+    }
+})
+
+
+
 
 //POST /api/orders
 
