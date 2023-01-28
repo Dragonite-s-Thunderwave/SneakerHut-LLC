@@ -88,19 +88,19 @@ export const fetchRegister = async (username, password, email, fullName, creditC
 export const fetchGuest = async (token) => {
   try {
 
-      const response = await fetch(`${BASE_URL}/users/me`, {
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-          }
-      });
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "applicatioin/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
 
-      const data = await response.json()
+    const data = await response.json()
 
-      return data;
+    return data;
+
   } catch(error) {
-      console.error('Failed to fetch guest!', error);
-
+    console.error("There was an error finding your account", error)
   }
 }
 
@@ -163,24 +163,15 @@ export const deleteReview = async (token, reviewId) => {
 
 
 
-
-
-
-//***** CART FUNCTIONS GO HERE */
-
-
-
-
-
-
 //***** ORDERS FUNCTIONS GO HERE */
 
 
 export const fetchAllOrders = async () => {
-  const url = `{BASE_URL}/orders`;
+  const url = `${BASE_URL}/orders`;
   try {
-    const result = await fetch(url);
-    const response = await response.json();
+    const response = await fetch(url);
+    const data = await response.json();
+    return data
   } catch(error) {
     console.error("Error fetching all orders", error)
   }
@@ -189,12 +180,28 @@ export const fetchAllOrders = async () => {
 
 
 //***** SHOES FUNCTIONS GO HERE */
+  
+export const fetchAllShoes = async () => {
+  const url = `${BASE_URL}/shoes`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data
+  } catch (error) {
+    console.error("There was an error fetching shoes", error)
+  }
+} 
 
-
-
-
-
-
+export const fetchSingleShoe = async (id) => {
+  const url = `${BASE_URL}/shoes/${id}`
+  try {
+    const response = await fetch(url);
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("There was an error fetching your shoe", error)
+  }
+}
 
 export async function getAPIHealth() {
   try {
