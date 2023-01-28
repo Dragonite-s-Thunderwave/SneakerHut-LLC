@@ -40,20 +40,41 @@ async function createOrderProducts({ shoeId, orderId, price, quantity }) {
     }
   }
 
-//create func addProductToOrder
-// async function addProductToOrder({orderId, shoeId, price, quantity}){
-//     try {
-
-//if statement to look at whether .length != 0
-
-// for loop to go through each order and insert product
-
-//     } catch (error) {
-//         console.error(error);
-//         throw error;
-//     }
-// }
-
+  async function addProductToOrder({ orderId, shoeId, price, quantity }) {
+    try {
+      const [order] = await getOrderById(orderId);
+      for (let i = 0; i <= order.products.length; i++) {
+        let product = order.products[i];
+        if (i === order.products.length) {
+          const {
+            rows: [orderProduct],
+          } = await client.query(`
+          INSERT INTO order_products ("orderId", "shoeId", price, quantity)
+          VALUES ($1, $2, $3, $4)
+          RETURNING *
+          `, [orderId, shoeId, price, quantity]);
+          return orderProduct;
+        }
+        if (shoe.id === shoeId) {
+          const newPrice = product.price + price
+          const newQuantity = product.quantity + quantity
+          const { rows: [updatedOrderProduct]} = await client.query(
+            `
+          UPDATE order_products
+          SET price=$2, quantity=$3
+          WHERE "orderId"=$1
+          RETURNING *
+          `,
+            [orderId, newPrice, newQuantity]
+          );
+          return updatedOrderProduct;
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
 
 //create func updateOrderProduct
@@ -122,7 +143,7 @@ async function deleteOrderProduct(id) {
 
   module.exports = {
     createOrderProducts,
-    // addProductToOrder,
+    addProductToOrder,
     updateOrderProduct,
     deleteOrderProduct,
     getOrderProductById

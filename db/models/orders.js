@@ -35,7 +35,7 @@ async function getOrdersByUserId(userId){
 
 async function getAllOrders () {
     try {
-        const {rows: [orders]} = await client.query(`
+        const {rows: orders} = await client.query(`
         SELECT *
         FROM orders
         `);
