@@ -1,16 +1,16 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import LogoImage from "./photos/LogoImage.png"; //having issue with importing an image
+import { Link } from "react-router-dom";
 // import './Home.css';
 
 
 const Home = ({username, token}) => {
     return (
         <div>
-            <h1>Welcome to SneakerHut!</h1>
-            {username || token ? <h3>You are logged in as: {username}</h3> : (
+            <h1> </h1>
+            {username || token ? <h3>Welcome {username}, you're logged in.</h3> : (
             <div>
-                <h2>Please <Link to="AccountForm/login">Log In</Link></h2>
-                <h3>Not a member? <Link to="AccountForm/register">Sign Up!</Link></h3>
+                <img className="LogoImage" src={LogoImage} alt="store logo" width={950} height={700}/>
             </div>
             )}
         </div>
