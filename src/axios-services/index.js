@@ -88,19 +88,19 @@ export const fetchRegister = async (username, password, email, fullName, creditC
 export const fetchGuest = async (token) => {
   try {
 
-      const response = await fetch(`${BASE_URL}/users/me`, {
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-          }
-      });
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "applicatioin/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
 
-      const data = await response.json()
+    const data = await response.json()
 
-      return data;
+    return data;
+
   } catch(error) {
-      console.error('Failed to fetch guest!', error);
-
+    console.error("There was an error finding your account", error)
   }
 }
 

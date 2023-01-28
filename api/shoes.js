@@ -1,5 +1,5 @@
 const express = require('express');
-const { requireUser } = require('./utils')
+const { requireAdmin } = require('./utils')
 
 const {
     createShoes,
@@ -87,7 +87,7 @@ shoesRouter.get("/size/:size", async (req, res) => {
 
 //POST 
 
-shoesRouter.post('/', requireUser, async (req, res, next) => {
+shoesRouter.post('/', requireAdmin, async (req, res, next) => {
     const {
         username,
         shoename,

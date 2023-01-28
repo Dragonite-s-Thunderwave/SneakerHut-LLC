@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchLogin } from '../axios-services';
+import fetchLogin from '../axios-services/index.js';
 import { useHistory } from 'react-router-dom';
 
 const LoginForm = ({setToken}) => {
