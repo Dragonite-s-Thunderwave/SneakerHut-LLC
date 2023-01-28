@@ -77,14 +77,12 @@ const App = () => {
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
-<<<<<<< HEAD
+
                 <Link className="item active" to="/cart">
                     <i className="cart arrow down icon"></i>
                 </Link>
                 {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
-=======
-                
->>>>>>> main
+
             </div>
         </div>
         <div className="twelve wide stretched column">
