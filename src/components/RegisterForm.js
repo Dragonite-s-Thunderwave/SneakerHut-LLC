@@ -42,7 +42,7 @@ const RegisterForm = ({setToken}) => {
 
     return (
         <div>
-            <form onSubmit={onSubmitHandler}>
+            <form className="uiform" onSubmit={onSubmitHandler}>
                 <h1>Create an Account!</h1>
                 <div className="field">
                     <label>Username</label>
@@ -61,6 +61,7 @@ const RegisterForm = ({setToken}) => {
                         type="password"
                         value={password}
                         placeholder="password"
+                        minLength="8"
                         required
                         onChange={(event) => {
                             setPassword(event.target.value);

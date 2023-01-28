@@ -11,3 +11,9 @@
   color: var(--green);
   padding: 1rem;
 }
+
+.name {
+  color: brown;
+  font-size: 15vh;
+
+}

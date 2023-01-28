@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchLogin } from '../axios-services';
 import { useHistory } from 'react-router-dom';
 
@@ -53,7 +53,7 @@ const LoginForm = ({setToken}) => {
                         }}/>
                 </div>
                 <button className="ui button" type="submit">
-                    {title}
+                    Login
                 </button>
             </form>
         </div>
