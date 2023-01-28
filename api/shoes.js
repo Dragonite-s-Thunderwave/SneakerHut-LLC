@@ -13,8 +13,6 @@ const {
     deleteShoes
 } = require('../db/models/shoes') 
 const shoesRouter = express.Router();
-
-const { requireAdmin } = require('./utils');
 //admin must have full rights to make backend requests to add, edit, and remove products.
 
 

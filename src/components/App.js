@@ -89,6 +89,9 @@ const App = () => {
             <Route path='/Shoes'>
                 <Shoes /> 
             </Route>
+            <Route path='/orders/:orderId'>
+                <SingleOrder/> 
+            </Route>
             <Route path='/orders'>
                 <Orders/> 
             </Route>

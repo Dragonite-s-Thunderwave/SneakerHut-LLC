@@ -1,4 +1,3 @@
-//****where are we putting the client??***
 const client = require('../client');
 
 async function createOrders ({userId, status='open', total}) {

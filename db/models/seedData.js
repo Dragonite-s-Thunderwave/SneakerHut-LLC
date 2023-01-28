@@ -208,16 +208,6 @@ async function createInitialOrders() {
         userId: 1,
         total: 40.25,
       },
-      {
-        status: 'closed',
-        userId: 2,
-        total: 37.37,
-      },
-      {
-        status: 'open',
-        userId: 2,
-        total: 53.99,
-      }
     ]
     const orders = await Promise.all(dummyOrders.map(createOrders))
     return orders

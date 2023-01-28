@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllOrders, getAllOrderHistories, createOrderHistory, updateOrders } = require('../db/models/orders');
+const { getAllOrders, getOrdersById, getAllOrderHistories, createOrderHistory, updateOrders } = require('../db/models/orders');
 const ordersRouter = express.Router();
 const { requireUser } = require('./utils');
 

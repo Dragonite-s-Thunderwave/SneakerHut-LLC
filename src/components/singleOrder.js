@@ -21,7 +21,7 @@ const SingleOrder = () => {
         singleOrderPage()
     }, [orderId])
 
-    console.log('singleorderuserid', singleOrder.userId)
+    console.log('singleorderuserid', singleOrder.id)
     return (
         <div>
             <h2>1st order goes here{singleOrder.id}</h2>
