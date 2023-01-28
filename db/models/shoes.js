@@ -60,14 +60,11 @@ async function getShoesByUser({username}) {
 async function getShoesById(id) { 
     try{
         const {rows: [shoes]} = await client.query(`
-            SELECT shoes.*, users.username AS username
-            FROM 
-            shoes
-            JOIN users
-            ON shoes."userId"= users.id
-            WHERE shoes.id=$1;
+            SELECT *
+            FROM shoes
+            WHERE id=$1;
         `, [id])
-        return attachUserToShoe(shoes)
+        return shoes
     }catch(error){
         console.error("There was an error getting shoes by id", error)
     }

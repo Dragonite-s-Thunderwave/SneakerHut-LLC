@@ -8,6 +8,7 @@ const { requireUser } = require('./utils');
 
 ordersRouter.get('/', async (req, res, next) => {
     try {
+        console.log('getting all orders')
         const allOrders = await getAllOrders();
         res.send(allOrders);
     } catch ({ name, message }) {
