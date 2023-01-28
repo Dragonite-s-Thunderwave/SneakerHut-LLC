@@ -8,6 +8,7 @@ const { requireUser } = require('./utils');
 
 ordersRouter.get('/', async (req, res, next) => {
     try {
+        console.log('getting all orders')
         const allOrders = await getAllOrders();
         res.send(allOrders);
     } catch ({ name, message }) {
@@ -20,14 +21,12 @@ ordersRouter.get('/', async (req, res, next) => {
 //POST /api/orders
 
 ordersRouter.post('/', async (req, res, next) => {
-    const {userId, status, total, orderDate, productId} = req.body;
+    const {userId, status, total} = req.body;
     try {
         const order = await createOrders({
             userId: userId,
             status: status,
             total: total,
-            orderDate: orderDate,
-            productId: productId,
         })
         res.send(order)
     } catch ({ name, message }) {

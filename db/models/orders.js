@@ -1,13 +1,13 @@
 //****where are we putting the client??***
 const client = require('../client');
 
-async function createOrders ({userId, status='open', total, orderDate}) {
+async function createOrders ({userId, status='open', total}) {
     try {
         const { rows: [orders] } = await client.query(`
-            INSERT INTO orders("userId", status, total, "orderDate")
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO orders("userId", status, total)
+            VALUES ($1, $2, $3)
             RETURNING *;
-        `, [userId, status, total, orderDate]);
+        `, [userId, status, total]);
 
         return orders;
 
@@ -35,7 +35,7 @@ async function getOrdersByUserId(userId){
 
 async function getAllOrders () {
     try {
-        const {rows: [orders]} = await client.query(`
+        const {rows: orders} = await client.query(`
         SELECT *
         FROM orders
         `);

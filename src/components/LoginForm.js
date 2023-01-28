@@ -53,7 +53,7 @@ const LoginForm = ({setToken}) => {
                         }}/>
                 </div>
                 <button className="ui button" type="submit">
-                    {title}
+                    Submit
                 </button>
             </form>
         </div>

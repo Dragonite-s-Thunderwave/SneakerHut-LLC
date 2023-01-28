@@ -143,7 +143,7 @@ const RegisterForm = ({setToken}) => {
                             setZip(event.target.value);
                         } } />
                 </div>
-                <button type="submit"></button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     );

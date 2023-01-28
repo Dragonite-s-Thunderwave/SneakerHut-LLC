@@ -48,8 +48,7 @@ async function createTables() {
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
           status VARCHAR(255) DEFAULT 'open', 
-          total DECIMAL (255,2) NOT NULL,
-          "orderDate" DATE NOT NULL
+          total DECIMAL (255,2) NOT NULL
         );
         
         CREATE TABLE reviews (
@@ -201,19 +200,23 @@ async function createInitialOrders() {
     const dummyOrders = [
       {
         status: 'open',
-        userId: 1
+        userId: 1,
+        total: 39.99,
       },
       {
         status: 'open',
-        userId: 1
+        userId: 1,
+        total: 40.25,
       },
       {
         status: 'closed',
-        userId: 2
+        userId: 2,
+        total: 37.37,
       },
       {
         status: 'open',
-        userId: 2
+        userId: 2,
+        total: 53.99,
       }
     ]
     const orders = await Promise.all(dummyOrders.map(createOrders))

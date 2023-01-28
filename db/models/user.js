@@ -2,7 +2,7 @@
 const client = require('../client');
 const bcrypt = require('bcrypt');
 
-async function createUser({username, password, email, fullName, creditCardInfo, address, city, state, zip}) {
+async function createUser({username, password, email, isAdmin, fullName, creditCardInfo, address, city, state, zip}) {
   try {
     const SALT_COUNT = 10;
 

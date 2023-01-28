@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react'
 
 
-// const singleOrder = (props) => {
-//     const {}
-// }
+
+const SingleOrder = (props) => {
+
+}
 
 
 
@@ -12,8 +13,4 @@ import React, { useEffect, useState } from 'react'
 
 
 
-
-
-
-
-// export default SingleOrder
+export default SingleOrder
