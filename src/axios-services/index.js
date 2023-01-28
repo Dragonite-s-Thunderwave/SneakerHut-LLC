@@ -104,6 +104,20 @@ export const fetchGuest = async (token) => {
   }
 }
 
+export const fetchUpdateUser = async (token, userId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/:userId`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+  } catch(error) {
+    console.error("There was an error updating your post", error);
+  }
+}
+
 //***** REVIEWS FUNCTIONS GO HERE */
 export const fetchReviews = async () => {
   try {
