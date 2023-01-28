@@ -214,6 +214,77 @@ export const fetchSingleShoe = async (id) => {
   }
 }
 
+export const createShoes = async({token, userId, username, shoename, description, price, type, size }) => {
+  try {
+      const response = await fetch(`${BASE_URL}/shoes/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            userId: userId,
+            username: username,
+            shoename: shoename,
+            description: description,
+            price: price,
+            type: type,
+            size: size,
+      })
+  })
+      const result = await response.json()
+      return result
+    }catch(error){
+      console.error("There was an error creating shoes", error)
+  }
+}
+
+
+export const updateShoes = async({id, token, userId, username, shoename, description, price, type, size }) => {
+  try {
+      const response = await fetch(`${BASE_URL}/shoes/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            userId: userId,
+            username: username,
+            shoename: shoename,
+            description: description,
+            price: price,
+            type: type,
+            size: size,
+      })
+  })
+        const result = await response.json()
+        return result;
+    }catch(error) {
+      console.error("There was an error updating shoes", error);
+  }
+}
+
+
+export const deleteShoes = async({id, token}) => {
+  try {
+      const response = await fetch(`${BASE_URL}/shoes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        const result = await response.json()
+        return result;
+    }catch(error) {
+      console.error("There was an error deleting shoes", error);
+  }
+}
+
+//***** API HEALTH FUNCTIONS GO HERE */
+
+
 export async function getAPIHealth() {
   try {
     const { data } = await fetch('/api/health');

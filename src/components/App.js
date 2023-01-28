@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart } from './';
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart } from './';
 
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -60,23 +60,30 @@ const App = () => {
 
   return ( 
     <>
-    <h1>Welcome to SneakerHut!</h1>
     <div className="ui grid">    
     <BrowserRouter>  
+    
         <div className="four wide column">
+            <br/>
+            <Link className="item active" to="/cart">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <i className="cart arrow down icon"></i>
+                </Link>
             <div className="ui vertical fluid tabular menu">
+                <Link className='item active' to="/">Home</Link>
                 <Link className="item active" to="/login">Login</Link>
                 <Link className="item active" to="/register">Register</Link>
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
-                <Link className="item active" to="/cart">
-                    <i className="cart arrow down icon"></i>
-                </Link>
+                
             </div>
         </div>
         <div className="twelve wide stretched column">
         <Switch>
+            <Route exact path="/">
+                <Home token={token} username={username}/>
+            </Route>
             <Route path="/login">
                 <LoginForm setToken={setToken}/>
             </Route>
