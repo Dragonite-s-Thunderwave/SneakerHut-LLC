@@ -2,8 +2,8 @@ const express = require("express")
 const usersRouter = express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET="thisIsASecret"} = process.env
-const {createUser, getUserByUsername, getUser} = require('../db/models/user')
-const { requireUser } = require('./utils')
+const {createUser, getUserByUsername, getUser, updateUser} = require('../db/models/user')
+const { requireUser, requireAdmin } = require('./utils')
 
 //POST /api/users/login
 
@@ -109,6 +109,32 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
         next(error);
     }
 });
+
+//PATCH /api/users/:userId
+usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
+    const id = Number(req.params.userId);
+    const {username, password, email, isAdmin, fullName, creditCardInfo, address, city, state, zip} = req.body;
+
+    try {
+        const updatedUser = await updateUser({
+            id,
+            username,
+            password,
+            email,
+            isAdmin,
+            fullName,
+            creditCardInfo,
+            address,
+            city,
+            state,
+            zip
+        });
+
+        res.send(updatedUser)
+    } catch(error) {
+        console.error("There was an error updating user", error);
+    }
+})
 
 
 module.exports = usersRouter; 

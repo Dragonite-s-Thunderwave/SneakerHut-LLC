@@ -42,8 +42,10 @@ export const fetchLogin = async (username, password) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username,
-        password
+        user: {
+          username,
+          password
+        }
       })
     });
 
@@ -63,15 +65,17 @@ export const fetchRegister = async (username, password, email, fullName, creditC
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username,
-        password,
-        email,
-        fullName,
-        creditCardInfo,
-        address,
-        city,
-        state,
-        zip
+        user: {
+          username,
+          password,
+          email,
+          fullName,
+          creditCardInfo,
+          address,
+          city,
+          state,
+          zip
+        }
       })
     });
 
@@ -101,6 +105,38 @@ export const fetchGuest = async (token) => {
 
   } catch(error) {
     console.error("There was an error finding your account", error)
+  }
+}
+
+export const fetchUpdateUser = async (token, userId, username, password, email, isAdmin, fullName, creditCardInfo, address, city, state, zip) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/:${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+          email,
+          isAdmin,
+          fullName,
+          creditCardInfo,
+          address,
+          city,
+          state,
+          zip
+        }
+      })
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch(error) {
+    console.error("There was an error updating your post", error);
   }
 }
 
@@ -178,17 +214,6 @@ export const fetchAllOrders = async () => {
 };
 
 
-export const fetchSingleOrder = async (id) => {
-  const url = `${BASE_URL}/orders/${id}`;
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data
-  } catch (error) {
-    console.error("Error fetching single order", error)
-  }
-};
-
 
 //***** SHOES FUNCTIONS GO HERE */
   
@@ -213,77 +238,6 @@ export const fetchSingleShoe = async (id) => {
     console.error("There was an error fetching your shoe", error)
   }
 }
-
-export const createShoes = async({token, userId, username, shoename, description, price, type, size }) => {
-  try {
-      const response = await fetch(`${BASE_URL}/shoes/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            userId: userId,
-            username: username,
-            shoename: shoename,
-            description: description,
-            price: price,
-            type: type,
-            size: size,
-      })
-  })
-      const result = await response.json()
-      return result
-    }catch(error){
-      console.error("There was an error creating shoes", error)
-  }
-}
-
-
-export const updateShoes = async({id, token, userId, username, shoename, description, price, type, size }) => {
-  try {
-      const response = await fetch(`${BASE_URL}/shoes/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            userId: userId,
-            username: username,
-            shoename: shoename,
-            description: description,
-            price: price,
-            type: type,
-            size: size,
-      })
-  })
-        const result = await response.json()
-        return result;
-    }catch(error) {
-      console.error("There was an error updating shoes", error);
-  }
-}
-
-
-export const deleteShoes = async({id, token}) => {
-  try {
-      const response = await fetch(`${BASE_URL}/shoes/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      })
-        const result = await response.json()
-        return result;
-    }catch(error) {
-      console.error("There was an error deleting shoes", error);
-  }
-}
-
-//***** API HEALTH FUNCTIONS GO HERE */
-
 
 export async function getAPIHealth() {
   try {
