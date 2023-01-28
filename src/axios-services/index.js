@@ -42,8 +42,10 @@ export const fetchLogin = async (username, password) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username,
-        password
+        user: {
+          username,
+          password
+        }
       })
     });
 
@@ -63,15 +65,17 @@ export const fetchRegister = async (username, password, email, fullName, creditC
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username,
-        password,
-        email,
-        fullName,
-        creditCardInfo,
-        address,
-        city,
-        state,
-        zip
+        user: {
+          username,
+          password,
+          email,
+          fullName,
+          creditCardInfo,
+          address,
+          city,
+          state,
+          zip
+        }
       })
     });
 
