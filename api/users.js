@@ -109,15 +109,5 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
     }
 });
 
-//GET/api/users/admin
-usersRouter.get('/admin', requireAdmin, async (req, res, next) => {
-    const {admin} = req.user.isAdmin;
-
-    try {
-        res.send(admin)
-    } catch(error) {
-        next(error)
-    }
-})
 
 module.exports = usersRouter; 

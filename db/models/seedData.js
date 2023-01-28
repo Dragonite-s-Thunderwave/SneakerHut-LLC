@@ -98,11 +98,10 @@ async function createInitialUsers() {
             username: 'joey435',
             password: 'joeyinthematrix',
             email: 'joe374@gmail.com',
-            isAdmin: true,
+            isAdmin: false,
             fullName: 'jhoesephk antler',
-            address: '123 bardnard st',
             creditCardInfo: '83473048',
-            address:'dummydataddress1',
+            address:'123 bardnard st',
             city: 'Tyler',
             state: 'Texas',
             zip: "76543"
@@ -114,12 +113,24 @@ async function createInitialUsers() {
             email: 'yonce@gmail.com',
             isAdmin: false,
             fullName: 'Beyonce Knowles',
-            address: '42nd street',
             creditCardInfo: '4759347',
             address: 'dummydataadress2',
             city: 'Manhattan',
             state: 'New York',
-            zip: '10036'
+            zip: '10036',
+    
+          },
+          {
+            username: 'colin',
+            password: 'ihaveacatnotadog',
+            email: 'whoa@whoa.com',
+            isAdmin: true,
+            fullName: 'Colin Kaniff',
+            creditCardInfo: '2342342',
+            address: 'The Moon',
+            city: 'The Moon',
+            state: 'New York',
+            zip: '1'
           }
     ]
     const user = await Promise.all(dummyDataUserInfo.map(createUser))
