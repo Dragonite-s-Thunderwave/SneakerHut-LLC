@@ -178,6 +178,17 @@ export const fetchAllOrders = async () => {
 };
 
 
+export const fetchSingleOrder = async (id) => {
+  const url = `${BASE_URL}/orders/${id}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data
+  } catch (error) {
+    console.error("Error fetching single order", error)
+  }
+};
+
 
 //***** SHOES FUNCTIONS GO HERE */
   

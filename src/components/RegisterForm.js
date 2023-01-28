@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import fetchRegister from "../axios-services/index.js"
+import {fetchRegister} from "../axios-services"
 
 const RegisterForm = ({setToken}) => {
     const history = useHistory();
