@@ -3,7 +3,7 @@ const usersRouter = express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET="thisIsASecret"} = process.env
 const {createUser, getUserByUsername, getUser} = require('../db/models/user')
-const { requireUser, requireAdmin } = require('./utils')
+const { requireUser } = require('./utils')
 
 //POST /api/users/login
 
@@ -72,6 +72,7 @@ usersRouter.post('/register', async (req, res, next) => {
             username,
             password,
             email,
+            isAdmin,
             fullName,
             creditCardInfo,
             address,
