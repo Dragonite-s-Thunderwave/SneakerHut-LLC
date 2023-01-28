@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-<<<<<<< HEAD
-import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, Cart, AdminTools } from './';
-=======
 
 import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart } from './';
 
->>>>>>> main
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
