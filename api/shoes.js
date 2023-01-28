@@ -23,31 +23,30 @@ shoesRouter.get("/", async (req, res) => {
     try {
         const shoes = await getAllShoes();
         console.log("Getting all shoes", shoes) //delete later
-        res.send({ shoes, });
+        res.send( shoes );
     } catch(error){
         console.error("There was an error fetching shoes", error)
     }
 });
 
-shoesRouter.get("/:userId", async (req, res) => {
-    try{
-        const { userId } = req.params;
-        const shoe = await getShoesByUser(userId);
-        console.log("Getting shoes by their seller", shoe) //delete later
-        res.send({shoe})
-    }catch(error){
-        console.error("There was an error getting shoes by user",error)
-    }
-}
+// shoesRouter.get("/:userId", async (req, res) => {
+//     try{
+//         const { userId } = req.params;
+//         const shoe = await getShoesByUser(userId);
+//         console.log("Getting shoes by their seller", shoe) //delete later
+//         res.send(shoe)
+//     }catch(error){
+//         console.error("There was an error getting shoes by user",error)
+//     }
+// }
+// )
 
-)
-
-shoesRouter.get("/:shoesId", async (req, res) => {
+shoesRouter.get("/:shoeId", async (req, res) => {
     try{
-        const { shoesId } = req.params
-        const shoe = await getShoesById(shoesId);
+        const { shoeId } = req.params
+        const shoe = await getShoesById(shoeId);
         console.log("Getting shoes by their ID", shoe) //delete later
-        res.send({ shoe })
+        res.send( shoe )
     }catch(error){
         console.error("There was an error getting shoes by ID", error)
     }

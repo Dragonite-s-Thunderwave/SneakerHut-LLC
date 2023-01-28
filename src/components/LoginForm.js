@@ -53,7 +53,11 @@ const LoginForm = ({setToken}) => {
                         }}/>
                 </div>
                 <button className="ui button" type="submit">
+<<<<<<< HEAD
                     Login
+=======
+                    Submit
+>>>>>>> 7a686b6d9961c4495dc02ee4db0f7f90792f43fd
                 </button>
             </form>
         </div>

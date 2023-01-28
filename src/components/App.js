@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+<<<<<<< HEAD
 import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleShoe, SingleOrder } from './';
+=======
+import { LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, Cart } from './';
+>>>>>>> 7a686b6d9961c4495dc02ee4db0f7f90792f43fd
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -49,6 +53,7 @@ const App = () => {
     <BrowserRouter>  
         <div className="four wide column">
             <div className="ui vertical fluid tabular menu">
+<<<<<<< HEAD
                 <Link className='item active' to="/">Home</Link>
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
@@ -60,6 +65,19 @@ const App = () => {
         <div className="twelve wide stretched column">
             
     
+=======
+                <Link className="item active" to="/login">Login</Link>
+                <Link className="item active" to="/register">Register</Link>
+                <Link className="item active" to="/shoes">Shoes</Link>
+                <Link className="item active" to="/orders">Orders</Link>
+                <Link className="item active" to="/reviews">Reviews</Link>
+                <Link className="item active" to="/cart">
+                    <i className="cart arrow down icon"></i>
+                </Link>
+            </div>
+        </div>
+        <div className="twelve wide stretched column">
+>>>>>>> 7a686b6d9961c4495dc02ee4db0f7f90792f43fd
         <Switch>
             <Route exact path="/">
                 <Home token={token} username={username}/>
@@ -69,15 +87,15 @@ const App = () => {
             </Route>
             <Route path="/register">
                 <RegisterForm setToken={setToken}/>
+            </Route>            
+            <Route path='/Shoes/:shoeId'>
+                <SingleShoe /> 
             </Route>
             <Route path='/Shoes'>
                 <Shoes /> 
             </Route>
             <Route path='/orders'>
-                <Orders username={username}/> 
-            </Route>
-            <Route path='/orders'>
-                <Orders username={username}/> 
+                <Orders/> 
             </Route>
             <Route path='/Reviews'>
                 <Reviews /> 
