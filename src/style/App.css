@@ -11,3 +11,42 @@
   color: var(--green);
   padding: 1rem;
 }
+
+
+.LogoImage {
+  background: rgb(167, 33, 33);
+  font-size: larger;
+  padding: 10px;
+  position: fixed;
+  left: 25%;
+  top: 15%;
+}
+
+
+
+.shoesPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shoesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.ui_card {
+  width: 300px;
+  height: 300px;
+  background-color: black;
+  color: white;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  transition: .4s
+}

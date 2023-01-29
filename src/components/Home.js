@@ -8,9 +8,9 @@ const Home = ({username, token}) => {
     return (
         <div>
             <h1> </h1>
-            {username || token ? <h3>Welcome {username}, you're logged in.</h3> : (
+            {username || token ? <h3>Welcome {username}, you're logged now.</h3> : (
             <div>
-                <img className="LogoImage" src={LogoImage} alt="store logo" width={950} height={700}/>
+                <img className="LogoImage" src={LogoImage} alt="store logo" width={950} height={370}/>
             </div>
             )}
         </div>

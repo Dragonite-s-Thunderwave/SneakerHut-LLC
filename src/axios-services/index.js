@@ -116,9 +116,9 @@ export const fetchReviews = async () => {
   const data = await response.json()
 
   return data;
-} catch(error) {
+ }catch(error){
   console.error("There was an error fetching reviews", error)
-}
+ }
 }
 
 export const createReviews = async (username, rating, comment) => {
