@@ -100,7 +100,7 @@ export const fetchGuest = async (token) => {
     });
 
     const data = await response.json()
-
+    console.log("DADA", data)
     return data;
 
   } catch(error) {
