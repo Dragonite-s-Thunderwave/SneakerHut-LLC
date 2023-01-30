@@ -2,7 +2,7 @@ const express = require("express")
 const usersRouter = express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET="thisIsASecret"} = process.env
-const {createUser, getUserByUsername, getUser, updateUser} = require('../db/models/user')
+const {createUser, getUserByUsername, getAllUsers, updateUser} = require('../db/models/user')
 const { requireUser, requireAdmin } = require('./utils')
 
 //POST /api/users/login
@@ -109,6 +109,17 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
         next(error);
     }
 });
+
+//GET /api/users/all
+usersRouter.get('/all', requireAdmin, async (req, res, next) => {
+    const users = await getAllUsers();
+
+    try {
+        res.send(users)
+    } catch(error) {
+        next(error);
+    }
+})
 
 //PATCH /api/users/:userId
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {

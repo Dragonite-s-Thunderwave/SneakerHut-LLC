@@ -22,6 +22,19 @@ async function createUser({username, password, email, isAdmin, fullName, creditC
   }
 };
 
+async function getAllUsers() {
+  try {
+    const {rows: [users]} = await client.query(`
+      SELECT *
+      FROM users;
+    `);
+
+    return users
+  } catch(error) {
+    throw error;
+  }
+}
+
 async function getUser({username, password}) {
   /* this adapter should fetch a list of users from your db */
   try {
@@ -129,5 +142,6 @@ module.exports = {
   getUserById,
   getUserByUsername,
   getUserIfAdmin,
-  updateUser
+  updateUser,
+  getAllUsers
 };
