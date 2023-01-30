@@ -106,15 +106,10 @@ export const fetchGuest = async (token) => {
 
 //***** REVIEWS FUNCTIONS GO HERE */
 export const fetchReviews = async () => {
+  const url = `${BASE_URL}/reviews`
   try {
-  const response = await fetch(`${BASE_URL}/reviews`, {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-
+  const response = await fetch(url);
   const data = await response.json()
-
   return data;
 } catch(error) {
   console.error("There was an error fetching reviews", error)

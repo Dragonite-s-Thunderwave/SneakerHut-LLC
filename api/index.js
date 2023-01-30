@@ -52,6 +52,9 @@ apiRouter.use('/orders', ordersRouter)
 const shoesRouter = require('./shoes');
 apiRouter.use('/shoes', shoesRouter)
 
+const reviewsRouter = require('./reviews.js');
+apiRouter.use('/reviews', reviewsRouter)
+
 
 
 })
@@ -66,7 +69,8 @@ apiRouter.use('/orders', ordersRouter)
 const shoesRouter = require('./shoes');
 apiRouter.use('/shoes', shoesRouter)
 
-
+const reviewsRouter = require('./reviews.js');
+apiRouter.use('/reviews', reviewsRouter)
 
 
 // place your routers here

@@ -1,26 +1,26 @@
 const express = require('express');
 const { getAllReviews } = require('../db/models/reviews');
 
-const router = express.Router();
+const reviewsRouter = express.Router();
 const {
-  getAllReviews,
   createReview,
   updateReview,
   getReviewById,
   getReviewByUsername,
   getReviewByRating
-} = require('../db')
+} = require('../db/models/reviews')
 
-router.get('/', async (req, res, next) => {
+reviewsRouter.get('/', async (req, res, next) => {
   try {
-  const {allReviews} = await getAllReviews();
+  const allReviews = await getAllReviews();
+  console.log('getting all reviews', allReviews)
   res.send(allReviews)
   } catch(error) {
     next(error)
   }
 })
 
-router.post('/', async (req, res, next) => {
+reviewsRouter.post('/', async (req, res, next) => {
  const {username, rating, comment} = req.body;
 
   try {
@@ -51,7 +51,7 @@ router.post('/', async (req, res, next) => {
     }
 })
 
-router.patch('/:reviewId', async (req, res, next) => {
+reviewsRouter.patch('/:reviewId', async (req, res, next) => {
     const {username, rating, comment} = req.body;
     const {reviewId} = req.params;
     
@@ -87,4 +87,4 @@ router.patch('/:reviewId', async (req, res, next) => {
 
 })
 
-module.exports = router;
+module.exports = reviewsRouter;

@@ -75,7 +75,6 @@ async function createTables() {
           id SERIAL PRIMARY KEY,
           "shoeId" INT REFERENCES shoes(id),
           "orderId" INT REFERENCES orders(id),
-          price MONEY NOT NULL,
           quantity INT NOT NULL DEFAULT 0  
        )
        `)
@@ -223,25 +222,21 @@ async function createInitialOrderProducts() {
       {
         shoeId: 2,
         orderId: 1,
-        price: '79.99',
         quantity: 1
       },
       {
         shoeId: 1,
         orderId: 1,
-        price: '179.99',
         quantity: 2
       },
       {
         shoeId: 1,
         orderId: 2,
-        price: '79.99',
         quantity: 3
       },
       {
         shoeId: 2,
         orderId: 1,
-        price: '79.99',
         quantity: 1
       }
     ]
