@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUsers } from './';
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUser } from './';
 
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -10,7 +10,6 @@ import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, Sin
 import { getAPIHealth, fetchGuest, fetchReviews } from '../axios-services';
 import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
-import AdminTools from './AdminTools';
 
 const App = () => {
     const [reviews, setReviews] = useState([]);
@@ -77,7 +76,7 @@ const App = () => {
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
-                {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
+                {/* {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null} */}
 
             </div>
         </div>
@@ -114,7 +113,7 @@ const App = () => {
                 <Cart token={token} />
             </Route>
             <Route path="/admin/users/:userId">
-                <EditUsers />
+                <EditUser />
             </Route>
             <Route path="/admin/users">
                 <Users />
