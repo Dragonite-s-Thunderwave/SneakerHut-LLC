@@ -10,6 +10,7 @@ import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, Sin
 import { getAPIHealth, fetchGuest, fetchReviews } from '../axios-services';
 import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
+import AdminTools from './AdminTools';
 
 const App = () => {
     const [reviews, setReviews] = useState([]);
@@ -76,7 +77,12 @@ const App = () => {
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
-                
+
+                <Link className="item active" to="/cart">
+                    <i className="cart arrow down icon"></i>
+                </Link>
+                {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
+
             </div>
         </div>
         <div className="twelve wide stretched column">
@@ -110,6 +116,9 @@ const App = () => {
             </Route> */}
             <Route path="/cart">
                 <Cart token={token} />
+            </Route>
+            <Route path="/AdminTools">
+                <AdminTools />
             </Route>
         </Switch>
 

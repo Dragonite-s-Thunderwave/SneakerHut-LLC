@@ -13,6 +13,7 @@ const {
     deleteShoes
 } = require('../db/models/shoes') 
 const shoesRouter = express.Router();
+
 //admin must have full rights to make backend requests to add, edit, and remove products.
 
 
@@ -20,7 +21,6 @@ const shoesRouter = express.Router();
 shoesRouter.get("/", async (req, res) => {
     try {
         const shoes = await getAllShoes();
-        console.log("Getting all shoes", shoes) //delete later
         res.send( shoes );
     } catch(error){
         console.error("There was an error fetching shoes", error)
@@ -43,7 +43,6 @@ shoesRouter.get("/:shoeId", async (req, res) => {
     try{
         const { shoeId } = req.params
         const shoe = await getShoesById(shoeId);
-        console.log("Getting shoes by their ID", shoe) //delete later
         res.send( shoe )
     }catch(error){
         console.error("There was an error getting shoes by ID", error)
@@ -54,7 +53,6 @@ shoesRouter.get("/type/:type", async (req, res) => {
     try {
         const { type } = req.params;
         const shoes = await getShoesByType(type);
-        console.log("Getting shoes by type", shoes); //delete later
         res.send({shoes})
     }catch(error){
         console.error("There was an error getting shoes by type", error)
@@ -65,7 +63,6 @@ shoesRouter.get("/price/:price", async (req, res) => {
     try {
         const { price } = req.params;
         const shoes = await getShoesByPrice(price);
-        console.log("Getting shoes by type", shoes); //delete later
         res.send({shoes})
     }catch(error){
         console.error("There was an error getting shoes by type", error)
@@ -76,7 +73,6 @@ shoesRouter.get("/size/:size", async (req, res) => {
     try {
         const { size } = req.params;
         const shoes = await getShoesBySize(size);
-        console.log("Getting shoes by type", shoes); //delete later
         res.send({ shoes, })
     }catch(error){
         console.error("There was an error getting shoes by type", error)

@@ -9,7 +9,6 @@ const { createOrderProducts } = require('./order_products')
 
 async function dropTables() {
   try {
-    console.log('Dropping tables...') //delete later
     await client.query(
       `
       DROP TABLE IF EXISTS order_products cascade;     
@@ -19,7 +18,6 @@ async function dropTables() {
       DROP TABLE IF EXISTS users cascade;
      `
     )
-    console.log('Finished dropping tables') //delete later
   } catch (error) {
     console.error('There was an error dropping tables', error)
     throw error;
@@ -27,8 +25,6 @@ async function dropTables() {
 }
 
 async function createTables() {
-  //Need to add pictures
-  console.log("Creating tables") //delete later
   await client.query(`
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -68,6 +64,7 @@ async function createTables() {
             price MONEY NOT NULL,
             type VARCHAR(255) NOT NULL,
             size INTEGER NOT NULL,
+            image VARCHAR(255),
             availability BOOLEAN DEFAULT TRUE
        );
       
@@ -89,8 +86,6 @@ async function createTables() {
 
 async function createInitialUsers() {
   try {
-    console.log('Creating dummy data') //delete later
-    console.log('Starting to create users') //delete later
     const dummyDataUserInfo = [
         {
             username: 'joey435',
@@ -132,7 +127,6 @@ async function createInitialUsers() {
           }
     ]
     const user = await Promise.all(dummyDataUserInfo.map(createUser))
-    // console.log("Initial users created", user) //delete later
     return user;
   } catch (error) {
     console.error('Error creating dummy data users', error)
@@ -140,38 +134,136 @@ async function createInitialUsers() {
 }
 
 async function createInitialShoes() {
-  console.log("Starting to create intitial shoes"); //delete later
   const shoesToCreate = [
     {
-      userId: '1', 
-      username: 'beyonce',
-      shoename: 'halos',
-      description: 'these are the sneakers Beyonce use to run a mile in while singing',
-      price: 536.85,
-      type: "women's sneakers",
+      userId: '2',
+      username: 'Outdoors',
+      shoename: 'The Alsakans',
+      description: 'The epitome of chic style and comfort, the boots feature a ribbed-knit lining that adds warmth while creating the illusion of knitted socks.',
+      price: 135.00,
+      type: "Unisex Boots",
+      size: 10,
+      image: "https://bit.ly/3JjLCA5",
+    },
+    {
+      userId: '3',
+      username: 'Seanisacson',
+      shoename: 'Ubersonic',
+      description: 'These adidas Adizero Ubersonic 4 tennis shoes were designed to get you to the ball faster.',
+      price: 112.00,
+      type: "Women's Sneakers",
       size: 7,
+      image: "https://bit.ly/3kSnY3b",
+    },
+    {
+      userId: '1',
+      username: 'Alien',
+      shoename: 'Area 51s',
+      description: 'The daring and dynamic COSMOS trainer is crafted in a combination of marl grey, black and white neoprene and leather.',
+      price: 97.00,
+      type: "Women's Sneakers",
+      size: 9,
+      image: "https://bit.ly/3Y2n7eI",
+    },
+    {
+      userId: '1',
+      username: 'Marvin123',
+      shoename: 'Avacourt Shoes',
+      description: 'The soft collar materials are designed to provide comfort.',
+      price: 140.00,
+      type: "Unisex Sneakers",
+      size: 10,
+      image: "https://bit.ly/3kSojTv",
     },
     {
       userId: '2',
       username: 'joey435',
-      shoename: 'halo',
-      description: 'good shoes',
-      price: 5.00,
-      type: "men's sandals",
+      shoename: 'New Balances',
+      description: 'These shoes are synonymous with the boundary defying New Balance style.',
+      price: 57.00,
+      type: "Men's Sneakers",
+      size: 11,
+      image: "https://bit.ly/3kMCBFo",
+    }, 
+    {
+      userId: '1',
+      username: 'Colin',
+      shoename: 'Converse Hightops',
+      description: 'New pair, never worn. Life changing!',
+      price: 65.00,
+      type: "Men's Sneakers",
+      size: 9,
+      image: "https://bit.ly/3HExq3h",
+    }, 
+    {
+      userId: '1', 
+      username: 'Beyonce',
+      shoename: 'Halos',
+      description: 'These exquisite heels were previously owned by Beyonce.',
+      price: 5326.85,
+      type: "Women's Heels",
+      size: 7,
+      image: "https://bit.ly/3JlXaCG",
+    },
+    {
+      userId: '3',
+      username: 'Texas Ted',
+      shoename: 'Boots',
+      description: 'These pair will get you through any kind of weather',
+      price: 78.00,
+      type: "Men's Cowboy Boots",
+      size: 8,
+      image: "https://bit.ly/3Rmk0w3",
+    },
+    {
+      userId: '2',
+      username: 'Aaliyah29',
+      shoename: 'Jimmy Choos',
+      description: 'Perfect wedding day kicks!',
+      price: 2050.00,
+      type: "Women's Platform Heels",
+      size: 8,
+      image: "https://bit.ly/3Y6D5Vi",
+    },
+    {
+      userId: '3',
+      username: 'Robert9032',
+      shoename: 'Adidas Tennis Shoes',
+      description: 'If you could only have one pair of sneakers, this could be them.',
+      price: 123.00,
+      type: "Men's Sneakers",
       size: 10,
+      image: "https://bit.ly/3wDkjZL",
+    },
+    {
+      userId: '1',
+      username: 'Raethegreat',
+      shoename: 'Uggs',
+      description: 'Its like a hug but for your foot.',
+      price: 63.70,
+      type: "Women's Boots",
+      size: 6,
+      image: "https://bit.ly/3HO1Yjn",
+    },
+    {
+      userId: '2',
+      username: 'Jesus',
+      shoename: '"Jandals"',
+      description: 'These pair have literally walked on water',
+      price: 57.00,
+      type: "Men's Sneakers",
+      size: 10,
+      image: "https://bit.ly/3wDlVmk"
     }
   ]
   const shoes = await Promise.all(shoesToCreate.map(createShoes))
-  // console.log("Initial Shoes Created: ", shoes); //delete later
-  //console.log("Finished creating shoes"); //delete later 
+  console.log(shoes)
   return shoes;
-
   }
 
 
 async function createInitialReviews() {
   try {
-    console.log('Starting to create reviews') //delete later
     const dummyDataReviewInfo = [ {
       authorId:'2',
       username:'joey435',
@@ -186,7 +278,6 @@ async function createInitialReviews() {
      
     }]
     const reviews = await Promise.all(dummyDataReviewInfo.map(createReview))
-    // console.log('Initial Reviews Created:', reviews) //delete later
     return reviews;
   } catch (error) {
     console.error('Error creating reviews', error)
@@ -195,7 +286,6 @@ async function createInitialReviews() {
 
 async function createInitialOrders() {
   try {
-    console.log('Starting to create orders')
     const dummyOrders = [
       {
         status: 'open',
@@ -217,7 +307,6 @@ async function createInitialOrders() {
 
 async function createInitialOrderProducts() {
   try {
-    console.log('Starting to create order_products')
     const dummyOrderProducts = [
       {
         shoeId: 2,

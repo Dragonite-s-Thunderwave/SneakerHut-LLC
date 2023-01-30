@@ -10,7 +10,6 @@ const Shoes = () => {
         async function fetchShoes() {
             try {
                 const allShoes = await fetchAllShoes();
-                console.log('allshoesss', allShoes)
                 setShoesList(allShoes)
             } catch (error) {
                 console.error(error)
@@ -19,25 +18,29 @@ const Shoes = () => {
         fetchShoes()
     }, [])
 
-    console.log(shoesList)
+
     const mappedShoes = shoesList.map((shoe) => {
         return (
             <div>
-                <Link to={`/shoes/${shoe.id}`}>
-                    {shoe.shoename}
-                </Link>
-                <div>
-                    <p>Description: {shoe.description}</p>
-                    <p>Type: {shoe.type}</p>
-                    <p>Price: ${shoe.price}</p>
+                <div >
+                    <div key={shoe.id} >
+                        <Link to={`/shoes/${shoe.id}`}>
+                            {shoe.shoename}
+                        </Link>
+                        <p>{shoe.username}</p>
+                        <img src ={shoe.image} width="200" height="200"/>
+                        <p>Description: {shoe.description}</p>
+                        <p>Type: {shoe.type}</p>
+                        <p>Price: {shoe.price}</p>
+                    </div>
                 </div>
             </div>
         )
     })
  
     return (
-        <div>
-            <h1>Shoes:</h1>
+        <div className="">
+            <h1 className="title">Shoes</h1>
             <div>
                 {mappedShoes}
             </div>

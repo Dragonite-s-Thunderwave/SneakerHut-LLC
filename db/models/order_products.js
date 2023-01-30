@@ -13,7 +13,6 @@ async function createOrderProducts({ shoeId, orderId, quantity }) {
       `,
         [shoeId, orderId, quantity]
       );
-      console.log(order_product);
       return order_product;
     } catch (error) {
       console.error(error);
