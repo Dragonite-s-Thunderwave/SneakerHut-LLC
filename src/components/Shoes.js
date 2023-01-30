@@ -21,8 +21,6 @@ const Shoes = () => {
 
     const mappedShoes = shoesList.map((shoe) => {
         return (
-            <div>
-                <div >
                     <div key={shoe.id} >
                         <Link to={`/shoes/${shoe.id}`}>
                             {shoe.shoename}
@@ -33,18 +31,18 @@ const Shoes = () => {
                         <p>Type: {shoe.type}</p>
                         <p>Price: {shoe.price}</p>
                     </div>
-                </div>
-            </div>
         )
     })
  
     return (
-        <div className="">
+        <div>
             <h1 className="title">Shoes</h1>
             <div>
                 {mappedShoes}
             </div>
+            <Link to="/shoes/create" className="ui button">Sell Your Shoes!</Link>
         </div>
+        
     )
 }
 
