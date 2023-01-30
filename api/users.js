@@ -47,7 +47,6 @@ usersRouter.post('/register', async (req, res, next) => {
     
     const { username, password, email, fullName, creditCardInfo, address, city, state, zip } = req.body.user;
 
-    
 
     try {
         const _user = await getUserByUsername(username);
@@ -72,7 +71,6 @@ usersRouter.post('/register', async (req, res, next) => {
             username,
             password,
             email,
-            isAdmin,
             fullName,
             creditCardInfo,
             address,
@@ -102,6 +100,7 @@ usersRouter.post('/register', async (req, res, next) => {
 usersRouter.get('/me', requireUser, async (req, res, next) => {
 
     const user = req.user;
+    console.log("REQUEST", user)
 
     try {
         res.send(user)

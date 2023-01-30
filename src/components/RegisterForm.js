@@ -41,10 +41,8 @@ const RegisterForm = ({setToken}) => {
     }
 
     return (
-        <div >
-            <form  onSubmit={onSubmitHandler}>
-                <div className="ui form">
-                <div className="feild ">
+        <div>
+            <form onSubmit={onSubmitHandler}>
                 <h1>Create an Account!</h1>
                 <div className="field">
                     <label>Username</label>
@@ -64,7 +62,6 @@ const RegisterForm = ({setToken}) => {
                         value={password}
                         placeholder="password"
                         required
-                        minLength={8}
                         onChange={(event) => {
                             setPassword(event.target.value);
                         } } />
@@ -146,11 +143,9 @@ const RegisterForm = ({setToken}) => {
                             setZip(event.target.value);
                         } } />
                 </div>
-                <button className="ui button" type="submit">Submit</button>
-            </div>
-            </div>
-        </form>
-    </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     );
 }
 
