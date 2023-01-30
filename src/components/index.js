@@ -10,4 +10,7 @@ export { default as SingleShoe } from './SingleShoe';
 export { default as Cart } from './Cart';
 export { default as LoginForm } from './LoginForm';
 export { default as RegisterForm } from './RegisterForm';
+export { default as EditUser } from './EditUser';
+export { default as Users } from './Users';
+export { default as AdminTools } from './AdminTools';
 
