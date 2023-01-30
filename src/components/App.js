@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart } from './';
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUsers } from './';
 
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -77,14 +77,10 @@ const App = () => {
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
-<<<<<<< HEAD
                 <Link className="item active" to="/cart">
                     <i className="cart arrow down icon"></i>
                 </Link>
                 {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
-=======
-                
->>>>>>> main
             </div>
         </div>
         <div className="twelve wide stretched column">
@@ -113,7 +109,13 @@ const App = () => {
             <Route path='/Reviews'>
                 <Reviews reviews={reviews} setReviews={setReviews} token={token}/> 
             </Route>
-            <Route path="/AdminTools">
+            <Route path="/admin/users/:userId">
+                <EditUsers />
+            </Route>
+            <Route path="/admin/users">
+                <Users />
+            </Route>
+            <Route path="/admin">
                 <AdminTools />
             </Route>
         </Switch>

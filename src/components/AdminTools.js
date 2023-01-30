@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const AdminTools = () => {
     //create/delete/edit products
@@ -7,6 +9,13 @@ const AdminTools = () => {
         //link to users component
     //make user an admin
         //in users compnonent add edit button to make user an admin
+
+    return (
+        <>
+            <button><Link to="/admin/users">Users</Link></button>
+            <button><Link to="/Shoes">Shoes</Link></button>
+        </>
+    )
 }
 
 export default AdminTools;
