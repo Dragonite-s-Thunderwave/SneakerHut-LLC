@@ -29,7 +29,7 @@ const SingleShoe = () => {
         <h2>Description:{singleShoe.description}</h2>
         <h2>Price:{singleShoe.price}</h2>
         <h2>Size:{singleShoe.size}</h2>
-        <Link>Add to cart</Link>
+        {/* <Link>Add to cart</Link> */}
         </div>
     )
 
