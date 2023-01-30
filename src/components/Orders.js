@@ -25,7 +25,9 @@ const Orders = () => {
         const mapOrders = orderList.map((order) => {
         return (
             <div>
-                <h3>OrderId: {order.id}</h3>
+                <Link to={`/orders/${order.id}`}>
+                    <h3>OrderId: {order.id}</h3>
+                </Link>
                 <h3>OrderUser: {order.userId}</h3>
                 <h3>OrderStatus: {order.status}</h3>
                 <h3>OrderTotal: {order.total}</h3>
@@ -36,7 +38,7 @@ const Orders = () => {
         
     return (
         <>
-        <h2>Orders</h2>
+        <h2>Orders (should be visible only to admin)</h2>
         <div>
              {mapOrders}
         </div>

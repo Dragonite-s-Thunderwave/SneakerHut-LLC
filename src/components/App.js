@@ -102,14 +102,20 @@ const App = () => {
             <Route path='/Shoes'>
                 <Shoes /> 
             </Route>
+            <Route path='/orders/:orderId'>
+                <SingleOrder/> 
+            </Route>
             <Route path='/orders'>
                 <Orders/> 
-            </Route>
-            <Route path="/Review/create">
-                    <CreateReview token={token} setReviews={setReviews}/>
-                </Route>
+            </Route>            
             <Route path='/Reviews'>
-                <Reviews reviews={reviews} setReviews={setReviews} token={token}/> 
+                <Reviews /> 
+            </Route>
+            {/* <Route path="/Review/create">
+                    <CreateReview token={token} setReviews={setReviews}/>
+            </Route> */}
+            <Route path="/cart">
+                <Cart token={token} />
             </Route>
             <Route path="/AdminTools">
                 <AdminTools />
