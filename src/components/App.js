@@ -116,7 +116,7 @@ const App = () => {
                 <LoginForm setToken={setToken}/>
             </Route>
             <Route path="/register">
-                <RegisterForm setToken={setToken}/>
+                <RegisterForm setToken={setToken} user={user}/>
             </Route>            
             <Route path='/Shoes/:shoeId'>
                 <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 

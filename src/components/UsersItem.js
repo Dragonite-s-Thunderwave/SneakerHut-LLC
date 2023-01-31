@@ -11,6 +11,7 @@ const UsersItem = ({user, token}) => {
                 const admin = await fetchUpdateUser(token, user.id);
                 setIsAdmin(admin)
             }
+            makeAdmin();
         }
     })
     
@@ -25,8 +26,8 @@ const UsersItem = ({user, token}) => {
                 <p>{user.city}</p>
                 <p>{user.state}</p>
                 <p>{user.zip}</p>
-                <button onClick={(event) => {
-
+                <button onClick={() => {
+                    
                 }}>Make Admin</button>
             </div>
         </>
