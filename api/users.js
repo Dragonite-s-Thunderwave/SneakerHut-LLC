@@ -2,7 +2,7 @@ const express = require("express")
 const usersRouter = express.Router()
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET="thisIsASecret"} = process.env
-const {createUser, getUserByUsername, getAllUsers, updateUser} = require('../db/models/user')
+const {createUser, getUserByUsername, getAllUsers, updateUser, getUserIfAdmin} = require('../db/models/user')
 const { requireUser, requireAdmin } = require('./utils')
 
 //POST /api/users/login
@@ -22,11 +22,14 @@ usersRouter.post('/login', async (req, res, next) => {
     try {
 
         const user = await getUserByUsername(username);
+        console.log("DLKSDJF", user)
 
         if (user) {
             const token = jwt.sign({
                 id: user.id, 
-                username: user.username},
+                username: user.username,
+                
+            },
                 JWT_SECRET,
                 {expiresIn: '1y'});
             res.send({user: user, message: "You're logged in!", token});
@@ -45,7 +48,7 @@ usersRouter.post('/login', async (req, res, next) => {
 
 usersRouter.post('/register', async (req, res, next) => {
     
-    const { username, password, email, fullName, creditCardInfo, address, city, state, zip } = req.body.user;
+    const { username, password, email, isAdmin, fullName, creditCardInfo, address, city, state, zip } = req.body.user;
 
 
     try {
@@ -71,6 +74,7 @@ usersRouter.post('/register', async (req, res, next) => {
             username,
             password,
             email,
+            isAdmin,
             fullName,
             creditCardInfo,
             address,
@@ -81,7 +85,8 @@ usersRouter.post('/register', async (req, res, next) => {
 
         const token = jwt.sign({
             id: user.id,
-            username: user.username
+            username: user.username,
+            
         }, JWT_SECRET, {
             expiresIn: '1y'
         });
@@ -100,10 +105,11 @@ usersRouter.post('/register', async (req, res, next) => {
 usersRouter.get('/me', requireUser, async (req, res, next) => {
 
     const user = req.user;
-    console.log("REQUEST", user)
-
+    
     try {
-        res.send(user)
+        if (user) {
+            res.send(user)
+        }
     } catch(error) {
         next(error);
     }
@@ -111,9 +117,10 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
 
 //GET /api/users/all
 usersRouter.get('/all', requireAdmin, async (req, res, next) => {
-    const users = await getAllUsers();
-
+    
     try {
+        const users = await getAllUsers();
+        console.log("OH NO", users)
         res.send(users)
     } catch(error) {
         next(error);

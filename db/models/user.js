@@ -2,17 +2,21 @@
 const client = require('../client');
 const bcrypt = require('bcrypt');
 
-async function createUser({username, password, email, fullName, creditCardInfo, address, city, state, zip}) {
+async function createUser({username, password, email, isAdmin, fullName, creditCardInfo, address, city, state, zip}) {
   try {
     const SALT_COUNT = 10;
 
-    const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+
+    if (!isAdmin) {
+      isAdmin = false;
+    }
 
     const { rows: [user]} = await client.query(`
-      INSERT INTO users (username, password, email, "fullName", "creditCardInfo", address, city, state, zip)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO users (username, password, email, "isAdmin", "fullName", "creditCardInfo", address, city, state, zip)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *;
-      `, [username, hashedPassword, email, fullName, creditCardInfo, address, city, state, zip]);
+      `, [username, hashedPassword, email, isAdmin, fullName, creditCardInfo, address, city, state, zip]);
 
       delete user.password;
 
@@ -24,8 +28,8 @@ async function createUser({username, password, email, fullName, creditCardInfo, 
 
 async function getAllUsers() {
   try {
-    const {rows: [users]} = await client.query(`
-      SELECT *
+    const {rows: users} = await client.query(`
+      SELECT id, username, password, email, "isAdmin", "fullName", "creditCardInfo", address, city, state, zip
       FROM users;
     `);
 
@@ -59,7 +63,7 @@ async function getUser({username, password}) {
 async function getUserById(userId) {
   try {
     const {rows : [user]} = await client.query(`
-      SELECT id, username
+      SELECT *
       FROM users
       WHERE id=$1
     `, [userId]);
@@ -105,7 +109,7 @@ async function getUserIfAdmin() {
       FROM users
       WHERE "isAdmin" = true;
     `)
-
+    console.log(user)
     return user;
   } catch(error) {
     console.error("There is no admin", error)

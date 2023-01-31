@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 
 const AdminTools = () => {
@@ -11,7 +12,7 @@ const AdminTools = () => {
 
     return (
         <>
-            <button><Link to="/admin/users">Users</Link></button>
+            <button><Link to="/AdminTools/users">Users</Link></button>
             <button><Link to="/Shoes">Shoes</Link></button>
         </>
     )
