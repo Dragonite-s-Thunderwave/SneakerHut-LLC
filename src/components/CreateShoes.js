@@ -13,7 +13,7 @@ const CreateShoes = ({token, setShoes}) => {
         const [errorMessage, setErrorMessage] = useState('');
         const history = useHistory();
 
-    useEffect(() => {token ? null :  <>You need to login</>
+    useEffect(() => {token ? null :  history.push('/login')
 })
 
 const onCreateShoeSubmitHandler = async(event) => {
