@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import {fetchRegister} from "../axios-services"
 
-const RegisterForm = ({setToken}) => {
+const RegisterForm = ({setToken, user}) => {
     const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [isAdmin, setIsAdmin] = useState('')
     const [fullName, setFullName] = useState('');
     const [creditCardInfo, setCreditCardInfo] = useState('');
     const [address, setAddress] = useState('');
@@ -21,6 +22,7 @@ const RegisterForm = ({setToken}) => {
             username,
             password,
             email,
+            isAdmin,
             fullName,
             creditCardInfo,
             address,
@@ -77,6 +79,16 @@ const RegisterForm = ({setToken}) => {
                             setEmail(event.target.value);
                         } } />
                 </div>
+                {user.isAdmin ? (
+                <div className="field">
+                    <label>Admin?</label>
+                    <input
+                        type="checkbox"
+                        value={isAdmin}
+                        onChange={(event) => {
+                            setIsAdmin(event.target.value);
+                        } } /> 
+                </div> ) : (null)}
                 <div className="field">
                     <label>Full Name</label>
                     <input
