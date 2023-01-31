@@ -7,17 +7,17 @@ import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, Sin
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, fetchGuest, fetchReviews } from '../axios-services';
+import { getAPIHealth, fetchGuest, fetchReviews, getAllUsers } from '../axios-services/index';
 import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
 
 const App = () => {
     const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState(null);
+  const [user, setUser] = useState([]);
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
   );
-
 
   const history = useHistory();
 
@@ -33,15 +33,25 @@ const App = () => {
   getReviews();
 }, [])  
 
-
   useEffect(() => {
     if (token) {
         const getGuest = async () => {
             const {username} = await fetchGuest(token);
+            console.log(username)
             setUsername(username)
         };
         getGuest();
     }
+    }, [token])
+
+    useEffect(() => {
+        if (token) {
+            const getUser = async () => {
+                const user = await fetchGuest(token);
+                setUser(user)
+            };
+            getUser();
+        }
     }, [token])
 
     useEffect(() => {
@@ -71,12 +81,20 @@ const App = () => {
                 </Link>
             <div className="ui vertical fluid tabular menu">
                 <Link className='item active' to="/">Home</Link>
-                <Link className="item active" to="/login">Login</Link>
-                <Link className="item active" to="/register">Register</Link>
+                {token ? (
+                    <button onClick={(event) => {
+                        event.preventDefault();
+                        logOut();
+                    }}>Log Out</button>
+                ) : (<>
+                    <Link className="item active" to="/login">Login</Link>
+                    <Link className="item active" to="/register">Register</Link>
+                    </>
+                )}
                 <Link className="item active" to="/shoes">Shoes</Link>
                 <Link className="item active" to="/orders">Orders</Link>
                 <Link className="item active" to="/reviews">Reviews</Link>
-                {/* {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null} */}
+                {user.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
 
             </div>
         </div>
@@ -112,13 +130,13 @@ const App = () => {
             <Route path="/cart">
                 <Cart token={token} />
             </Route>
-            <Route path="/admin/users/:userId">
+            <Route path="/AdminTools/users/:userId">
                 <EditUser />
             </Route>
-            <Route path="/admin/users">
-                <Users />
+            <Route path="/AdminTools/users">
+                <Users token={token} />
             </Route>
-            <Route path="/admin">
+            <Route path="/AdminTools">
                 <AdminTools />
             </Route>
         </Switch>

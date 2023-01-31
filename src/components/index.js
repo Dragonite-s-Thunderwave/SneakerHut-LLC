@@ -13,4 +13,4 @@ export { default as RegisterForm } from './RegisterForm';
 export { default as EditUser } from './EditUser';
 export { default as Users } from './Users';
 export { default as AdminTools } from './AdminTools';
-
+export { default as UsersItem } from './UsersItem';

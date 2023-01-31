@@ -33,6 +33,22 @@ const makeHeaders = (token) => {
 
 
 //***** USERS FUNCTIONS GO HERE */
+export const getAllUsers = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/all`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+    console.log("HELP ME", data)
+    return data;
+  } catch(error) {
+    console.error("There was an error getting all of the users", error);
+  }
+}
 
 export const fetchLogin = async (username, password) => {
   try {
@@ -57,7 +73,7 @@ export const fetchLogin = async (username, password) => {
   }
 }
 
-export const fetchRegister = async (username, password, email, fullName, creditCardInfo, address, city, state, zip) => {
+export const fetchRegister = async (username, password, email, isAdmin, fullName, creditCardInfo, address, city, state, zip) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
@@ -69,6 +85,7 @@ export const fetchRegister = async (username, password, email, fullName, creditC
           username,
           password,
           email,
+          isAdmin,
           fullName,
           creditCardInfo,
           address,
