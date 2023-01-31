@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchSingleShoe } from '../axios-services';
 
-const SingleShoe = () => {
+const SingleShoe = ({setCartProducts}) => {
     const { shoeId } = useParams()
     const [ singleShoe, setSingleShoe ] = useState([]);
     console.log("shoeId", shoeId)
@@ -29,7 +29,12 @@ const SingleShoe = () => {
         <h2>Description:{singleShoe.description}</h2>
         <h2>Price:{singleShoe.price}</h2>
         <h2>Size:{singleShoe.size}</h2>
-        <Link>Add to cart</Link>
+        <button onClick={(event) => {
+            event.preventDefault()
+            setCartProducts(singleShoe);
+            }
+        }>Add to Cart
+        </button>
         </div>
     )
 

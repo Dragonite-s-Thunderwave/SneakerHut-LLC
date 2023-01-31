@@ -11,13 +11,22 @@ import { getAPIHealth, fetchGuest, fetchReviews } from '../axios-services';
 import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
 
+
+const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
+
+
 const App = () => {
-    const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
   );
+  const [cartProducts, setCartProducts] = useState([cartFromLocalStorage])
 
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+  }, [cartProducts])
 
   const history = useHistory();
 
@@ -74,7 +83,7 @@ const App = () => {
                 <Link className="item active" to="/login">Login</Link>
                 <Link className="item active" to="/register">Register</Link>
                 <Link className="item active" to="/shoes">Shoes</Link>
-                <Link className="item active" to="/orders">Orders</Link>
+                {/* <Link className="item active" to="/orders">Orders</Link> */}
                 <Link className="item active" to="/reviews">Reviews</Link>
                 {/* {username.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null} */}
 
@@ -92,7 +101,7 @@ const App = () => {
                 <RegisterForm setToken={setToken}/>
             </Route>            
             <Route path='/Shoes/:shoeId'>
-                <SingleShoe /> 
+                <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
             </Route>
             <Route path='/Shoes'>
                 <Shoes /> 
@@ -110,7 +119,7 @@ const App = () => {
                     <CreateReview token={token} setReviews={setReviews}/>
             </Route> */}
             <Route path="/cart">
-                <Cart token={token} />
+                <Cart username={username} cartProducts={cartProducts} setCartProducts={setCartProducts}/>
             </Route>
             <Route path="/admin/users/:userId">
                 <EditUser />
@@ -130,75 +139,6 @@ const App = () => {
 
 </>
 )
-
-
-//new stuff here------------>
-
-// return (
-//   <div> 
-//       <nav>
-//           <Link style={{color: "black"}} to="/">
-//               Home
-//           </Link>
-//           <Link style={{color: "black"}} to="/Shoes">
-//               Shoes
-//           </Link>
-//           <Link style={{color:"black"}} to="/Reviews">
-//               Reviews
-//           </Link>
-//           <div>
-//               {token ? (
-//                   <button className="ui item" style={{color: "white"}} onClick={(event) => {
-//                       event.preventDefault();
-//                       logOut();
-//                   }}>Log Out</button>
-//               ):(
-//               <>
-//                   <Link className="ui item" style={{color: "white"}} to="/AccountForm/login">
-//                       Log In
-//                   </Link>
-//                   <Link className="ui item" style={{color: "white"}} to="/AccountForm/register">
-//                       Sign Up    
-//                   </Link>    
-//               </>
-//               )}
-//           </div>
-//       </nav>
-
-//       <Switch>
-//           <Route exact path="/" >
-//               <Home username={username} token={token}/>
-//           </Route>
-//           <Route path="/shoes/:shoeId">
-//               <SingleShoe shoes={shoes} token={token} />
-//           </Route>
-//           <Route path="/shoes/create">
-//               <CreateShoes token={token} shoes={shoes}/>
-//           </Route>
-//           <Route path="/Reviews">
-//               <Reviews reviews={reviews} token={token} />
-//           </Route>
-//           <Route path="/Reviews/create">
-//               <CreateReviews token={token} setReviews={setReviews}/>
-//           </Route>               
-//           <Route path="/Revies/users/:username">
-//               <UsersReviews reviews={reviews} username={username} token={token}/>
-//           </Route>                
-//           <Route path="/Orders">
-//               <Orders orders={orders} token={token}/>
-//           </Route>
-//           <Route path="/orders/:orderId">
-//               <SingleOrder token={token} orders={orders} />
-//           </Route>
-//           <Route path="/AccountForm/:action">
-//               <AccountForm setToken={setToken}/>
-//           </Route>
-//       </Switch>
-
-//   </div>
-
-// );
-
 
 };
 

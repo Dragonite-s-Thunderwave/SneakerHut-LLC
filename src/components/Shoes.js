@@ -20,6 +20,7 @@ const Shoes = () => {
 
 
     const mappedShoes = shoesList.map((shoe) => {
+        console.log('shoes lissttt', shoesList)
         return (
             <div>
                 <div >
