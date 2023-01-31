@@ -6,6 +6,7 @@ export { default as Reviews } from './Reviews';
 export { default as ReviewItem} from './ReviewItem'
 export { default as CreateReview} from './CreateReview'
 export { default as Shoes } from './Shoes';
+export { default as CreateShoes } from './CreateShoes'
 export { default as SingleShoe } from './SingleShoe';
 export { default as Cart } from './Cart';
 export { default as LoginForm } from './LoginForm';

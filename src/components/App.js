@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUser } from './';
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUser, CreateShoes } from './';
 
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -11,13 +11,22 @@ import { getAPIHealth, fetchGuest, fetchReviews, getAllUsers } from '../axios-se
 import '../style/App.css';
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
 
+
+const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
+
+
 const App = () => {
-    const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState(null);
   const [user, setUser] = useState([]);
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
   );
+  const [cartProducts, setCartProducts] = useState([cartFromLocalStorage])
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+  }, [cartProducts])
 
   const history = useHistory();
 
@@ -92,7 +101,7 @@ const App = () => {
                     </>
                 )}
                 <Link className="item active" to="/shoes">Shoes</Link>
-                <Link className="item active" to="/orders">Orders</Link>
+                {/* <Link className="item active" to="/orders">Orders</Link> */}
                 <Link className="item active" to="/reviews">Reviews</Link>
                 {user.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
 
@@ -110,8 +119,11 @@ const App = () => {
                 <RegisterForm setToken={setToken}/>
             </Route>            
             <Route path='/Shoes/:shoeId'>
-                <SingleShoe /> 
-            </Route>
+                <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
+            </Route>   
+            <Route className="item" path='/shoes/create'>
+                <CreateShoes token={token}/>
+            </Route> 
             <Route path='/Shoes'>
                 <Shoes /> 
             </Route>
@@ -128,7 +140,7 @@ const App = () => {
                     <CreateReview token={token} setReviews={setReviews}/>
             </Route> */}
             <Route path="/cart">
-                <Cart token={token} />
+                <Cart username={username} cartProducts={cartProducts} setCartProducts={setCartProducts}/>
             </Route>
             <Route path="/AdminTools/users/:userId">
                 <EditUser />
@@ -148,75 +160,6 @@ const App = () => {
 
 </>
 )
-
-
-//new stuff here------------>
-
-// return (
-//   <div> 
-//       <nav>
-//           <Link style={{color: "black"}} to="/">
-//               Home
-//           </Link>
-//           <Link style={{color: "black"}} to="/Shoes">
-//               Shoes
-//           </Link>
-//           <Link style={{color:"black"}} to="/Reviews">
-//               Reviews
-//           </Link>
-//           <div>
-//               {token ? (
-//                   <button className="ui item" style={{color: "white"}} onClick={(event) => {
-//                       event.preventDefault();
-//                       logOut();
-//                   }}>Log Out</button>
-//               ):(
-//               <>
-//                   <Link className="ui item" style={{color: "white"}} to="/AccountForm/login">
-//                       Log In
-//                   </Link>
-//                   <Link className="ui item" style={{color: "white"}} to="/AccountForm/register">
-//                       Sign Up    
-//                   </Link>    
-//               </>
-//               )}
-//           </div>
-//       </nav>
-
-//       <Switch>
-//           <Route exact path="/" >
-//               <Home username={username} token={token}/>
-//           </Route>
-//           <Route path="/shoes/:shoeId">
-//               <SingleShoe shoes={shoes} token={token} />
-//           </Route>
-//           <Route path="/shoes/create">
-//               <CreateShoes token={token} shoes={shoes}/>
-//           </Route>
-//           <Route path="/Reviews">
-//               <Reviews reviews={reviews} token={token} />
-//           </Route>
-//           <Route path="/Reviews/create">
-//               <CreateReviews token={token} setReviews={setReviews}/>
-//           </Route>               
-//           <Route path="/Revies/users/:username">
-//               <UsersReviews reviews={reviews} username={username} token={token}/>
-//           </Route>                
-//           <Route path="/Orders">
-//               <Orders orders={orders} token={token}/>
-//           </Route>
-//           <Route path="/orders/:orderId">
-//               <SingleOrder token={token} orders={orders} />
-//           </Route>
-//           <Route path="/AccountForm/:action">
-//               <AccountForm setToken={setToken}/>
-//           </Route>
-//       </Switch>
-
-//   </div>
-
-// );
-
 
 };
 
