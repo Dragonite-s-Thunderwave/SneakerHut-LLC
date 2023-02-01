@@ -37,7 +37,7 @@ const Shoes = ({setCartProducts}) => {
                         <p>Type: {shoe.type}</p>
                         <p>Price: {shoe.price}</p>
                         <button onClick={(event) => {
-                            event.preventDefault()
+                            event.preventDefault();
                             setCartProducts((prevCart) => [...prevCart, shoe]);
                             }
                             }>Add to Cart
