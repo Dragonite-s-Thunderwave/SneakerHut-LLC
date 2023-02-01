@@ -37,10 +37,16 @@ const Shoes = ({setCartProducts}) => {
                         <p>Type: {shoe.type}</p>
                         <p>Price: {shoe.price}</p>
                         <button onClick={(event) => {
+                            console.log('shoequant', shoe.quantity)
                             event.preventDefault();
+
+                            if (shoe.quantity = 0 || !shoe.quantity) {                            
+                            shoe.quantity = 1 
                             setCartProducts((prevCart) => [...prevCart, shoe]);
+                            } else {
+                                shoe.quantity + 1
                             }
-                            }>Add to Cart
+                        }}>Add to Cart
                         </button>
                     </div>
                     </div>
