@@ -244,6 +244,7 @@ export const fetchAllShoes = async () => {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    console.log('fetchshoesdata', data)
     return data
   } catch (error) {
     console.error("There was an error fetching shoes", error)

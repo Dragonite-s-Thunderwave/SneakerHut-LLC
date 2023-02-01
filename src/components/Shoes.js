@@ -3,7 +3,7 @@ import { fetchAllShoes } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
-const Shoes = () => {
+const Shoes = ({setCartProducts}) => {
     const [shoesList, setShoesList] = useState([]);
 
     useEffect(() => {
@@ -18,10 +18,13 @@ const Shoes = () => {
         fetchShoes()
     }, [])
 
+  
+    const mappedShoes = shoesList?.map((shoe) => {
 
-    const mappedShoes = shoesList.map((shoe) => {
         return (
+            
             <div>
+
                 <div class="two column row">
                     <div className='ui card'>
                     <div key={shoe.id} >
@@ -33,6 +36,12 @@ const Shoes = () => {
                         <p>Description: {shoe.description}</p>
                         <p>Type: {shoe.type}</p>
                         <p>Price: {shoe.price}</p>
+                        <button onClick={(event) => {
+                            event.preventDefault()
+                            setCartProducts((prevCart) => [...prevCart, shoe]);
+                            }
+                            }>Add to Cart
+                        </button>
                     </div>
                     </div>
                     </div>

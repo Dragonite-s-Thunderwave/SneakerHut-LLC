@@ -22,8 +22,11 @@ const App = () => {
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
   );
-  const [cartProducts, setCartProducts] = useState([cartFromLocalStorage])
+  const [cartProducts, setCartProducts] = useState([])
+  console.log('cartProducts!!!!!', cartProducts)
 
+  console.log('this is cart from local storage', cartFromLocalStorage)
+  
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartProducts));
   }, [cartProducts])
@@ -125,7 +128,7 @@ const App = () => {
                 <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
             </Route>
             <Route path='/Shoes'>
-                <Shoes /> 
+                <Shoes cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
             </Route>
             <Route path='/orders/:orderId'>
                 <SingleOrder/> 
