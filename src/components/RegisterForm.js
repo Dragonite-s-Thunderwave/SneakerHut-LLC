@@ -44,7 +44,7 @@ const RegisterForm = ({setToken, user}) => {
 
     return (
         <div>
-            <form onSubmit={onSubmitHandler}>
+            <form className="ui form" onSubmit={onSubmitHandler}>
                 <h1>Create an Account!</h1>
                 <div className="field">
                     <label>Username</label>

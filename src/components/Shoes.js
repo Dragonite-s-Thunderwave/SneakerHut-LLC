@@ -20,11 +20,11 @@ const Shoes = () => {
 
 
     const mappedShoes = shoesList.map((shoe) => {
-        console.log('shoes lissttt', shoesList)
         return (
             <div>
                 <div class="two column row">
-                    <div className='ui card'key={shoe.id} >
+                    <div className='ui card'>
+                    <div key={shoe.id} >
                         <Link to={`/shoes/${shoe.id}`}>
                             {shoe.shoename}
                         </Link>
@@ -33,7 +33,9 @@ const Shoes = () => {
                         <p>Description: {shoe.description}</p>
                         <p>Type: {shoe.type}</p>
                         <p>Price: {shoe.price}</p>
-                    </div></div>
+                    </div>
+                    </div>
+                    </div>
           </div>          
         )
     })

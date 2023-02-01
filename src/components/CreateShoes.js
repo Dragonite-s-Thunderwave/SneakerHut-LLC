@@ -57,9 +57,10 @@ const onCreateShoeSubmitHandler = async(event) => {
                         </input>
                     <label>Add a picture of your shoes!</label>
                         <input
-                            type="file" 
+                            type="url" 
                             className="feild"
                             value={image}
+                            placeholder="add photo here"
                             onChange={(event) => setImage(event.target.value)}>
                         </input>
                     <label>Description</label>

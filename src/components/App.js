@@ -118,12 +118,12 @@ const App = () => {
             <Route path="/register">
                 <RegisterForm setToken={setToken} user={user}/>
             </Route>            
-            <Route path='/Shoes/:shoeId'>
-                <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
-            </Route>   
             <Route className="item" path='/shoes/create'>
                 <CreateShoes token={token}/>
             </Route> 
+            <Route path='/Shoes/:shoeId'>
+                <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
+            </Route>
             <Route path='/Shoes'>
                 <Shoes /> 
             </Route>
