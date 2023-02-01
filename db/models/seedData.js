@@ -57,8 +57,7 @@ async function createTables() {
 
        CREATE TABLE shoes (
             id SERIAL PRIMARY KEY,
-            "userId" INTEGER REFERENCES users(id),
-            username VARCHAR(255) UNIQUE NOT NULL, 
+            "userId" INTEGER REFERENCES users(id), 
             shoename VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
             price MONEY NOT NULL,

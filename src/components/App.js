@@ -7,8 +7,8 @@ import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, Sin
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, fetchGuest, fetchReviews, getAllUsers } from '../axios-services/index';
-import '../style/App.css';
+import { getAPIHealth, fetchGuest, fetchReviews, getAllUsers, fetchAllShoes } from '../axios-services/index';
+import '../style/App.css';1
 import {BrowserRouter, Link, Route, Switch, useHistory} from "react-router-dom";
 
 
@@ -19,6 +19,8 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState(null);
   const [user, setUser] = useState([]);
+  const [submit, setSubmit] = useState(false)
+  const [shoes, setShoes] = useState([]);
   const [token, setToken] = useState(
       window.localStorage.getItem("token") || null
   );
@@ -41,6 +43,15 @@ const App = () => {
   }
   getReviews();
 }, [])  
+
+useEffect(() => {
+    const getShoes = async () => {
+    const shoesFromAPI = await fetchAllShoes();
+    setShoes(shoesFromAPI);
+    setSubmit(false)
+    };
+    getShoes()
+}, [submit])
 
   useEffect(() => {
     if (token) {
@@ -91,10 +102,10 @@ const App = () => {
             <div className="ui vertical fluid tabular menu">
                 <Link className='item active' to="/">Home</Link>
                 {token ? (
-                    <button onClick={(event) => {
+                    <Link className="item active" onClick={(event) => {
                         event.preventDefault();
                         logOut();
-                    }}>Log Out</button>
+                    }}>Log Out</Link>
                 ) : (<>
                     <Link className="item active" to="/login">Login</Link>
                     <Link className="item active" to="/register">Register</Link>
@@ -117,13 +128,14 @@ const App = () => {
             </Route>
             <Route path="/register">
                 <RegisterForm setToken={setToken} user={user}/>
-            </Route>            
+            </Route>         
             <Route className="item" path='/shoes/create'>
-                <CreateShoes token={token}/>
-            </Route> 
+                <CreateShoes setShoes={setShoes} setSubmit={setSubmit} token={token}/>
+            </Route>    
             <Route path='/Shoes/:shoeId'>
                 <SingleShoe cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
             </Route>
+            
             <Route path='/Shoes'>
                 <Shoes /> 
             </Route>

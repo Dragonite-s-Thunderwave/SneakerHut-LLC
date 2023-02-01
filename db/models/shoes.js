@@ -1,17 +1,18 @@
 const client = require('../client');
 // const { attachUserToShoe } = require('./user'); - This function needs to be written
 
-async function createShoes({ userId, username, shoename, description, price, type, size, image }) {
+async function createShoes({  shoename, description, price, type, size, image }) {
     try{
         const {rows: [shoes]} = await client.query(`
-                INSERT INTO shoes("userId", username, shoename, description, price, type, size, image)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                INSERT INTO shoes( shoename, description, price, type, size, image)
+                VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING *;
-            `,[userId, username, shoename, description, price, type, size, image]);
+            `,[ shoename, description, price, type, size, image]);
             // console.log(shoes, "Here are your shoes")//delete later
             return shoes;
     }catch(error){
         console.error("There was an error creating shoes", error)
+        throw error;
     }
 }
 
