@@ -11,8 +11,9 @@ import React, { useState, useEffect } from 'react';
 
 const Cart = ({cartProducts, setCartProducts}) => {
 
+
     // useEffect(() => {
-    //     window.localStorage.setItem('cartProducts', cartProducts);
+    //     window.localStorage.setItem('cart', cartProducts);
     // }, [cartProducts])
 
 // const cartItem = [{
@@ -31,14 +32,21 @@ console.log('CartProducts!!!!!!!', cartProducts)
 
 return (
     <div>
+        <h1>Here's your shopping cart!</h1>
+        <p></p>
         {cartProducts?.map((shoe) => {
             return (
-                <>
+                <div class="two column row">
+                    <div className='ui card'>
+                    <div key={shoe.id} >
+                <p><img alt = 'cart shoe' src={shoe.image} width="200" height="200"/></p>
                 <p>{shoe.shoename}</p>
                 <p>{shoe.description}</p>
-                <p><img alt = 'cart shoe' src={shoe.image} width="200" height="200"/></p>
-                </>
-            )
+                <p>{shoe.price}</p>
+                </div>
+                </div>
+                </div>
+        )
         
         })}
         {cartProducts ? <div><button>CheckOut</button>{cartProducts.price}</div> : <h1>Nothing in Cart!</h1>}
