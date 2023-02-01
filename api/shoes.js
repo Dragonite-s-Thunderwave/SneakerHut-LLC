@@ -83,19 +83,16 @@ shoesRouter.get("/size/:size", async (req, res) => {
 
 shoesRouter.post('/', requireAdmin, async (req, res, next) => {
     const {
-        username,
         shoename,
         description,
         price,
         type,
         size
      } = req.body;
-     const { userId } = req.user;
+    //  const { userId } = req.user;
      console.log(req.body)
      try{
         const createingShoes = await createShoes({
-            userId: userId,
-            username: username,
             shoename: shoename,
             description: description,
             price: price,
@@ -104,29 +101,11 @@ shoesRouter.post('/', requireAdmin, async (req, res, next) => {
          });
         res.send(createingShoes)
      }catch({ name, message }){
-        next({ name, message});
-     }
-});
-
-
-
-shoesRouter.post('/', requireAdmin, async (req, res, next) => {
-    const { 
-        userId, 
-        username, 
-        shoename, 
-        description, 
-        price, 
-        type, 
-        size
-     } = req.body
-     try{
-        const newShoes = await createShoes({ userId, username, shoename, description, price, type, size });
-        res.send(newShoes)
-     }catch({ name, message }){
         next({ name, message, status: 401});
      }
 });
+
+
 
 
 

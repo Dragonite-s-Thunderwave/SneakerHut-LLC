@@ -17,36 +17,43 @@ const CreateShoes = ({token, setShoes}) => {
 })
 
 const onCreateShoeSubmitHandler = async(event) => {
+    try{
     event.preventDefault();
-    const { shoe } = await createShoes(
-        token,
+    console.log(token)
+    const shoe  = await createShoes({
+        token, 
         shoename,
         description,
         price,
         type,
         size,
-        image
-    );
-    if(post) {
-        setShoes((prevShoe) => [shoe, ...prevShoe]);
-        shoe.isAdmin = true;
+        image,
+   })
+   console.log("here",shoe)
+    if(shoe){
+        //console.log(shoe);
+        setShoes((prevShoe) => [...prevShoe, shoe])
+        // setSubmit(true)
         setShoename('');
         setDescription('');
         setPrice(0);
         setType('');
         setSize(0);
         setImage('');
-        history.push('/shoes')
-    } else {
-        setErrorMessage(error);
+        setErrorMessage('')
+        history.push('/shoes')}
+    }catch(error){
+        console.error("There was an error creating shoes", error)
     }
-}
+}   
+
+
     return(
         <>
         <div>
             <form onSubmit={onCreateShoeSubmitHandler} className="ui inverted segment">
                 <div className='ui form'>
-                    <h1 color='#9900FF'>Create Shoes</h1>
+                    <h1 color='#9900FF'>Tell us about your shoes</h1>
                     <label>Shoe Name</label>
                         <input 
                             type="text" 
@@ -97,9 +104,8 @@ const onCreateShoeSubmitHandler = async(event) => {
                         </input>
                 </div>
                 {errorMessage ? (<p className="ui negative message">{errorMessage}</p>) : null}
-                <button  className="ui button" type="submit">Create Post</button>
                 <br/>
-                
+                <button  className="ui button" type="submit">Post</button>
              <Link to='/shoes' className="ui button">Back</Link>   
             </form>
         </div>

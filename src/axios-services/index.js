@@ -261,22 +261,22 @@ export const fetchSingleShoe = async (id) => {
   }
 }
 
-export const createShoes = async({token, userId, username, shoename, description, price, type, size }) => {
+export const createShoes = async({token, shoename, description, price, type, size, image}) => {
+  console.log(`Auth header: Bearer ${token}`);
   try {
-      const response = await fetch(`${BASE_URL}/shoes/create`, {
+      const response = await fetch(`${BASE_URL}/shoes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            userId: userId,
-            username: username,
             shoename: shoename,
             description: description,
             price: price,
             type: type,
             size: size,
+            image: image
       })
   })
       const result = await response.json()
@@ -287,30 +287,30 @@ export const createShoes = async({token, userId, username, shoename, description
 }
 
 
-export const updateShoes = async({id, token, userId, username, shoename, description, price, type, size }) => {
-  try {
-      const response = await fetch(`${BASE_URL}/shoes/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            userId: userId,
-            username: username,
-            shoename: shoename,
-            description: description,
-            price: price,
-            type: type,
-            size: size,
-      })
-  })
-        const result = await response.json()
-        return result;
-    }catch(error) {
-      console.error("There was an error updating shoes", error);
-  }
-}
+// export const updateShoes = async({id, token, userId, username, shoename, description, price, type, size }) => {
+//   try {
+//       const response = await fetch(`${BASE_URL}/shoes/${id}`, {
+//         method: "PATCH",
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": `Bearer ${token}`
+//         },
+//         body: JSON.stringify({
+//             userId: userId,
+//             username: username,
+//             shoename: shoename,
+//             description: description,
+//             price: price,
+//             type: type,
+//             size: size,
+//       })
+//   })
+//         const result = await response.json()
+//         return result;
+//     }catch(error) {
+//       console.error("There was an error updating shoes", error);
+//   }
+// }
 
 
 export const deleteShoes = async({id, token}) => {
