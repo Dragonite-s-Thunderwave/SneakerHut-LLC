@@ -1,19 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {fetchUpdateUser} from '../axios-services/index'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UsersItem = ({user, token}) => {
-    
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    useEffect(() => {
-        if(token) {
-            const makeAdmin = async () => {
-                const admin = await fetchUpdateUser(token, user.id);
-                setIsAdmin(admin)
-            }
-            makeAdmin();
-        }
-    })
     
     return (
         <>
@@ -26,9 +14,7 @@ const UsersItem = ({user, token}) => {
                 <p>{user.city}</p>
                 <p>{user.state}</p>
                 <p>{user.zip}</p>
-                <button onClick={() => {
-                    
-                }}>Make Admin</button>
+                <button><Link to="/newadmin">Make Admin</Link></button>
             </div>
         </>
     )

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUser, CreateShoes } from './';
+import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUser, CreateShoes, NewAdmin } from './';
 
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -150,6 +150,9 @@ const App = () => {
             </Route>
             <Route path="/AdminTools">
                 <AdminTools />
+            </Route>
+            <Route path="/newadmin">
+                <NewAdmin />
             </Route>
         </Switch>
 
