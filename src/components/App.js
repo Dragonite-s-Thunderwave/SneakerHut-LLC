@@ -140,7 +140,7 @@ useEffect(() => {
             </Route>
             
             <Route path='/Shoes'>
-                <Shoes cartProducts={cartProducts} setCartProducts={setCartProducts}/> 
+                <Shoes token={token} cartProducts={cartProducts} setCartProducts={setCartProducts} setSubmit={setSubmit}/> 
             </Route>
             <Route path='/orders/:orderId'>
                 <SingleOrder/> 
