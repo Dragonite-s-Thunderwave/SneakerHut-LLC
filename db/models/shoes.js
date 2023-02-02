@@ -1,4 +1,4 @@
-const client = require('../client');
+const { client } = require('../client');
 // const { attachUserToShoe } = require('./user'); - This function needs to be written
 
 async function createShoes({  shoename, description, price, type, size, image }) {

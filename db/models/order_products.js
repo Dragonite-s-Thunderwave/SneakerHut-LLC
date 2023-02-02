@@ -1,4 +1,4 @@
-const client = require("../client");
+const { client } = require('../client');
 
 // create func createOrderProduct
 async function createOrderProducts({ shoeId, orderId, quantity }) {
