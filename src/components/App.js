@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 import { Home, LoginForm, RegisterForm, Reviews, Shoes, Orders, SingleOrder, SingleShoe, CreateReview, Cart, AdminTools, Users, EditUser, CreateShoes, NewAdmin } from './';
 
 
@@ -87,7 +86,7 @@ useEffect(() => {
 
     const logOut = () => {
         setToken(null);
-        setUsername(null);
+        setUser([])
         history.push('/');
     }
 
@@ -140,7 +139,7 @@ useEffect(() => {
             </Route>
             
             <Route path='/Shoes'>
-                <Shoes token={token} cartProducts={cartProducts} setCartProducts={setCartProducts} setSubmit={setSubmit}/> 
+                <Shoes token={token} cartProducts={cartProducts} setCartProducts={setCartProducts} setSubmit={setSubmit} user={user}/> 
             </Route>
             <Route path='/orders/:orderId'>
                 <SingleOrder/> 
