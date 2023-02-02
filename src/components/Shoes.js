@@ -3,7 +3,7 @@ import { fetchAllShoes, deleteShoes } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
-const Shoes = ({token, cartProducts, setCartProducts, setSubmit}) => {
+const Shoes = ({token, cartProducts, setCartProducts, setSubmit, user}) => {
     const [shoesList, setShoesList] = useState([]);
 
     function currencyFormat(num) {
@@ -47,7 +47,7 @@ const Shoes = ({token, cartProducts, setCartProducts, setSubmit}) => {
                         <p>Description: {shoe.description}</p>
                         <p>Type: {shoe.type}</p>
                         <p>Price: {price}</p>
-                        <button className='ui button' onClick={(event) => {
+                        {user.isAdmin ? null : <button className='ui button' onClick={(event) => {
                             console.log('shoequant', shoe.quantity)
                             event.preventDefault();
 
@@ -58,8 +58,8 @@ const Shoes = ({token, cartProducts, setCartProducts, setSubmit}) => {
                                 shoe.quantity + 1
                             }
                         }}>Add to Cart
-                        </button>
-                        <button onClick={() => onClickDelete(shoe.id)} className="ui orange button">Delete</button>
+                        </button>}
+                        {user.isAdmin ? <button onClick={() => onClickDelete(shoe.id)} className="ui orange button">Delete</button> : null}
                     </div>
                     </div>
                     </div>
@@ -74,7 +74,7 @@ const Shoes = ({token, cartProducts, setCartProducts, setSubmit}) => {
                 {mappedShoes}
             </div>
             <br/>
-            <Link to="/shoes/create" className="ui button">Sell Your Shoes!</Link>
+            {user.isAdmin ? <Link to="/shoes/create" className="ui button">Sell Your Shoes!</Link> : null}
         </div>
         
     )
