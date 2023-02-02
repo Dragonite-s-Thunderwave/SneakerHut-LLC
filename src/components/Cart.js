@@ -36,8 +36,26 @@ console.log('cartProducts ID------', cartProducts.id)
 console.log('CartProducts!!!!!!!', cartProducts)
 console.log('cartTotal', cartTotal)
 let cartAmount = currencyFormat(cartTotal)
+
+// const handleQuantChange = event => {
+//     const { name, value, label } = event.target;
+//     let labelName = [label] + '.' + [name]
+//     setCartProducts(prevState => ({
+//         ...prevState,
+//         [label]: {
+//         ...labelName,
+//         [name]: value
+//         }
+//     }));
+// };
+
 return (
-    
+    <>
+    <div className='container'>
+    <div className='Cart'>
+    <br/>
+    <br/>   
+    <div className='ui segment'>
     <div>{cartProducts.length > 0?
         <>
         <h1>Here's your shopping cart!</h1>
@@ -45,8 +63,10 @@ return (
         <p></p>
         {cartProducts?.map((shoe) => {
             let price = currencyFormat(shoe.price)
+            let quant = Number(shoe.quantity)
             // setTotal(shoe.price + total)
-            return (<>
+            return (
+            <>
                 <div class="two column row">
                     <div className='ui card'>
                     <div key={shoe.id} >
@@ -55,8 +75,8 @@ return (
                 <p>Description: {shoe.description}</p>
                 <p><b>Price: </b> {price}</p>
                 <div class="ui input focus">
-                <p>Quantity: </p>
-                    <input type="text" size='1' maxLength="3" placeholder="1"/>
+                {/* <p>Quantity: </p>
+                    <input type="number" name='quantity' label={shoe.id} size='1' maxLength="3" placeholder="1" value={quant} onChange={handleQuantChange}/> */}
                 </div>
                 {/* <button onClick={() => {
                     // setCount(count + 1)
@@ -80,7 +100,9 @@ return (
         </>
         )
         
-        })}                <p></p><div>Total: {cartAmount}     <p><button>CheckOut</button></p></div>
+        })}                
+        <p></p><div>Total: {cartAmount}     
+        <p><button>CheckOut</button></p></div>
         </>
         : 
         <>
@@ -94,8 +116,11 @@ return (
         
         </> 
         }
-        
     </div>
+    </div>
+    </div>
+    </div>
+    </>
 )
 
 
