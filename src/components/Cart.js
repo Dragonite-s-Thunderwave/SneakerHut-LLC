@@ -23,7 +23,7 @@ useEffect(() => {
 }, [])
 
 // function handlePlusClick() {
-//     setCartProducts({...cartProducts, quantity: shoe.quantity + 1,})
+//     setCartProducts({...cartProducts, shoe: {...cartProducts.shoe, quantity: })
 // }
 
  
@@ -50,8 +50,11 @@ return (
                 <h3>{shoe.shoename}</h3>
                 <p>Description: {shoe.description}</p>
                 <p><b>Price: </b> {price}</p>
-                {/* <p><b>Quantity: </b> {count}
-                <button onClick={() => {
+                <div class="ui input focus">
+                <p>Quantity: </p>
+                    <input type="text" size='1' maxLength="3" placeholder="1"/>
+                </div>
+                {/* <button onClick={() => {
                     // setCount(count + 1)
                     // setTotal((( count + 1) * shoe.price))
                     setCartProducts((prevCart) => [...prevCart, shoe]) 
@@ -59,11 +62,11 @@ return (
                 }}>
                     Add one more!
                 </button></p>  */}
-                <button onClick={(event) => {
+                {/* <button onClick={(event) => {
                     event.preventDefault();
                     console.log('shoeiddddd', shoe.id)
                     removeItem(shoe.id)
-                }}>Remove from cart</button>
+                }}>Remove from cart</button> */}
                 <p></p>
                 </div>
                 </div>
