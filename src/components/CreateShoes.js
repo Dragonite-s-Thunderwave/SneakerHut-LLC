@@ -51,9 +51,11 @@ const onCreateShoeSubmitHandler = async(event) => {
     return(
         <>
         <div>
+        <div className='container'>
+        <div className='CreateShoes'>
             <form onSubmit={onCreateShoeSubmitHandler} className="ui inverted segment">
                 <div className='ui form'>
-                    <h1 color='#9900FF'>Tell us about your shoes</h1>
+                    <h1 color='#9900FF'>Tell us about the product!</h1>
                     <label>Shoe Name</label>
                         <input 
                             type="text" 
@@ -62,7 +64,7 @@ const onCreateShoeSubmitHandler = async(event) => {
                             onChange={(event) => setShoename(event.target.value)}
                             placeholder="Air Jordan's">
                         </input>
-                    <label>Add a picture of your shoes!</label>
+                    <label>Add a picture of the shoes</label>
                         <input
                             type="url" 
                             className="feild"
@@ -108,6 +110,8 @@ const onCreateShoeSubmitHandler = async(event) => {
                 <button  className="ui button" type="submit">Post</button>
              <Link to='/shoes' className="ui button">Back</Link>   
             </form>
+        </div>
+        </div>
         </div>
         </>
     )

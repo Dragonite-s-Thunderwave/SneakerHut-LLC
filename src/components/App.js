@@ -92,32 +92,40 @@ useEffect(() => {
 
   return ( 
     <>
-    <div className="ui grid">    
+   <div className='container'>
+      
     <BrowserRouter>  
-    
-        <div className="four wide column">
-            <br/>
-            <Link className="item active" to="/cart">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <i className="cart arrow down icon"></i>
+    <div className="menu"> 
+
+        <div>
+            <div className="ui massive borderless inverted secondary vertical menu">
+                <Link className="red item active" to="/cart">
+                    <div>
+                    <i className="cart arrow down icon"></i>
+                    </div>
                 </Link>
-            <div className="ui vertical fluid tabular menu">
-                <Link className='item active' to="/">Home</Link>
+            <br/>  
+                <Link className='active red item' to="/">Home</Link>
+                <br/>
+                <Link className="active red item" to="/shoes">Shoes</Link>
+                <br/>
+                {/* <Link className="item active" to="/orders">Orders</Link> */}
+                <Link className="active red item" to="/reviews">Reviews</Link>
+                <br/>
+                {user.isAdmin ? <Link className='active red item' to="/AdminTools">Admin Tools</Link> : null}
                 {token ? (
-                    <Link className="item active" onClick={(event) => {
+                    <Link className="active red item" onClick={(event) => {
                         event.preventDefault();
                         logOut();
                     }}>Log Out</Link>
                 ) : (<>
-                    <Link className="item active" to="/login">Login</Link>
-                    <Link className="item active" to="/register">Register</Link>
+                    <Link className="active red item" to="/login">Login</Link>
+                    <br/>
+                    <Link className="active red item" to="/register">Register</Link>
                     </>
                 )}
-                <Link className="item active" to="/shoes">Shoes</Link>
-                {/* <Link className="item active" to="/orders">Orders</Link> */}
-                <Link className="item active" to="/reviews">Reviews</Link>
-                {user.isAdmin ? <Link className='item active' to="/AdminTools">Admin Tools</Link> : null}
-
+                <br/>
+            </div>
             </div>
         </div>
         <div className="twelve wide stretched column">
@@ -169,12 +177,9 @@ useEffect(() => {
                 <NewAdmin />
             </Route>
         </Switch>
-
         </div>
   </BrowserRouter>
 </div>
-
-
 </>
 )
 

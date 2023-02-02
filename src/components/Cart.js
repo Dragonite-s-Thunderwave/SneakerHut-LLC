@@ -34,10 +34,15 @@ console.log('CartProducts!!!!!!!', cartProducts)
 
 
 return (
+    <>
+    <div className='container'>
+    <div className='Cart'>
+    <br/>
+    <br/>   
+    <div className='ui segment'>
     <div>{cartProducts.length > 0?
         <>
-        <h1>Here's your shopping cart!</h1>
-
+        <h1 className='ui red header'>Here's your shopping cart!</h1>
         <p></p>
         {cartProducts?.map((shoe) => {
             let price = currencyFormat(shoe.price)
@@ -76,7 +81,7 @@ return (
         </>
         )
         
-        })}                <div>Total: $175     <p><button>CheckOut</button></p></div>
+        })}                <div>Total: $175     <p><button className='ui red button'>CheckOut</button></p></div>
         </>
         : 
         <>
@@ -90,8 +95,11 @@ return (
         
         </> 
         }
-        
+        </div>
+        </div>
+        </div>
     </div>
+    </>
 )
 
 
