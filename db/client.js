@@ -4,11 +4,11 @@ const { Client } = require('pg');
 // change the DB_NAME string to whatever your group decides on
 const DB_NAME = 'sneakerhut-dev';
 
-const DB_URL =
+const CONNECTION_STRING =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
 
 let client = new Client({
-  DB_URL,
+  connectionString: CONNECTION_STRING,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
 });
 
