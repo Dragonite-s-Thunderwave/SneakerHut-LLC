@@ -3,7 +3,9 @@ import { fetchAllShoes, deleteShoes } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
-const Shoes = ({token, cartProducts, setCartProducts, setSubmit, user}) => {
+
+const Shoes = ({token, cartProducts, setCartProducts, setSubmit, user, setCartTotal, cartTotal}) => {
+
     const [shoesList, setShoesList] = useState([]);
 
     function currencyFormat(num) {
@@ -45,11 +47,14 @@ const mappedShoes = shoesList?.map((shoe) => {
                         <p>Description: {shoe.description}</p>
                         <p>Type: {shoe.type}</p>
                         <p>Price: {price}</p>
+
                         {user.isAdmin ? null : <button className='ui button' onClick={(event) => {
                             console.log('shoequant', shoe.quantity)
+
                             event.preventDefault();
 
                             if (shoe.quantity = 0 || !shoe.quantity) {                            
+                            setCartTotal(Number(cartTotal) + Number(shoe.price))
                             shoe.quantity = 1 
                             setCartProducts((prevCart) => [...prevCart, shoe]);
                             } else {

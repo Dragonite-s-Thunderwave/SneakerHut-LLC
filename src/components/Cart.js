@@ -5,7 +5,8 @@ import Shoes from './Shoes';
 
 
 
-const Cart = ({cartProducts, setCartProducts}) => {
+const Cart = ({cartProducts, setCartProducts, cartTotal, setCartTotal}) => {
+
 
 
 
@@ -17,6 +18,7 @@ let localCart = localStorage.getItem("cart");
 const [count, setCount] = useState(1)
 const [total, setTotal] = useState(0)
 
+
 useEffect(() => {
     localCart = JSON.parse(localCart);
     if (localCart) setCartProducts(localCart)
@@ -26,12 +28,26 @@ useEffect(() => {
 //     setCartProducts({...cartProducts, shoe: {...cartProducts.shoe, quantity: })
 // }
 
+
  
 
 console.log('cartProducts ID------', cartProducts.id)
 
 console.log('CartProducts!!!!!!!', cartProducts)
+console.log('cartTotal', cartTotal)
+let cartAmount = currencyFormat(cartTotal)
 
+// const handleQuantChange = event => {
+//     const { name, value, label } = event.target;
+//     let labelName = [label] + '.' + [name]
+//     setCartProducts(prevState => ({
+//         ...prevState,
+//         [label]: {
+//         ...labelName,
+//         [name]: value
+//         }
+//     }));
+// };
 
 return (
     <>
@@ -46,8 +62,10 @@ return (
         <p></p>
         {cartProducts?.map((shoe) => {
             let price = currencyFormat(shoe.price)
+            let quant = Number(shoe.quantity)
             // setTotal(shoe.price + total)
-            return (<>
+            return (
+            <>
                 <div class="two column row">
                     <div className='ui card'>
                     <div key={shoe.id} >
@@ -56,8 +74,8 @@ return (
                 <p>Description: {shoe.description}</p>
                 <p><b>Price: </b> {price}</p>
                 <div class="ui input focus">
-                <p>Quantity: </p>
-                    <input type="text" size='1' maxLength="3" placeholder="1"/>
+                {/* <p>Quantity: </p>
+                    <input type="number" name='quantity' label={shoe.id} size='1' maxLength="3" placeholder="1" value={quant} onChange={handleQuantChange}/> */}
                 </div>
                 {/* <button onClick={() => {
                     // setCount(count + 1)
@@ -77,11 +95,14 @@ return (
                 </div>
 
                 </div>
-
+                <p></p>
         </>
         )
         
-        })}                <div>Total: $175     <p><button className='ui red button'>CheckOut</button></p></div>
+
+        })}                
+        <p></p><div>Total: {cartAmount}     
+        <p><button>CheckOut</button></p></div>
         </>
         : 
         <>
@@ -95,10 +116,12 @@ return (
         
         </> 
         }
-        </div>
-        </div>
-        </div>
+
     </div>
+    </div>
+    </div>
+    </div>
+
     </>
 )
 
