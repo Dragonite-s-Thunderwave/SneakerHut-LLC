@@ -1,4 +1,4 @@
-const client = require('../client') //createusers may be moved to users.js
+const { client } = require('../client'); //createusers may be moved to users.js
 const { createUser } = require('./user')
 const { createShoes } = require('./shoes')
 const { createReview } = require('./reviews')

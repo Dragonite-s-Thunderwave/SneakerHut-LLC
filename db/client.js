@@ -26,4 +26,4 @@ let client = new Client({
 //   client = new Client(DB_URL);
 // }
 
-module.exports = client;
+module.exports = { client };

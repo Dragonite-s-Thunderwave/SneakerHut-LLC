@@ -1,5 +1,4 @@
-const client = require('../client');
-
+const { client } = require('../client');
 async function createOrders ({userId, status='open', total}) {
     try {
         const { rows: [orders] } = await client.query(`
