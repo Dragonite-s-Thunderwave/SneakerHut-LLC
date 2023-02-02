@@ -54,10 +54,17 @@ const Reviews = () => {
  
     return (
         <div>
+         <div className='container'>
+         <div className='Reviews'>
+         <h1 className='ui red header'>Reviews</h1>
+          <div className='ui card'>
             <h1>Reviews:</h1>
             <div>
                 {mappedReviews}
             </div>
+            </div>  
+            </div>
+          </div>   
         </div>
     )
 }

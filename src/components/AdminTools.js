@@ -12,8 +12,12 @@ const AdminTools = () => {
 
     return (
         <>
-            <button><Link to="/AdminTools/users">Users</Link></button>
-            <button><Link to="/Shoes">Shoes</Link></button>
+        <div className="Admintools">
+            <h1 className="ui red header">Admin Tools</h1>
+            <button className="ui large button"><Link to="/AdminTools/users">Users</Link></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button className="ui large button"><Link to="/Shoes">Shoes</Link></button>
+        </div>    
         </>
     )
 }

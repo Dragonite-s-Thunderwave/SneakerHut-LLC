@@ -43,9 +43,15 @@ const RegisterForm = ({setToken, user}) => {
     }
 
     return (
+        <div className='container'>
         <div>
-            <form className="ui form" onSubmit={onSubmitHandler}>
-                <h1>Create an Account!</h1>
+            <br/>
+        <div className="Register">
+            <br/>
+        <h1 className="ui red header">Create an Account!</h1>
+        <br/>
+            <form className="ui inverted form" onSubmit={onSubmitHandler}>
+               
                 <div className="field">
                     <label>Username</label>
                     <input
@@ -155,8 +161,10 @@ const RegisterForm = ({setToken, user}) => {
                             setZip(event.target.value);
                         } } />
                 </div>
-                <button type="submit">Submit</button>
+                <button className='ui button'  type="submit">Submit</button>
             </form>
+        </div>
+        </div>
         </div>
     );
 }

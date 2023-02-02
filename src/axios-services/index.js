@@ -314,7 +314,7 @@ export const createShoes = async({token, shoename, description, price, type, siz
 // }
 
 
-export const deleteShoes = async({id, token}) => {
+export const deleteShoes = async(id, token) => {
   try {
       const response = await fetch(`${BASE_URL}/shoes/${id}`, {
         method: "DELETE",

@@ -58,8 +58,7 @@ return (
     <div className='ui segment'>
     <div>{cartProducts.length > 0?
         <>
-        <h1>Here's your shopping cart!</h1>
-
+        <h1 className='ui red header'>Here's your shopping cart!</h1>
         <p></p>
         {cartProducts?.map((shoe) => {
             let price = currencyFormat(shoe.price)
@@ -100,6 +99,7 @@ return (
         </>
         )
         
+
         })}                
         <p></p><div>Total: {cartAmount}     
         <p><button>CheckOut</button></p></div>
@@ -116,10 +116,12 @@ return (
         
         </> 
         }
+
     </div>
     </div>
     </div>
     </div>
+
     </>
 )
 

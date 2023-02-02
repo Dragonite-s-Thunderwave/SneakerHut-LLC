@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllShoes } from '../axios-services';
+import { fetchAllShoes, deleteShoes } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
-const Shoes = ({cartProducts, setCartProducts, setCartTotal, cartTotal}) => {
+
+const Shoes = ({token, cartProducts, setCartProducts, setSubmit, user, setCartTotal, cartTotal}) => {
+
     const [shoesList, setShoesList] = useState([]);
 
     function currencyFormat(num) {
@@ -22,14 +24,19 @@ const Shoes = ({cartProducts, setCartProducts, setCartTotal, cartTotal}) => {
         fetchShoes()
     }, [])
 
+    const onClickDelete = async(id) => {
+        console.log(id)
+        const deleted = await deleteShoes(token, id)
+        setSubmit(true)
+    }
   
-    const mappedShoes = shoesList?.map((shoe) => {
-        let price = currencyFormat(shoe.price)
-        return (
-            
-            <div>
 
-                <div class="two column row">
+
+const mappedShoes = shoesList?.map((shoe) => {
+    let price = currencyFormat(shoe.price)
+        return (
+            <div>
+                <div className="three column row">
                     <div className='ui card'>
                     <div key={shoe.id} >
                         <Link to={`/shoes/${shoe.id}`}>
@@ -40,7 +47,10 @@ const Shoes = ({cartProducts, setCartProducts, setCartTotal, cartTotal}) => {
                         <p>Description: {shoe.description}</p>
                         <p>Type: {shoe.type}</p>
                         <p>Price: {price}</p>
-                        <button onClick={(event) => {
+
+                        {user.isAdmin ? null : <button className='ui button' onClick={(event) => {
+                            console.log('shoequant', shoe.quantity)
+
                             event.preventDefault();
 
                             if (shoe.quantity = 0 || !shoe.quantity) {                            
@@ -51,7 +61,8 @@ const Shoes = ({cartProducts, setCartProducts, setCartTotal, cartTotal}) => {
                                 shoe.quantity + 1
                             }
                         }}>Add to Cart
-                        </button>
+                        </button>}
+                        {user.isAdmin ? <button onClick={() => onClickDelete(shoe.id)} className="ui orange button">Delete</button> : null}
                     </div>
                     </div>
                     </div>
@@ -61,12 +72,23 @@ const Shoes = ({cartProducts, setCartProducts, setCartTotal, cartTotal}) => {
  
     return (
         <div>
-            <h1 className="title">Shoes</h1>
-            <div class="ui four column grid">
+            <div className='container'>
+            <br/>
+            <div className="Shoes">
+            <br/> 
+             <h1 className="ui red header">Shoes</h1>   
+             <br/>
+            
+            <div className="ui four column grid">
                 {mappedShoes}
             </div>
             <br/>
-            <Link to="/shoes/create" className="ui button">Sell Your Shoes!</Link>
+            <br/>
+            {user.isAdmin ? <Link to="/shoes/create" className="ui button">Add Products</Link> : null}
+           </div> 
+            </div>
+            <br/>
+            
         </div>
         
     )
