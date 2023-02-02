@@ -3,7 +3,7 @@ import { fetchAllShoes } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
-const Shoes = ({cartProducts, setCartProducts}) => {
+const Shoes = ({cartProducts, setCartProducts, setCartTotal, cartTotal}) => {
     const [shoesList, setShoesList] = useState([]);
 
     function currencyFormat(num) {
@@ -41,10 +41,10 @@ const Shoes = ({cartProducts, setCartProducts}) => {
                         <p>Type: {shoe.type}</p>
                         <p>Price: {price}</p>
                         <button onClick={(event) => {
-                            console.log('shoequant', shoe.quantity)
                             event.preventDefault();
 
                             if (shoe.quantity = 0 || !shoe.quantity) {                            
+                            setCartTotal(Number(cartTotal) + Number(shoe.price))
                             shoe.quantity = 1 
                             setCartProducts((prevCart) => [...prevCart, shoe]);
                             } else {

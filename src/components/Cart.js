@@ -5,7 +5,8 @@ import Shoes from './Shoes';
 
 
 
-const Cart = ({cartProducts, setCartProducts}) => {
+const Cart = ({cartProducts, setCartProducts, cartTotal, setCartTotal}) => {
+
 
 
 
@@ -17,6 +18,7 @@ let localCart = localStorage.getItem("cart");
 const [count, setCount] = useState(1)
 const [total, setTotal] = useState(0)
 
+
 useEffect(() => {
     localCart = JSON.parse(localCart);
     if (localCart) setCartProducts(localCart)
@@ -26,14 +28,16 @@ useEffect(() => {
 //     setCartProducts({...cartProducts, shoe: {...cartProducts.shoe, quantity: })
 // }
 
+
  
 
 console.log('cartProducts ID------', cartProducts.id)
 
 console.log('CartProducts!!!!!!!', cartProducts)
-
-
+console.log('cartTotal', cartTotal)
+let cartAmount = currencyFormat(cartTotal)
 return (
+    
     <div>{cartProducts.length > 0?
         <>
         <h1>Here's your shopping cart!</h1>
@@ -72,11 +76,11 @@ return (
                 </div>
 
                 </div>
-
+                <p></p>
         </>
         )
         
-        })}                <div>Total: $175     <p><button>CheckOut</button></p></div>
+        })}                <p></p><div>Total: {cartAmount}     <p><button>CheckOut</button></p></div>
         </>
         : 
         <>
