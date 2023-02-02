@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 
 const Home = ({username, token}) => {
     return (
-        <div>
+        <div className="Home">
             <h1> </h1>
-            {username || token ? <div><h3>Welcome {username}, you're logged now.</h3><img className="LogoImage" src={LogoImage} alt="store logo" width={950} height={370}/></div>  : (
+            {username || token ? <div><h3 className="welcome">Welcome {username}, you're logged now.</h3><img className="LoggedinLogo" src={LogoImage} alt="store logo" width={1200} height={470}/></div>  : (
             <div>
-                <img className="LogoImage" src={LogoImage} alt="store logo" width={950} height={370}/>
+                <img className="LogoImage" src={LogoImage} alt="store logo" width={1250} height={520}/>
             </div>
             )}
         </div>

@@ -14,14 +14,19 @@
 
 
 .LogoImage {
-  background: rgb(167, 33, 33);
+  font-size: larger;
+  padding: 10px;
+  position: fixed;
+  left: 20%;
+  top: 6%;
+}
+.LoggedinLogo{
   font-size: larger;
   padding: 10px;
   position: fixed;
   left: 25%;
-  top: 15%;
+  top: 6%;
 }
-
 
 
 .shoesPage {
@@ -49,4 +54,92 @@
   justify-content: space-around;
   align-items: center;
   transition: .4s
+}
+
+.Home {
+  background-color: black;
+}
+
+.welcome{
+  color: white;
+  position: fixed;
+  top: 4%;
+  left: 30%;
+}
+
+.body
+{
+  background-color: black;
+}
+
+.menu {
+  background-color: black;
+  width: 400px;
+  height: 800px;
+  position: fixed;
+  top: 15%;
+  left: 2%;
+}
+
+.Login{
+ width: 800px;
+ height: 800px;
+ position: fixed;
+ left: 40%;
+ top: 25%;
+}
+
+.Register{
+ width: 600px;
+ height: 500px;
+ position: relative;
+ left: 30%;
+ top: 50%;
+}
+
+.Shoes{
+  width: 1000px;
+  height: 500px;
+  position: relative;
+  left: 30%;
+  top: 50%;
+}
+
+.Reviews{
+  width: 1000px;
+  height: 500px;
+  position: fixed;
+  left: 50%;
+  top: 25%;
+}
+.CreateShoes{
+  width: 700px;
+  height: 500px;
+  position: fixed;
+  left: 35%;
+  top: 10%;
+}
+
+.Admintools{
+  width: 700px;
+  height: 500px;
+  position: fixed;
+  left: 45%;
+  top: 30%;
+}
+
+.Cart{
+  width: 700px;
+  height: 500px;
+  position: relative;
+  left: 40%;
+  top: 45%;
+}
+
+.SingleShoe{
+  width: 700px;
+  height: 500px;
+  position: relative;
+  left: 40%;
+  top: 45%;
 }

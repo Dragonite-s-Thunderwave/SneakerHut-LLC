@@ -30,12 +30,10 @@ const Shoes = ({token, cartProducts, setCartProducts, setSubmit, user}) => {
   
 
 
-    const mappedShoes = shoesList?.map((shoe) => {
-        let price = currencyFormat(shoe.price)
+const mappedShoes = shoesList?.map((shoe) => {
+    let price = currencyFormat(shoe.price)
         return (
-            
             <div>
-
                 <div className="three column row">
                     <div className='ui card'>
                     <div key={shoe.id} >
@@ -69,12 +67,23 @@ const Shoes = ({token, cartProducts, setCartProducts, setSubmit, user}) => {
  
     return (
         <div>
-            <h1 className="title">Shoes</h1>
+            <div className='container'>
+            <br/>
+            <div className="Shoes">
+            <br/> 
+             <h1 className="ui red header">Shoes</h1>   
+             <br/>
+            
             <div className="ui four column grid">
                 {mappedShoes}
             </div>
             <br/>
-            {user.isAdmin ? <Link to="/shoes/create" className="ui button">Sell Your Shoes!</Link> : null}
+            <br/>
+            {user.isAdmin ? <Link to="/shoes/create" className="ui button">Add Products</Link> : null}
+           </div> 
+            </div>
+            <br/>
+            
         </div>
         
     )

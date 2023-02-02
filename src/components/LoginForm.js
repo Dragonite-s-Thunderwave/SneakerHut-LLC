@@ -26,6 +26,9 @@ const LoginForm = ({setToken}) => {
     }
 
     return(
+       <div className='container'>
+        <div className="Login">
+            
         <div className="ui inverted segment">
             <form className="ui inverted form" onSubmit={onSubmitHandler}>
                 <h1>Log In!</h1>
@@ -57,6 +60,8 @@ const LoginForm = ({setToken}) => {
                     Submit
                 </button>
             </form>
+        </div>
+        </div>
         </div>
     )
 }
