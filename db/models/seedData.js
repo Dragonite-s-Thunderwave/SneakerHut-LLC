@@ -60,7 +60,7 @@ async function createTables() {
             "userId" INTEGER REFERENCES users(id), 
             shoename VARCHAR(255) UNIQUE NOT NULL,
             description TEXT NOT NULL,
-            price MONEY NOT NULL,
+            price DECIMAL NOT NULL,
             type VARCHAR(255) NOT NULL,
             size INTEGER NOT NULL,
             image VARCHAR(255),
