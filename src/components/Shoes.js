@@ -3,8 +3,12 @@ import { fetchAllShoes } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
-const Shoes = ({setCartProducts}) => {
+const Shoes = ({cartProducts, setCartProducts}) => {
     const [shoesList, setShoesList] = useState([]);
+
+    function currencyFormat(num) {
+        return '$' + Number(num).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+     }
 
     useEffect(() => {
         async function fetchShoes() {
@@ -20,7 +24,7 @@ const Shoes = ({setCartProducts}) => {
 
   
     const mappedShoes = shoesList?.map((shoe) => {
-
+        let price = currencyFormat(shoe.price)
         return (
             
             <div>
@@ -35,7 +39,7 @@ const Shoes = ({setCartProducts}) => {
                         <img src ={shoe.image} width="200" height="200"/>
                         <p>Description: {shoe.description}</p>
                         <p>Type: {shoe.type}</p>
-                        <p>Price: {shoe.price}</p>
+                        <p>Price: {price}</p>
                         <button onClick={(event) => {
                             console.log('shoequant', shoe.quantity)
                             event.preventDefault();
