@@ -1,6 +1,6 @@
 
 
-export const BASE_URL = "https://sneakerhut.onrender.com/api";
+export const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:4000/api";
 
 const makeHeaders = (token) => {
   const headers = {
