@@ -1,53 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
-import { fetchAllOrders } from '../axios-services';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-
-
-const Orders = () => {
-    const [ orderList, setOrderList ] = useState([]);
-
-    useEffect(() => {
-        async function fetchOrders() {
-            try {
-                const orders = await fetchAllOrders();
-                console.log('orders heerrree!!', orders)
-                setOrderList(orders)
-            } catch (error) {
-                console.error(error)
-            }
+const Orders = ({user, cartTotal, username, token}) => {
+    function currencyFormat(num) {
+        return '$' + Number(num).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
-        fetchOrders()
-    }, [])
+    
+    let cartAmount = currencyFormat(cartTotal)
 
-    console.log('orderList', orderList)
-
-        const mapOrders = orderList.map((order) => {
-        return (
-            <div>
-                <Link to={`/orders/${order.id}`}>
-                    <h3>OrderId: {order.id}</h3>
-                </Link>
-                <h3>OrderUser: {order.userId}</h3>
-                <h3>OrderStatus: {order.status}</h3>
-                <h3>OrderTotal: {order.total}</h3>
-            </div>
-
-        )
-        })    
-        
     return (
-        <>
-        <h2>Orders (should be visible only to admin)</h2>
-        <div>
-             {mapOrders}
-        </div>
+        <><h2>Please Review Your Information:</h2>
+            <div>
+                <p><h4>Name:</h4>{user.fullName}</p>
+                <p><h4>Email:</h4>{user.email}</p>
+                <p><h4>Address:</h4>{user.address}</p>
+                <p><h4>City:</h4>{user.city}</p>
+                <p><h4>State:</h4>{user.state}</p>
+                <p><h4>Zip:</h4>{user.zip}</p>
+                <p><h4>Credit Card Number:</h4>{user.creditCardInfo}</p>
+            </div>
+            <p></p><div><h3>Total:</h3><h4>{cartAmount}</h4></div>
+            <p></p>
+            <p></p>
+            <button>Place Order!</button>
         </>
-    )    
-
-
+    )
 }
 
-
-export default Orders
+export default Orders;
 

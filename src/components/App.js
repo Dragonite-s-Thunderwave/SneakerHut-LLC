@@ -154,7 +154,7 @@ useEffect(() => {
                 <SingleOrder/> 
             </Route>
             <Route path='/orders'>
-                <Orders/> 
+                <Orders user={user} cartTotal={cartTotal} cartProducts={cartProducts} token={token} username={username}/> 
             </Route>            
             <Route path='/Reviews'>
                 <Reviews /> 
@@ -163,7 +163,7 @@ useEffect(() => {
                     <CreateReview token={token} setReviews={setReviews}/>
             </Route> */}
             <Route path="/cart">
-                <Cart username={username} setCartTotal={setCartTotal} cartTotal={cartTotal} cartProducts={cartProducts} setCartProducts={setCartProducts}/>
+                <Cart username={username} user={user} setCartTotal={setCartTotal} cartTotal={cartTotal} cartProducts={cartProducts} setCartProducts={setCartProducts}/>
             </Route>
             <Route path="/AdminTools/users/:userId">
                 <EditUser />

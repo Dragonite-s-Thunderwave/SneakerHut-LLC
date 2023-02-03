@@ -5,7 +5,7 @@ import Shoes from './Shoes';
 
 
 
-const Cart = ({cartProducts, setCartProducts, cartTotal, setCartTotal}) => {
+const Cart = ({cartProducts, setCartProducts, cartTotal, setCartTotal, username, user}) => {
 
 
 
@@ -102,7 +102,7 @@ return (
 
         })}                
         <p></p><div>Total: {cartAmount}     
-        <p><button>CheckOut</button></p></div>
+        <p><Link to='/orders'><button>CheckOut</button></Link></p></div>
         </>
         : 
         <>
