@@ -20,11 +20,20 @@ const Users = ({token}) => {
     
         
     return (<>
-        <h1>All Users</h1>
-        {allUsers.map((user) => {
-            return <UsersItem key={user.id} user={user} token={token} />
-        })}
-        </>
+
+        <div className="container">
+        <div className="Cart">
+        <br/>
+        <br/>
+        <div className="ui segment">
+            <h1>All Users</h1>
+            {allUsers.map((user) => {
+                return  <UsersItem key={user.id} user={user} token={token} />
+            })}
+        </div>
+        </div>
+        </div>    
+    </>
     )
 }
 

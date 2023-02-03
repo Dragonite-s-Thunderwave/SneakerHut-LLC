@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 const UsersItem = ({user, token}) => {
     
     return (
-        <>
-            <div>
-                <h4>{user.username}</h4>
+        <div>
+            <h4>{user.username}</h4>
                 <p>{user.email}</p>
                 <p>{user.isAdmin}</p>
                 <p>{user.fullName}</p>
@@ -15,8 +14,8 @@ const UsersItem = ({user, token}) => {
                 <p>{user.state}</p>
                 <p>{user.zip}</p>
                 <button><Link to="/newadmin">Make Admin</Link></button>
-            </div>
-        </>
+        </div>
+
     )
 }
 
